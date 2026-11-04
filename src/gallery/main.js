@@ -7,7 +7,7 @@ import { copy } from './copy.js';
 import {
   h, getLang, setLang, onLang, pick, gsap, ScrollTrigger, startScroll, scrollToTarget, reveal, riseLines, scope, reduced,
   bindTransitions, GlobalNav, Hero, FeatureWindow, animateFeatureWindow, Statement, animateStatement, Panels, Principles,
-  SectionHead, WorkIndex, Footer,
+  SectionHead, WorkIndex, Footer, Roadmap,
 } from '../ui/index.js';
 
 const app = document.querySelector('#app');
@@ -54,8 +54,7 @@ function render() {
     items: featured.highlights.map(item => ({ title: pick(item.title), text: pick(item.text), tech: pick(item.tech), image: featured.cover, focus: item.focus, zoom: item.zoom })),
   }) : null;
   const about = Principles({ id: 'about', head: SectionHead({ id: 'about-title', size: 'h1', eyebrow: t.aboutEyebrow, title: t.aboutTitle, lede: t.aboutLede }), items: t.about });
-  const next = h('section.ui-section.ui-container', { id: 'next', 'aria-labelledby': 'next-title' },
-    SectionHead({ id: 'next-title', size: 'h1', align: 'center', eyebrow: t.nextEyebrow, title: t.nextTitle, lede: t.nextLede }));
+  const next = Roadmap({ id: 'next', eyebrow: t.nextEyebrow, title: t.nextTitle, lede: t.nextLede });
   workIndex = WorkIndex({
     id: 'works',
     head: h('div.ui-index__heading', null, h('p.ui-eyebrow', null, t.indexEyebrow), h('h2.ui-h2', { id: 'works-title' }, t.collection)),

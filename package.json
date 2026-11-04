@@ -8,6 +8,7 @@
     "dev": "vite --host 127.0.0.1 --port 5194 --strictPort",
     "check": "node scripts/check.mjs",
     "test": "node --test tests/*.test.js experiences/*/tests/*.test.js",
+    "test:browser": "playwright test",
     "build": "node scripts/check-content.mjs && vite build && node scripts/check-build.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4194 --strictPort"
   },

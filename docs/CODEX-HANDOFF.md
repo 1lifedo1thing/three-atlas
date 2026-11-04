@@ -13,11 +13,6 @@
 
 ## P0 · 先做
 
-### 3. 首页的「关于」与「接下来」做成可复用组件
-
-- 「接下来」区块目前由 `src/gallery/main.js` 直接拼装（`SectionHead` 居中，外加一个 `ui-section`）。请把它抽成 `src/ui/components/` 里的 `Roadmap` 组件（eyebrow、标题、说明，可选一个「规划中」徽标）。
-- 观感保持不变，同时在 `docs/design-system.md` 的组件表里补一行。改动前后截图对比。
-
 ## P1 · 交互与质感（按 `docs/design-polish.md` 的参数实现）
 
 这一组决定网站能不能达到顶尖水准，优先级高于复用能力。每项完成后附截图和录屏，由 Claude 做审美验收。

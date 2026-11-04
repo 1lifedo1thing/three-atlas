@@ -62,3 +62,9 @@
 文风检查已接入 npm run check，递归检查中英文静态字段及当前动态标题、数量文案，按文件、字段和原因报告感叹号与禁用词；对应正反用例已通过。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P0-2/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · P0-3
+
+Roadmap 复用现有 SectionHead 和 Badge，首页仅组合组件，保留现有文案与排版；浏览器验证传入文案和标题关联，四套前后截图及区块录屏已采集。关于区块已有 Principles 组件，沿用现状。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P0-3/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。

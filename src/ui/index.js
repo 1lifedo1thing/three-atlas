@@ -12,6 +12,7 @@ export { Statement, animateStatement } from './components/statement.js';
 export { Highlights } from './components/highlights.js';
 export { Panels } from './components/panels.js';
 export { Principles } from './components/principles.js';
+export { Roadmap } from './components/roadmap.js';
 export { WorkCard } from './components/work-card.js';
 export { WorkIndex } from './components/work-index.js';
 export { Footer } from './components/footer.js';
