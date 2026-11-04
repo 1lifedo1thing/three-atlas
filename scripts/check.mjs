@@ -14,4 +14,9 @@ const files = ['src', 'experiences', 'scripts', 'tests'].flatMap(folder => scrip
 files.push(join(root, 'vite.config.js'));
 for (const path of files) execFileSync(process.execPath, ['--check', path], { stdio: 'inherit' });
 await import('./check-content.mjs');
+const { checkProjectCopy, reportCopyErrors } = await import('./check-copy.mjs');
+const copyErrors = await checkProjectCopy(root);
+reportCopyErrors(copyErrors);
+if (copyErrors.length) process.exit(1);
+console.log('文风检查通过：无感叹号或禁用词。');
 console.log(`JavaScript 语法检查通过：${files.length} 个文件。`);

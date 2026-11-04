@@ -13,14 +13,6 @@
 
 ## P0 · 先做
 
-### 2. 文风检查 `scripts/check-copy.mjs`（加入 `npm run check`）
-
-依据 `docs/design-system.md` 第 8 节，扫描 `src/gallery/copy.js` 和 `content/works.json`：
-- 不允许出现感叹号（！和 !）；
-- 不允许出现禁用词：极致、颠覆、震撼、史诗级、炸裂、黑科技。
-
-出错时列出文件、字段和原因。
-
 ### 3. 首页的「关于」与「接下来」做成可复用组件
 
 - 「接下来」区块目前由 `src/gallery/main.js` 直接拼装（`SectionHead` 居中，外加一个 `ui-section`）。请把它抽成 `src/ui/components/` 里的 `Roadmap` 组件（eyebrow、标题、说明，可选一个「规划中」徽标）。

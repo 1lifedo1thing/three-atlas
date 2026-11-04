@@ -56,3 +56,9 @@
 新增边界测试先复现空列表和缺失技术说明的错误，再补齐 3–4 项数量与双语 tech 校验；保留原 focus、zoom 规则。验证辅助加入隔离 Playwright 截图和录屏工具。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P0-1/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · P0-2
+
+文风检查已接入 npm run check，递归检查中英文静态字段及当前动态标题、数量文案，按文件、字段和原因报告感叹号与禁用词；对应正反用例已通过。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P0-2/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
