@@ -13,3 +13,5 @@
   .ui-footer__grid { grid-template-columns: 1fr 1fr; }
   .ui-footer__brand { grid-column: 1 / -1; }
 }
+
+.ui-footer__char { background: inherit; background-clip: text; -webkit-background-clip: text; color: transparent; }

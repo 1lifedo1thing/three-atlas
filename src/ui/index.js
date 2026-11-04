@@ -16,6 +16,6 @@ export { Principles } from './components/principles.js';
 export { Roadmap } from './components/roadmap.js';
 export { WorkCard } from './components/work-card.js';
 export { WorkIndex } from './components/work-index.js';
-export { Footer } from './components/footer.js';
+export { Footer, animateFooter } from './components/footer.js';
 
 export { claimEntrance } from './entrance.js';

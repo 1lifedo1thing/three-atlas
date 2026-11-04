@@ -7,7 +7,7 @@ import { copy } from './copy.js';
 import {
   h, getLang, setLang, onLang, pick, gsap, ScrollTrigger, startScroll, scrollToTarget, reveal, riseLines, scope, reduced,
   claimEntrance, bindTransitions, bindPointerGlow, GlobalNav, animateNav, Hero, FeatureWindow, animateFeatureWindow, Statement, animateStatement, Panels, Principles,
-  SectionHead, WorkIndex, Footer, Roadmap,
+  SectionHead, WorkIndex, Footer, animateFooter, Roadmap,
 } from '../ui/index.js';
 
 const app = document.querySelector('#app');
@@ -87,6 +87,7 @@ function render() {
       if (opening) gsap.from(opening.querySelector('.ui-window__frame'), { autoAlpha: 0, y: 48, duration: 1.6, ease: 'expo.out', delay: 0.5 });
     }
     if (opening) cleanups.push(animateFeatureWindow(opening));
+    cleanups.push(animateFooter(footer));
     animateStatement(statement);
     reveal(app);
     ScrollTrigger.create({ start: 8, end: 'max', onToggle: self => nav.setScrolled(self.isActive) });

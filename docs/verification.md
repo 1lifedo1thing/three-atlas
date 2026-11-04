@@ -112,3 +112,9 @@ P1-C 浏览器补充：坐标输入曾发生在开窗入场稳定前；用例改
 首页入场用 sessionStorage 记录，刷新、切换语言、作品返回都直接显示；存储受限时同一文档仍不重复。浏览器验证首访与三个返回路径。录屏含刷新后的直接呈现；此前正常动效用例的 contextOptions 同步修正，并重新验证预览、指针光和视差。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-G/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · P1-H
+
+页脚字标使用 SplitText chars，从 yPercent 60 升至 0，1.2 秒 expo.out、错开 0.03 秒，首次进入字标视口时触发；减少动态时直接呈现。保留原渐变字色，组件清理会回收分字与滚动触发器；浏览器验证只播一次及降级。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-H/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。

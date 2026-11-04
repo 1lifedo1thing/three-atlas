@@ -1,3 +1,4 @@
+import { gsap, SplitText, reduced } from '../motion.js';
 import { h, brandMark } from '../dom.js';
 
 const link = item => h('li', null, h('a', { href: item.href, target: item.external ? '_blank' : null, rel: item.external ? 'noopener noreferrer' : null }, item.label, item.external ? ' ↗' : ''));
@@ -13,4 +14,13 @@ export function Footer({ closing, columns = [], legal = [], extra }) {
         columns.map(column)),
       h('div.ui-footer__legal', null, legal.map(item => h('span', null, item)), extra)),
     h('p.ui-footer__mark', { 'aria-hidden': 'true' }, 'Three Atlas'));
+}
+
+/** The wordmark animates once when its letters become visible. */
+export function animateFooter(footer) {
+  if (reduced()) return () => {};
+  const mark = footer.querySelector('.ui-footer__mark');
+  const split = SplitText.create(mark, { type: 'chars', charsClass: 'ui-footer__char' });
+  const tween = gsap.from(split.chars, { yPercent: 60, duration: 1.2, ease: 'expo.out', stagger: 0.03, scrollTrigger: { trigger: mark, start: 'top bottom', once: true } });
+  return () => { tween.scrollTrigger?.kill(); tween.kill(); split.revert(); };
 }
