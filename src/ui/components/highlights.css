@@ -5,7 +5,7 @@
 .ui-tile { flex: 0 0 min(80vw, 1080px); scroll-snap-align: start; }
 .ui-tile figure { position: relative; overflow: hidden; border-radius: var(--r-lg); background: var(--c-surface); aspect-ratio: 16 / 10; box-shadow: inset 0 0 0 1px var(--c-line); }
 .ui-tile__media, .ui-tile__media img { position: absolute; inset: 0; width: 100%; height: 100%; }
-.ui-tile__media img { object-fit: cover; transform: scale(var(--zoom)) translate(var(--tx), var(--ty)); transition: transform 7s var(--e-std); }
+.ui-tile__media img { object-fit: cover; transform: scale(var(--zoom)) translate(var(--tx), var(--ty)); transition: opacity var(--d-media) var(--e-std), transform var(--d-gallery-zoom) var(--e-std); }
 .ui-tile.is-active .ui-tile__media img { transform: scale(calc(var(--zoom) * 1.05)) translate(var(--tx), var(--ty)); }
 .ui-tile__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgb(5 5 6 / 0.7), rgb(5 5 6 / 0) 45%); }
 .ui-tile__caption { position: absolute; left: clamp(22px, 3vw, 44px); right: clamp(22px, 3vw, 44px); bottom: clamp(22px, 3vw, 40px); max-width: 26em; font-size: var(--t-h3); line-height: 1.32; font-weight: var(--w-medium); letter-spacing: -0.015em; color: var(--c-fg-2); text-wrap: pretty; }
@@ -22,3 +22,5 @@
   .ui-tile { flex-basis: 86vw; }
   .ui-tile figure { aspect-ratio: 4 / 5; }
 }
+
+.ui-tile__media { background: var(--work-tone, var(--c-surface)); }

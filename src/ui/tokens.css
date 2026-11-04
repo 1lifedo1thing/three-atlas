@@ -52,6 +52,9 @@
   --e-inout: cubic-bezier(0.7, 0, 0.2, 1);
   --e-std: cubic-bezier(0.2, 0.7, 0.1, 1);
   --d-1: 0.2s; --d-2: 0.4s; --d-3: 0.7s; --d-4: 1.1s;
+  --d-card-zoom: 1.4s;
+  --d-panel-zoom: 2.4s;
+  --d-gallery-zoom: 7s;
   --d-media: 600ms;
   --d-pointer-in: 300ms;
   --d-pointer-out: 500ms;

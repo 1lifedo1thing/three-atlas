@@ -1,6 +1,7 @@
 /* Atlas UI — import this once per page. */
 @import './tokens.css';
 @import './base.css';
+@import './image.css';
 @import './transitions.css';
 @import './pointer-glow.css';
 @import './components/button.css';

@@ -1,3 +1,4 @@
+import { createImage, toneStyle } from '../image.js';
 import { h } from '../dom.js';
 import { Badge, Button } from './button.js';
 import { ScrollTrigger, reduced } from '../motion.js';
@@ -10,12 +11,12 @@ import { bindParallax } from '../parallax.js';
  */
 export function FeatureWindow({ id, work, meta = [], live, enter, more }) {
   const titleId = `${id}-title`;
-  return h('section.ui-window', { id, 'aria-labelledby': titleId },
+  return h('section.ui-window', { id, 'aria-labelledby': titleId, style: toneStyle(work.tone) },
     h('div.ui-window__stage', null,
-      h('img.ui-ambient', { src: work.cover, alt: '', 'aria-hidden': 'true', decoding: 'async' }),
+      createImage('ui-ambient', { src: work.cover, alt: '', 'aria-hidden': 'true', decoding: 'async' }),
       h('div.ui-window__frame', null,
         h('div.ui-window__media', null,
-          h('img.ui-window__image.world-image', { src: work.cover, alt: work.alt, width: 1440, height: 900, decoding: 'async', fetchpriority: 'high' }),
+          createImage('ui-window__image world-image', { src: work.cover, alt: work.alt, width: 1440, height: 900, decoding: 'async', fetchpriority: 'high' }),
           work.preview ? h('video.ui-window__video.world-image', { muted: true, playsinline: true, loop: true, preload: 'none', poster: work.cover, 'aria-hidden': 'true', dataset: { preview: work.preview } }) : null),
         h('a.ui-window__hit', { href: enter.href, tabindex: '-1', 'aria-hidden': 'true', dataset: { transition: 'feature' } }),
         h('div.ui-window__shade'),

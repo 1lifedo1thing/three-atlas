@@ -1,7 +1,7 @@
 .ui-window { --t: 72px; --x: 64px; --b: 120px; --p: 0; --caption: 0; position: relative; }
 .ui-window__stage { position: relative; height: 100svh; }
-.ui-window__stage > .ui-ambient { opacity: calc(0.55 * (1 - var(--p))); transform: translateY(-8%) scale(4.4, 3.8); }
-.ui-window__frame { position: absolute; inset: 0; overflow: hidden; clip-path: inset(var(--t) var(--x) var(--b) var(--x) round calc(var(--r-lg) * (1 - var(--p)))); background: var(--c-surface); }
+.ui-window__stage > .ui-ambient { opacity: calc(var(--image-ready, 0) * 0.55 * (1 - var(--p))); transform: translateY(-8%) scale(4.4, 3.8); }
+.ui-window__frame { position: absolute; inset: 0; overflow: hidden; clip-path: inset(var(--t) var(--x) var(--b) var(--x) round calc(var(--r-lg) * (1 - var(--p)))); background: var(--work-tone, var(--c-surface)); }
 .ui-window__media { position: absolute; inset: 0; transform: translate3d(var(--pan-x, 0%), var(--pan-y, 0%), 0) scale(var(--pan-scale, 1)); }
 .ui-window__image, .ui-window__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(calc(1.06 - 0.06 * var(--p))); }
 .ui-window__video { opacity: 0; pointer-events: none; transition: opacity var(--d-media) var(--e-std); }

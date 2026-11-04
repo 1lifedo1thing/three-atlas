@@ -12,6 +12,8 @@
 | Vite 8.3.5 | Vite contributors；发起者 Evan You | https://github.com/vitejs/vite | MIT，见 `experiences/where-stars-rest/third-party/vite-LICENSE.txt` | 开发服务与多页面静态构建 |
 | Playwright Test 1.58.0 | Microsoft / Playwright contributors | https://github.com/microsoft/playwright | Apache-2.0（https://github.com/microsoft/playwright/blob/main/LICENSE） | 仅开发验证：独立浏览器截图、录屏与回归测试 |
 
+| Sharp 0.35.5 | Lovell Fuller / Sharp contributors | https://github.com/lovell/sharp | Apache-2.0 | 仅构建：真实封面平均色与响应式图片 |
+
 保留首作的完整说明：[WHERE STARS REST 第三方依赖](./experiences/where-stars-rest/THIRD_PARTY.md)。没有修改上游依赖源码。
 
 `public/media/where-stars-rest.jpg` 是本仓库作品的真实浏览器截图。采集时临时隐藏界面，随后恢复；未改动场景几何、材质或灯光。

@@ -88,3 +88,9 @@ Roadmap 复用现有 SectionHead 和 Badge，首页仅组合组件，保留现�
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-C/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
 
 P1-C 浏览器补充：坐标输入曾发生在开窗入场稳定前；用例改为等待元素可见稳定后的真实悬停，保留位移与回中期望，现已通过。产品动效参数不变。
+
+## 2026-11-04 · P1-D
+
+所有组件图片通过 decode 后以 600ms 渐显，下载失败保留占位并处理异常；构建脚本从真实像素自动计算 tone，保持封面裁切和原有缩放动效。平均色单元测试与延迟下载、缺图浏览器测试通过。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-D/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。

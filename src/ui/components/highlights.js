@@ -1,3 +1,4 @@
+import { createImage, toneStyle } from '../image.js';
 import { h, icon } from '../dom.js';
 
 /** Centre the tile on `focus` at `zoom`, clamped so the crop never runs past the image edge. */
@@ -16,8 +17,8 @@ export function Highlights({ id, head, items, labels }) {
   const track = h('ul.ui-gallery__track', { tabindex: '0', 'aria-label': labels.region },
     items.map((item, i) => h('li.ui-tile', { 'aria-label': `${i + 1} / ${items.length}` },
       h('figure', null,
-        h('div.ui-tile__media', null,
-          h('img', { src: item.image, alt: item.alt ?? '', loading: 'lazy', decoding: 'async', style: frame(item) })),
+        h('div.ui-tile__media', { style: toneStyle(item.tone) },
+          createImage('', { src: item.image, alt: item.alt ?? '', loading: 'lazy', decoding: 'async', style: frame(item) })),
         h('figcaption.ui-tile__caption', null, h('strong', null, item.title), ' ', item.text)))));
   const dots = h('div.ui-gallery__dots', null, items.map((_, i) => h('button.ui-gallery__dot', { type: 'button', 'aria-label': `${i + 1} / ${items.length}`, onClick: () => go(i) })));
   const prev = h('button.ui-gallery__paddle', { type: 'button', 'aria-label': labels.prev, onClick: () => go(active - 1) }, icon('prev'));

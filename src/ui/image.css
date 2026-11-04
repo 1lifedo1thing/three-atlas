@@ -1,0 +1,2 @@
+.ui-image { --image-ready: 0; opacity: var(--image-ready); transition: opacity var(--d-media) var(--e-std); }
+.ui-image.is-ready { --image-ready: 1; }

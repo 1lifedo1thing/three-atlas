@@ -67,7 +67,7 @@
           "en": "13,500 instanced leaves · Real-time bloom"
         },
         "focus": "50% 20%",
-        "zoom": 2.0
+        "zoom": 2
       },
       {
         "title": {
@@ -99,8 +99,9 @@
           "en": "Web Audio synthesis · Procedural clouds"
         },
         "focus": "50% 82%",
-        "zoom": 2.0
+        "zoom": 2
       }
-    ]
+    ],
+    "tone": "#161431"
   }
 ]
