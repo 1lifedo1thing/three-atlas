@@ -2,7 +2,7 @@
 .ui-principles__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); border-top: 1px solid var(--c-line); }
 .ui-principle { display: grid; align-content: start; gap: 12px; padding: clamp(28px, 3vw, 44px) clamp(20px, 2.4vw, 40px) 8px 0; }
 .ui-principle + .ui-principle { padding-left: clamp(20px, 2.4vw, 40px); border-left: 1px solid var(--c-line); }
-.ui-principle__glyph { font-size: clamp(72px, 7.6vw, 128px); color: var(--c-fg); margin-bottom: clamp(12px, 2vh, 24px); }
+.ui-principle__index { margin-bottom: clamp(20px, 4vh, 48px); font-size: clamp(40px, 4vw, 64px); line-height: 1; font-weight: 300; letter-spacing: -0.04em; color: var(--c-fg-4); font-variant-numeric: tabular-nums; }
 .ui-principle__label { font: var(--w-medium) 11px/1.4 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-fg-3); }
 .ui-principle__title { font-size: var(--t-h3); line-height: 1.25; font-weight: var(--w-bold); letter-spacing: -0.02em; }
 .ui-principle__text { max-width: 26em; font-size: var(--t-small); line-height: 1.8; color: var(--c-fg-2); text-wrap: pretty; }

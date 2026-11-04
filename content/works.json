@@ -37,31 +37,29 @@
     "featured": true,
     "highlights": [
       {
-        "mode": "walk",
         "title": {
-          "zh": "绕树而行",
-          "en": "Circle the tree"
+          "zh": "自由视角",
+          "en": "Look around"
         },
         "text": {
-          "zh": "拖动绕岛，滚轮走近，方向键也能带路。",
-          "en": "Drag to circle the island, scroll to draw near. The arrow keys know the way too."
+          "zh": "拖动就能绕着小岛转，滚轮或双指拉近，方向键也可以。",
+          "en": "Drag to circle the island, scroll or pinch to move closer. The arrow keys work too."
         },
         "tech": {
-          "zh": "轨道相机 · 阻尼缓动 · 键盘可达",
+          "zh": "轨道相机 · 阻尼缓动 · 键盘操作",
           "en": "Orbit camera · Damping · Keyboard"
         },
         "focus": "50% 50%",
         "zoom": 1
       },
       {
-        "mode": "gaze",
         "title": {
-          "zh": "远望一灯",
-          "en": "A lamp, far off"
+          "zh": "会呼吸的光",
+          "en": "Light that breathes"
         },
         "text": {
-          "zh": "树冠的光与萤火同一个节奏明灭，像远处有人为你留了一盏灯。",
-          "en": "The crown and the fireflies glow and fade to one rhythm, like a lamp someone left on for you."
+          "zh": "树冠的光和萤火，跟着同一个节奏一明一暗。",
+          "en": "The glow of the tree and the fireflies brighten and dim to the same rhythm."
         },
         "tech": {
           "zh": "13,500 片实例化树叶 · 实时辉光",
@@ -71,14 +69,13 @@
         "zoom": 2.0
       },
       {
-        "mode": "wander",
         "title": {
-          "zh": "随心调光",
-          "en": "Light, your way"
+          "zh": "亮度由你",
+          "en": "Your brightness"
         },
         "text": {
-          "zh": "光芒由你拨动，从一夜静谧，到满树盛放。",
-          "en": "Turn the light yourself, from a quiet night to a tree in full bloom."
+          "zh": "拖动光芒滑块，从安静的夜色，一直调到满树发光。",
+          "en": "Slide the glow from a quiet night all the way to a tree in full light."
         },
         "tech": {
           "zh": "实时参数 · 无障碍滑块",
@@ -88,18 +85,17 @@
         "zoom": 2.3
       },
       {
-        "mode": "dwell",
         "title": {
-          "zh": "小住片刻",
-          "en": "Stay a little"
+          "zh": "安静的声音",
+          "en": "A quiet soundscape"
         },
         "text": {
-          "zh": "开一点声音，听五个正弦音缓缓呼吸，看云从岛下流过。",
-          "en": "Let in a little sound, five sine tones breathing slowly, and watch the clouds drift beneath the island."
+          "zh": "打开声音，是浏览器实时合成的环境音；小岛下面，云在慢慢流动。",
+          "en": "Turn on the sound for an ambience synthesized live in your browser, while clouds drift slowly beneath the island."
         },
         "tech": {
-          "zh": "Web Audio 合成 · 宫徵二音 · 程序化云层",
-          "en": "Web Audio synthesis · Two-note harmony · Procedural clouds"
+          "zh": "Web Audio 合成 · 程序化云层",
+          "en": "Web Audio synthesis · Procedural clouds"
         },
         "focus": "50% 82%",
         "zoom": 2.0

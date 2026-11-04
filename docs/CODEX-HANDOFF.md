@@ -1,6 +1,6 @@
 # 交接清单（给 Codex）
 
-分工：**Claude 负责设计**（版式、视觉、动效、文案、典故、组件 API）；**Codex 负责下面所有工程事项**。开工前读 `AGENTS.md`、`docs/design-system.md`、`docs/OPUS-HANDOFF.md`。
+分工：**Claude 负责设计**（版式、视觉、动效、文案、组件 API）；**Codex 负责下面所有工程事项**。开工前读 `AGENTS.md`、`docs/design-system.md`、`docs/OPUS-HANDOFF.md`。
 
 规则：
 - **不改观感，不改文案。** 遇到需要设计判断的地方，在 PR 描述里写明问题，留给 Claude，不要自己决定。涉及界面的改动附改动前后截图（桌面 1440×900、手机 390×844，中英文各一套）。
@@ -12,36 +12,23 @@
 
 ## P0 · 先做
 
-### 1. 中文衬线字体子集化
+### 1. `highlights` 校验与测试
 
-**现状**：`src/ui/tokens.css` 临时引入了完整的 `@fontsource/noto-serif-sc/500.css`，有 101 个分片。虽然浏览器只下载用到的分片，`dist/` 却因此涨到 8.7 MB。
-
-**要求**：
-- 新增 `npm run fonts`：收集所有用衬线渲染的中文字符，从 Noto Serif SC Medium 子集化出 `src/ui/fonts/atlas-serif-sc.woff2`，`font-family` 命名为 `Atlas Serif SC`（`--f-serif` 里已预留，排在 Noto Serif SC 之前）。
-  - 字符来源：`src/gallery/copy.js` 的引文、典故和单字，`MODES` 的 glyph，`craft[].glyph`/`title`；`content/works.json` 中 `highlights[].title`、`text` 的中文。可以直接收集这两个文件里的全部中文字符，更稳妥。
-- 只提交生成的子集 woff2（目标 ≤ 120 KB）和生成脚本，原始大字体不进仓库。在 `@font-face` 里写 `font-display: swap`。
-- `npm run check` 增加校验：如果 copy 或 works.json 中有子集里没有的字，就失败，并提示运行 `npm run fonts`。
-- 移除 `@fontsource/noto-serif-sc` 依赖，同步更新 `THIRD_PARTY.md`（来源改为子集字体，许可证仍是 OFL 1.1）。
-- **验收**：`dist/` 回落到 2 MB 以内（不含作品页的 three.js 包）；首页中英文与改动前逐屏截图对比无差异；删掉子集里的一个字后，`npm run check` 会报错。
-
-### 2. `highlights` 校验与测试
-
-- `scripts/content.mjs`：
-  - `mode` 必须是 `walk`、`gaze`、`wander`、`dwell` 之一，同一作品内不重复；
-  - `tech` 必须有中英文；
-  - `featured` 作品如果写了 `highlights`，必须四种 `mode` 都有，因为首页四条屏固定为四幅。
+- `scripts/content.mjs`：`highlights` 为 3–4 项；每项的 `title`、`text`、`tech` 都要有中英文；`focus`、`zoom` 沿用现有校验。
 - 在 `tests/catalog.test.js` 中补充对应的测试用例。
 
-### 3. 文风检查 `scripts/check-copy.mjs`（加入 `npm run check`）
+### 2. 文风检查 `scripts/check-copy.mjs`（加入 `npm run check`）
 
 依据 `docs/design-system.md` 第 8 节，扫描 `src/gallery/copy.js` 和 `content/works.json`：
 - 不允许出现感叹号（！和 !）；
-- 不允许出现禁用词：极致、颠覆、震撼、史诗级、炸裂、黑科技；
-- `copy.js` 中每一句古典引文（目前是 `woyouQuote`）都必须出现在 design-system 的「已用典故登记」表里。
+- 不允许出现禁用词：极致、颠覆、震撼、史诗级、炸裂、黑科技。
 
 出错时列出文件、字段和原因。
 
----
+### 3. 首页的「关于」与「接下来」做成可复用组件
+
+- 「接下来」区块目前由 `src/gallery/main.js` 直接拼装（`SectionHead` 居中，外加一个 `ui-section`）。请把它抽成 `src/ui/components/` 里的 `Roadmap` 组件（eyebrow、标题、说明，可选一个「规划中」徽标）。
+- 观感保持不变，同时在 `docs/design-system.md` 的组件表里补一行。改动前后截图对比。
 
 ## P1 · 复用能力
 
@@ -72,12 +59,12 @@
 
 ### 6. 组件陈列页与视觉回归
 
-- `pages/ui/`（加 `noindex`，首页不链接）：展示 `src/ui` 全部组件和状态，包括 Quote、Panels（中文竖排和英文横排）、Principles、按钮三种变体、卡片的悬停与缺图、目录的空结果、Highlights，中英文各一份。
+- `pages/ui/`（加 `noindex`，首页不链接）：展示 `src/ui` 全部组件和状态，包括 Statement、Panels、Principles、Highlights、按钮三种变体、卡片的悬停与缺图、目录的空结果，中英文各一份。
 - `npm run test:visual`：用 Playwright 截图并与基线比对，差异超过 0.5% 时失败。
 
 ### 7. 高清封面与响应式图片
 
-- 四条屏会把封面放大到 2–2.3 倍，所以必须换成 2880×1800 的封面。从作品初始视角截取，临时隐藏 UI，截完恢复，不改场景。
+- 亮点卡会把封面放大到 2–2.3 倍，所以必须换成 2880×1800 的封面。从作品初始视角截取，临时隐藏 UI，截完恢复，不改场景。
 - 构建时生成 AVIF 和 WebP，宽度 720、1440、2880 各一份，并输出 `srcset`/`sizes`。`.ui-ambient` 改用 160px 的小图。
 
 ---
@@ -102,8 +89,12 @@
 
 在 Chrome 和 Edge（桌面与安卓）、Safari 18.2+（macOS 与 iOS）、Firefox 上逐项检查：
 - 开窗滚动是否流畅；
-- 卧游今释是否逐词点亮；
-- 四条屏的竖排题跋：Safari 的 `writing-mode`、标点是否居中、Windows 上衬线字体的回退；
+- 「方寸屏幕」那句是否逐词点亮；
+- 亮点卡在手机上能否横向滑动；
 - 跨页过渡是否无缝。Firefox 应为普通跳转，没有报错。
 
 本地无 GPU 的软件渲染里，跨页过渡偶尔会被跳过，需要以真机结果为准。
+
+### 12. 多个世界同处一个空间（暂不开工）
+
+首页「接下来」写的是规划方向：把多件作品放进同一个空间，在一张星图里漫游、点进任意一个世界。等 Claude 给出交互与视觉设计稿后再开工，在那之前不要自行实现。

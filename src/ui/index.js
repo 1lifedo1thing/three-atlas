@@ -10,7 +10,6 @@ export { SectionHead } from './components/section-head.js';
 export { FeatureWindow, animateFeatureWindow } from './components/feature-window.js';
 export { Statement, animateStatement } from './components/statement.js';
 export { Highlights } from './components/highlights.js';
-export { Quote } from './components/quote.js';
 export { Panels } from './components/panels.js';
 export { Principles } from './components/principles.js';
 export { WorkCard } from './components/work-card.js';

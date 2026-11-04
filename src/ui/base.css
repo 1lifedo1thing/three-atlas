@@ -21,13 +21,11 @@ ul, ol { padding: 0; list-style: none; }
 .ui-h3 { font-size: var(--t-h3); line-height: 1.18; letter-spacing: -0.02em; font-weight: var(--w-medium); }
 .ui-lead { font-size: var(--t-lead); line-height: 1.55; color: var(--c-fg-2); text-wrap: pretty; }
 .ui-small { font-size: var(--t-small); line-height: 1.6; color: var(--c-fg-2); }
-.ui-serif { font-family: var(--f-serif); font-weight: 500; letter-spacing: 0; }
-.ui-glyph { font-family: var(--f-serif); font-weight: 500; line-height: 1; letter-spacing: 0; }
-.ui-vertical { writing-mode: vertical-rl; text-orientation: mixed; }
 .ui-eyebrow { font: var(--w-medium) var(--t-caption)/1.4 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-fg-3); }
 :lang(zh) .ui-display, :lang(zh) .ui-h1, :lang(zh) .ui-h2 { letter-spacing: -0.02em; line-height: 1.12; word-break: keep-all; overflow-wrap: anywhere; }
 .ui-word { display: inline-block; white-space: nowrap; }
 :lang(zh) .ui-lead, :lang(zh) .ui-small { line-height: 1.8; }
+:lang(zh) .ui-lead { word-break: keep-all; overflow-wrap: anywhere; }
 
 /* Layout primitives */
 .ui-container { width: min(100%, calc(var(--container) + 2 * var(--gutter))); margin-inline: auto; padding-inline: var(--gutter); }
