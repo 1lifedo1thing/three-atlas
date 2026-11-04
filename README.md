@@ -1,4 +1,4 @@
-# Awesome Three Atlas
+# Three Atlas
 
 > A world of worlds. Explore in 3D.
 
