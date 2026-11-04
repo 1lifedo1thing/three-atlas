@@ -94,3 +94,9 @@ P1-C 浏览器补充：坐标输入曾发生在开窗入场稳定前；用例改
 所有组件图片通过 decode 后以 600ms 渐显，下载失败保留占位并处理异常；构建脚本从真实像素自动计算 tone，保持封面裁切和原有缩放动效。平均色单元测试与延迟下载、缺图浏览器测试通过。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-D/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · P1-E
+
+导航使用 ScrollTrigger 以视口中线定位，当前项 aria-current 与前景色同步，单个 4px 圆点以 400ms 滑动；字体加载后刷新测量，滚动 pin 建立后再注册导航。普通动效、减少动态及语言切换测试通过。修正 Playwright 减少动态配置至 contextOptions，静态截图原已使用正确的独立上下文选项。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-E/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。

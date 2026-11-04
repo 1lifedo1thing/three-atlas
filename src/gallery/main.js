@@ -6,7 +6,7 @@ import { pickFeatured, selectWorks } from './model.js';
 import { copy } from './copy.js';
 import {
   h, getLang, setLang, onLang, pick, gsap, ScrollTrigger, startScroll, scrollToTarget, reveal, riseLines, scope, reduced,
-  bindTransitions, bindPointerGlow, GlobalNav, Hero, FeatureWindow, animateFeatureWindow, Statement, animateStatement, Panels, Principles,
+  bindTransitions, bindPointerGlow, GlobalNav, animateNav, Hero, FeatureWindow, animateFeatureWindow, Statement, animateStatement, Panels, Principles,
   SectionHead, WorkIndex, Footer, Roadmap,
 } from '../ui/index.js';
 
@@ -91,7 +91,9 @@ function render() {
     reveal(app);
     ScrollTrigger.create({ start: 8, end: 'max', onToggle: self => nav.setScrolled(self.isActive) });
     if (f) ScrollTrigger.create({ trigger: statement, start: 'top 70%', endTrigger: workIndex, end: 'top 30%', onToggle: self => nav.showCta(self.isActive) });
+    cleanups.push(animateNav(nav, app));
   });
+  document.fonts.ready.then(() => { if (nav.isConnected) ScrollTrigger.refresh(); });
 }
 
 // In-page anchors go through Lenis so they glide like everything else.

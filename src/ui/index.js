@@ -5,7 +5,7 @@ export { gsap, ScrollTrigger, reduced, motionQuery, startScroll, scrollToTarget,
 export { bindTransitions } from './transitions.js';
 export { bindPointerGlow } from './pointer-glow.js';
 export { Button, Badge } from './components/button.js';
-export { GlobalNav } from './components/nav.js';
+export { GlobalNav, animateNav } from './components/nav.js';
 export { Hero } from './components/hero.js';
 export { SectionHead } from './components/section-head.js';
 export { FeatureWindow, animateFeatureWindow } from './components/feature-window.js';
