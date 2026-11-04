@@ -44,3 +44,18 @@ test('新作品缺封面仍可开发预览，生产构建必须拒绝', async ()
     await assert.rejects(()=>media.updateMedia(root),/封面文件不存在/);
   } finally {await rm(root,{recursive:true,force:true});}
 });
+
+test('原图和合法元数据存在时自动重建缺失的衍生图', async () => {
+  const { mkdtemp, mkdir, readFile, writeFile, cp, access, rm } = await import('node:fs/promises');
+  const { tmpdir } = await import('node:os'); const { join, dirname } = await import('node:path');
+  const root = await mkdtemp(join(tmpdir(),'atlas-regenerate-'));
+  try {
+    const work = JSON.parse(await readFile('content/works.json','utf8'))[0];delete work.preview;
+    await mkdir(join(root,'content'));await mkdir(dirname(join(root,work.entry)),{recursive:true});await writeFile(join(root,work.entry),'<!doctype html>');await mkdir(join(root,'public/media'),{recursive:true});
+    await cp(join('public',work.cover),join(root,'public',work.cover));
+    const missing=work.images.avif[0].src;
+    for(const path of [...work.images.avif,...work.images.webp].map(i=>i.src).concat(work.images.ambient))if(path!==missing)await cp(join('public',path),join(root,'public',path));
+    await writeFile(join(root,'content/works.json'),JSON.stringify([work]));
+    await media.updateMedia(root);await access(join(root,'public',missing));
+  } finally {await rm(root,{recursive:true,force:true});}
+});

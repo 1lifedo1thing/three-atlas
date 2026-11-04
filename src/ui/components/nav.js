@@ -16,7 +16,7 @@ export function GlobalNav({ home = './', links = [], cta, lang }) {
       h('nav.ui-nav__links', { 'aria-label': 'Three Atlas' }, links.map(link => h('a.ui-nav__link', { href: link.href }, link.label)), h('span.ui-nav__indicator', { 'aria-hidden': 'true' })),
       h('div.ui-nav__end', null,
         ctaEl,
-        lang ? h('button.ui-nav__lang', { type: 'button', 'aria-label': `${lang.label} — ${lang.aria}`, onClick: lang.onToggle }, lang.label) : null)));
+        lang ? h('button.ui-nav__lang', { type: 'button', dataset: { langControl: 'nav' }, 'aria-label': `${lang.label} — ${lang.aria}`, onClick: lang.onToggle }, lang.label) : null)));
   return Object.assign(el, {
     showCta(on) { el.classList.toggle('is-cta', on); ctaEl?.setAttribute('tabindex', on ? '0' : '-1'); },
     setScrolled(on) { el.classList.toggle('is-scrolled', on); },

@@ -20,6 +20,10 @@ test('临时副本的新作出现在目录，直接刷新与卡片进入可用',
   const manifest=JSON.parse(await readFile(join(root,'dist/.vite/manifest.json'),'utf8'));expect(manifest[work.entry].isEntry).toBe(true);expect(Object.keys(manifest).some(k=>k.includes('_template'))).toBe(false);
   await page.goto('http://127.0.0.1:5314/');const card=page.locator('[data-work-id="engineering-smoke"] .ui-card__link');await card.scrollIntoViewIfNeeded();await card.click();
   await page.locator('body.ready').waitFor();await expect(page).toHaveURL(/engineering-smoke/);await expect(page.locator('.atlas-arrival')).toHaveCount(1);
+  await expect(page.locator('.atlas-arrival')).toHaveCSS('position','fixed');
+  await expect.poll(()=>page.locator('canvas').evaluate(e=>e.getBoundingClientRect().top)).toBe(0);
+  if(await page.locator('html').evaluate(e=>e.classList.contains('atlas-arrived')))await expect(page.locator('.atlas-arrival')).toHaveCSS('opacity','0');
+  await page.screenshot({path:'output/engineering-review/TEMPLATE/after/template-arrival.png'});
   await page.reload();await page.locator('body.ready').waitFor();
   await page.waitForTimeout(3000);const pixels=await sharp(await page.locator('canvas').screenshot()).stats();expect(pixels.channels[0].max).toBeGreaterThan(50);
   await mkdir('output/engineering-review/TEMPLATE/after',{recursive:true});await page.screenshot({path:'output/engineering-review/TEMPLATE/after/template-smoke.png'});

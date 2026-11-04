@@ -35,6 +35,7 @@ const ease = t => 1 - Math.pow(1 - t, 3);
 /** Scroll choreography. Call inside a motion scope. */
 export function animateFeatureWindow(section) {
   const stage = section.querySelector('.ui-window__stage');
+  const caption = section.querySelector('.ui-window__caption');
   let progress = 0;
   const apply = () => {
     const vw = document.documentElement.clientWidth, vh = innerHeight;
@@ -49,7 +50,9 @@ export function animateFeatureWindow(section) {
     s.setProperty('--x', `${((vw - w0) / 2) * (1 - p)}px`);
     s.setProperty('--b', `${Math.max(0, vh - top - h0) * (1 - p)}px`);
     s.setProperty('--p', p.toFixed(4));
-    s.setProperty('--caption', reduced() ? '1' : Math.min(1, Math.max(0, (p - 0.5) / 0.35)).toFixed(3));
+    const captionOpacity = reduced() ? 1 : Math.min(1, Math.max(0, (p - 0.5) / 0.35));
+    s.setProperty('--caption', captionOpacity.toFixed(3));
+    caption.inert = captionOpacity < 1;
   };
   apply();
   const stopPreview = observePreview(section);

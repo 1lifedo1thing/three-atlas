@@ -1,4 +1,4 @@
-import { chromium } from '@playwright/test';
+import { chromium, expect } from '@playwright/test';
 import { spawn } from 'node:child_process';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -31,6 +31,8 @@ export async function measureInteractions() {
     await page.evaluate(() => document.fonts.ready);
     await page.keyboard.press('/');
     const search = page.getByRole('searchbox');
+    // The shortcut focuses search when its authored scroll completes. Do not race it with Playwright auto-scroll.
+    await expect(search).toBeFocused();
     await search.click();
     await page.keyboard.type('stars', { delay: 100 });
     await page.locator('.ui-nav__lang').click();

@@ -41,6 +41,7 @@ try {
       await page.locator('body.ready').waitFor();
       await page.locator('.atlas-return').focus(); await page.keyboard.press('Enter');
       await page.locator('.ui-card__link:focus').waitFor();
+      await page.waitForTimeout(1200);
     }
     if (target) await page.locator(target).first().scrollIntoViewIfNeeded();
     if (item === 'SHOWCASE') { await page.locator('.ui-gallery__paddle').last().click(); await page.waitForTimeout(500); }

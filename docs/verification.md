@@ -156,3 +156,9 @@ KIT 补充：像素断言复现上下文恢复后只有背景的缺陷，RoomEnv
 原生采集初始视角 2880×1800 封面，实际画布 DPR1、约95FPS，采集后恢复界面，场景目录相对设计基线无改动。自动生成 AVIF/WebP 720、1440、2880 与 160px 环境光图，统一输出 picture/srcset/sizes，并拒绝低清放大。手机、桌面选图、无额外完整 JPEG、缺图降级和模板集成验证通过。高清源更新后的四套视觉基线复测通过；最终浏览器 23通过/1项设计待定，Lighthouse 三次预算通过，首页 JS 66042字节 gzip，实验室最长交互40ms，现场INP未测。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/HD/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · 独立审查修复
+
+四项 Important 已分别复现失败后修复：模板 arrival 布局与淡出、透明 caption 的 Tab 焦点、导航/页脚语言切换的可见焦点、缺失衍生图的自动重建。桌面与手机语言按钮均测试；初始仅恢复焦点仍可能落在视口外，新增边界断言复现后补最近滚动。P1-J 对比度设计项继续未完成。审查记录见 docs/engineering-review.md，红绿日志与最终检查在 output/engineering-review/final/。
+
+收尾验证：check、Node32测试、build通过；完整浏览器28通过、1项明确设计fixme；视觉4通过；性能三轮严格预算通过，首页JS66218字节gzip，受限实验室最长交互48ms（不等同现场INP）。136张截图与17段5–10秒录屏库存检查通过，另有KIT和模板专项录屏。

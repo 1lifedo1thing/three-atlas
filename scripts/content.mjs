@@ -8,7 +8,7 @@ export function buildInputs(works, root) {
   ]);
 }
 
-export function validateWorks(works, root) {
+export function validateWorks(works, root, { requireGenerated = true } = {}) {
   const errors = [], ids = new Set();
   if (!Array.isArray(works)) return ['作品目录必须为数组'];
   const text = value => typeof value === 'string' && value.trim().length > 0;
@@ -40,10 +40,10 @@ export function validateWorks(works, root) {
       for (const format of ['avif', 'webp']) {
         if (!Array.isArray(images?.[format]) || images[format].length !== 3) { errors.push(`${label}：images.${format} 必须为三个尺寸`); continue; }
         images[format].forEach((image, index) => {
-          if (image.width !== [720, 1440, 2880][index] || typeof image.src !== 'string' || !new RegExp(`^media/[a-zA-Z0-9/_-]+\\.${format}$`).test(image.src) || !file(resolve(root, 'public', image.src))) errors.push(`${label}：images.${format} 路径或宽度无效`);
+          if (image.width !== [720, 1440, 2880][index] || typeof image.src !== 'string' || !new RegExp(`^media/[a-zA-Z0-9/_-]+\\.${format}$`).test(image.src) || (requireGenerated && !file(resolve(root, 'public', image.src)))) errors.push(`${label}：images.${format} 路径或宽度无效`);
         });
       }
-      if (typeof images?.ambient !== 'string' || !/^media\/[a-zA-Z0-9/_-]+-ambient\.webp$/.test(images.ambient) || !file(resolve(root, 'public', images.ambient))) errors.push(`${label}：images.ambient 路径无效`);
+      if (typeof images?.ambient !== 'string' || !/^media\/[a-zA-Z0-9/_-]+-ambient\.webp$/.test(images.ambient) || (requireGenerated && !file(resolve(root, 'public', images.ambient)))) errors.push(`${label}：images.ambient 路径无效`);
     }
     if (work.highlights !== undefined) {
       if (!Array.isArray(work.highlights)) errors.push(`${label}：highlights 必须为数组`);

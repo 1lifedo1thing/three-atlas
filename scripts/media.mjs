@@ -32,7 +32,7 @@ export async function updateMedia(root = process.cwd(), { development = false } 
   const path = resolve(root, 'content/works.json');
   const original = await readFile(path, 'utf8');
   const works = JSON.parse(original);
-  const errors = validateWorks(works, root).filter(error => !(development && error.endsWith('：封面文件不存在')));
+  const errors = validateWorks(works, root, { requireGenerated: false }).filter(error => !(development && error.endsWith('：封面文件不存在')));
   if (errors.length) throw new Error(errors.join('\n'));
   for (const work of works) {
     let input;
@@ -55,6 +55,8 @@ export async function updateMedia(root = process.cwd(), { development = false } 
       images.sourceHash = hash; work.images = images;
     }
   }
+  const completeErrors = validateWorks(works, root).filter(error => !(development && error.endsWith('：封面文件不存在')));
+  if (completeErrors.length) throw new Error(completeErrors.join('\n'));
   const next = `${JSON.stringify(works, null, 2)}\n`;
   if (next !== original) await writeFile(path, next);
   return works;

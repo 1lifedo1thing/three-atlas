@@ -70,7 +70,7 @@ function render() {
       { title: t.colAuthor, links: [{ label: `${works[0]?.author.name ?? '观默'} @guanmo_ai`, href: 'https://x.com/guanmo_ai', external: true }] },
     ],
     legal: [`© ${new Date().getFullYear()} 观默 Guanmo`, 'Three Atlas · 三维图鉴'],
-    extra: h('button.ui-btn.ui-btn--ghost.ui-btn--sm', { type: 'button', 'aria-label': `${t.langLabel} — ${t.langAria}`, onClick: event => requestLang(lang === 'zh' ? 'en' : 'zh', event.currentTarget) }, t.langLabel),
+    extra: h('button.ui-btn.ui-btn--ghost.ui-btn--sm', { type: 'button', dataset: { langControl: 'footer' }, 'aria-label': `${t.langLabel} — ${t.langAria}`, onClick: event => requestLang(lang === 'zh' ? 'en' : 'zh', event.currentTarget) }, t.langLabel),
   });
 
   app.replaceChildren(
