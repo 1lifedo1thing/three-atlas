@@ -1,0 +1,3 @@
+.ui-statement__text { max-width: 22em; font-size: var(--t-h2); line-height: 1.16; font-weight: var(--w-bold); letter-spacing: -0.035em; text-wrap: pretty; }
+.ui-statement__muted { color: var(--c-fg-3); }
+:lang(zh) .ui-statement__text { max-width: 19em; line-height: 1.34; letter-spacing: -0.01em; }

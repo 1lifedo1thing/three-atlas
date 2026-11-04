@@ -1,0 +1,4 @@
+.ui-hero { padding-top: calc(var(--nav-h) + clamp(56px, 11vh, 128px)); padding-bottom: clamp(28px, 4.5vh, 48px); text-align: center; display: grid; justify-items: center; }
+.ui-hero__eyebrow { margin-bottom: clamp(18px, 2.6vh, 28px); }
+.ui-hero__title { max-width: 12em; }
+.ui-hero__lede { max-width: 30em; margin-top: clamp(18px, 2.6vh, 28px); text-wrap: balance; }

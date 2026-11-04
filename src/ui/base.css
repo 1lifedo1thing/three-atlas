@@ -1,0 +1,46 @@
+/* Atlas UI · base: reset, typography roles and layout primitives. */
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--c-bg); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; min-height: 100svh; background: var(--c-bg); color: var(--c-fg); font: var(--w-regular) var(--t-body)/1.6 var(--f-sans); letter-spacing: -0.01em; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: clip; font-synthesis: none; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a, button { -webkit-tap-highlight-color: transparent; }
+img, svg, video { display: block; max-width: 100%; }
+h1, h2, h3, p, ul, ol, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 1.5px solid var(--c-fg); outline-offset: 4px; border-radius: 6px; }
+::selection { background: var(--c-fg); color: var(--c-bg); }
+
+/* Typography roles */
+.ui-display, .ui-h1, .ui-h2, .ui-h3 { font-weight: var(--w-bold); text-wrap: balance; }
+.ui-display { font-size: var(--t-display); line-height: 0.98; letter-spacing: -0.055em; }
+.ui-h1 { font-size: var(--t-h1); line-height: 1.02; letter-spacing: -0.045em; }
+.ui-h2 { font-size: var(--t-h2); line-height: 1.06; letter-spacing: -0.04em; }
+.ui-h3 { font-size: var(--t-h3); line-height: 1.18; letter-spacing: -0.02em; font-weight: var(--w-medium); }
+.ui-lead { font-size: var(--t-lead); line-height: 1.55; color: var(--c-fg-2); text-wrap: pretty; }
+.ui-small { font-size: var(--t-small); line-height: 1.6; color: var(--c-fg-2); }
+.ui-eyebrow { font: var(--w-medium) var(--t-caption)/1.4 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-fg-3); }
+:lang(zh) .ui-display, :lang(zh) .ui-h1, :lang(zh) .ui-h2 { letter-spacing: -0.02em; line-height: 1.12; word-break: keep-all; overflow-wrap: anywhere; }
+.ui-word { display: inline-block; white-space: nowrap; }
+:lang(zh) .ui-lead, :lang(zh) .ui-small { line-height: 1.8; }
+
+/* Layout primitives */
+.ui-container { width: min(100%, calc(var(--container) + 2 * var(--gutter))); margin-inline: auto; padding-inline: var(--gutter); }
+.ui-section { padding-block: var(--section-y); }
+.ui-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.ui-skip { position: fixed; top: -60px; left: 16px; z-index: var(--z-skip); padding: 10px 16px; border-radius: var(--r-pill); background: var(--c-fg); color: var(--c-bg); font-size: var(--t-small); }
+.ui-skip:focus { top: 12px; }
+
+/* Ambient light: a small blurred copy of an image, scaled up behind its owner. */
+.ui-ambient { position: absolute; left: 40%; top: 40%; width: 20%; height: 20%; object-fit: cover; filter: blur(18px) saturate(1.45); pointer-events: none; user-select: none; }
+
+/* Smooth scrolling (Lenis) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

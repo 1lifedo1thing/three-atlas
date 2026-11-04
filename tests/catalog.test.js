@@ -38,3 +38,13 @@ test('目录检查拒绝外部、越界和带查询串的本地路径', () => {
   }
   assert.ok(validateWorks([{ ...works[0], cover: '../../secret.jpg' }], root).length > 0);
 });
+
+test('首页主推作品可手动指定，最多一个', async () => {
+  const { pickFeatured } = await import('../src/gallery/model.js');
+  const second = { ...works[0], id: 'moon-lab', featured: true };
+  assert.equal(pickFeatured([{ ...works[0], featured: false }, second]).id, 'moon-lab');
+  assert.equal(pickFeatured([{ ...works[0], featured: false }]).id, works[0].id);
+  assert.equal(pickFeatured([]), null);
+  assert.ok(validateWorks([{ ...works[0], featured: true }, { ...second }], root).some(error => error.includes('featured')));
+  assert.ok(validateWorks([{ ...works[0], highlights: [{ title: { zh: '甲' }, text: { zh: '乙', en: 'b' } }] }], root).some(error => error.includes('亮点')));
+});

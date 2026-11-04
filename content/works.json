@@ -2,19 +2,100 @@
   {
     "id": "where-stars-rest",
     "title": "WHERE STARS REST",
-    "subtitle": { "zh": "星光的归处", "en": "A place between stars" },
+    "subtitle": {
+      "zh": "星光的归处",
+      "en": "A place between stars"
+    },
     "summary": {
       "zh": "一座悬浮于星海的微小庇护所。绕树而行，看光芒与萤火一起呼吸。",
       "en": "A tiny sanctuary adrift among the stars. Orbit a luminous tree and watch its light breathe with the fireflies."
     },
-    "category": { "zh": "微型世界", "en": "Miniature world" },
-    "tags": ["Three.js", "程序化", "Procedural", "岛屿", "Island", "交互", "Interactive"],
+    "category": {
+      "zh": "微型世界",
+      "en": "Miniature world"
+    },
+    "tags": [
+      "Three.js",
+      "程序化",
+      "Procedural",
+      "岛屿",
+      "Island",
+      "交互",
+      "Interactive"
+    ],
     "entry": "experiences/where-stars-rest/index.html",
     "cover": "media/where-stars-rest.jpg",
     "coverAlt": {
       "zh": "深蓝星空中的悬浮岩岛，岛上生长着一棵紫色发光树，萤火围绕树冠。",
       "en": "A floating rock island in a dark blue starfield, with a luminous violet tree and drifting fireflies."
     },
-    "author": { "name": "观默", "handle": "guanmo_ai", "url": "https://x.com/guanmo_ai" }
+    "author": {
+      "name": "观默",
+      "handle": "guanmo_ai",
+      "url": "https://x.com/guanmo_ai"
+    },
+    "featured": true,
+    "highlights": [
+      {
+        "title": {
+          "zh": "绕树而行",
+          "en": "Circle the tree"
+        },
+        "text": {
+          "zh": "拖动就能环绕整座岩岛，滚轮或双指靠近每一处细节。",
+          "en": "Drag to circle the whole island. Scroll or pinch to move in on any detail."
+        },
+        "focus": "50% 42%",
+        "zoom": 1.2
+      },
+      {
+        "title": {
+          "zh": "同步呼吸",
+          "en": "Breathing as one"
+        },
+        "text": {
+          "zh": "树冠的光芒与萤火，以同一个节奏明灭。",
+          "en": "The glow of the crown and the fireflies rise and fade to a single rhythm."
+        },
+        "focus": "31% 35%",
+        "zoom": 2.4
+      },
+      {
+        "title": {
+          "zh": "光芒由你",
+          "en": "Light, your way"
+        },
+        "text": {
+          "zh": "光芒滑块从 0% 到 100%，让这片庇护所更亮，或更静。",
+          "en": "A glow slider from 0% to 100% makes the sanctuary brighter, or quieter."
+        },
+        "focus": "50% 22%",
+        "zoom": 1.9
+      },
+      {
+        "title": {
+          "zh": "岛底云层",
+          "en": "Clouds below"
+        },
+        "text": {
+          "zh": "程序化生成的云层，在岩岛下方缓缓流动。",
+          "en": "Procedural clouds drift slowly beneath the rock."
+        },
+        "focus": "50% 86%",
+        "zoom": 2.1
+      },
+      {
+        "title": {
+          "zh": "可选氛围音",
+          "en": "Optional ambience"
+        },
+        "text": {
+          "zh": "打开声音，听见合成的星海氛围；暂停与复位随时可用。",
+          "en": "Turn on a synthesized ambience of the star sea. Pause and reset are always at hand."
+        },
+        "focus": "70% 55%",
+        "zoom": 1.7
+      }
+    ]
   }
 ]

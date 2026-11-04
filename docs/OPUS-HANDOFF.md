@@ -28,14 +28,13 @@
 ## 稳定的代码约定
 
 ```text
-content/works.json                    内容清单，驱动卡片与构建入口
-src/gallery/main.js                  搜索、语言与列表更新
-src/gallery/model.js                 selectWorks(works, query)
-src/gallery/card.js                  createWorkCard(work, lang, index)
+content/works.json                    内容清单：卡片、构建入口、featured 主推、highlights 亮点
+src/ui/                              Atlas UI 组件库：tokens、base、motion、transitions、components/*
+src/gallery/main.js                  首页：组合组件
+src/gallery/model.js                 selectWorks(works, query)、pickFeatured(works)
 src/gallery/copy.js                  首页中英文文案
-src/gallery/tokens.css               平台视觉变量
-src/gallery/gallery.css              首页布局与卡片样式
-src/shared/experience-nav.css        返回图鉴的轻量样式
+src/shared/experience-nav.css        作品页的返回导航与进入过渡样式
+scripts/vite/atlas-arrival.mjs       构建时向作品页注入进入过渡
 experiences/<id>/index.html          独立作品入口
 experiences/<id>/src/                作品专用源码
 public/media/                       可公开的真实封面

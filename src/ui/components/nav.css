@@ -1,0 +1,21 @@
+.ui-nav { position: fixed; inset: 0 0 auto; z-index: var(--z-nav); height: var(--nav-h); transition: background var(--d-3) var(--e-std), box-shadow var(--d-3); }
+.ui-nav.is-scrolled { background: var(--c-scrim); box-shadow: 0 1px 0 var(--c-line); backdrop-filter: blur(20px) saturate(1.6); -webkit-backdrop-filter: blur(20px) saturate(1.6); }
+.ui-nav__inner { height: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
+.ui-nav__brand { justify-self: start; display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: var(--w-bold); letter-spacing: -0.02em; }
+.ui-mark svg { width: 20px; height: 20px; transition: transform 1s var(--e-out); }
+.ui-nav__brand:hover .ui-mark svg { transform: rotate(-40deg); }
+.ui-nav__links { display: flex; gap: 4px; }
+.ui-nav__link { padding: 6px 14px; border-radius: var(--r-pill); font-size: 13px; color: var(--c-fg-2); transition: color var(--d-2), background var(--d-2); }
+.ui-nav__link:hover { color: var(--c-fg); background: rgb(245 245 247 / 0.07); }
+.ui-nav__end { justify-self: end; display: flex; align-items: center; gap: 10px; }
+.ui-nav__cta { opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity var(--d-2) var(--e-std), transform var(--d-3) var(--e-out), background var(--d-2); }
+.ui-nav.is-cta .ui-nav__cta { opacity: 1; transform: none; pointer-events: auto; }
+.ui-nav__lang { height: 32px; min-width: 40px; padding: 0 10px; border: 0; border-radius: var(--r-pill); background: transparent; font: var(--w-medium) 12px/1 var(--f-mono); letter-spacing: 0.04em; color: var(--c-fg-2); transition: color var(--d-2), background var(--d-2); }
+.ui-nav__lang:hover { color: var(--c-fg); background: rgb(245 245 247 / 0.07); }
+@media (max-width: 720px) {
+  .ui-nav__inner { grid-template-columns: auto 1fr auto; gap: 8px; }
+  .ui-nav__links { justify-self: center; }
+  .ui-nav__link { padding: 6px 10px; }
+  .ui-nav__brand > span:not(.ui-mark) { display: none; }
+  .ui-nav__cta .ui-btn__label { max-width: 6em; overflow: hidden; text-overflow: ellipsis; }
+}

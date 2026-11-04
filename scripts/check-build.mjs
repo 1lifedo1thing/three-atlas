@@ -12,6 +12,7 @@ for (const work of works) {
   assert.ok(manifest[work.entry]?.isEntry, `作品未成为构建入口：${work.id}`);
   const html = readFileSync(resolve(root, 'dist', work.entry), 'utf8');
   assert.ok(html.includes('href="../../"'), `缺少返回图鉴的相对链接：${work.id}`);
+  assert.ok(html.includes(`class="atlas-arrival" data-src="${work.cover}"`) && html.includes('data-atlas-arrival'), `作品页缺少进入过渡层：${work.id}`);
 }
 const visited = new Set();
 function dependencies(key) {

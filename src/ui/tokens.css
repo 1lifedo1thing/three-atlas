@@ -1,0 +1,59 @@
+/* Atlas UI · design tokens. Every page and component reads from here; nothing else hard-codes a colour, size or curve. */
+@import '@fontsource-variable/geist/wght.css';
+@import '@fontsource-variable/geist-mono/wght.css';
+
+:root {
+  color-scheme: dark;
+
+  /* Colour — neutral night. The platform has no hue of its own; colour comes from the works. */
+  --c-bg: #050506;
+  --c-bg-2: #0b0b0d;
+  --c-surface: #121214;
+  --c-surface-2: #1a1a1d;
+  --c-fg: #f5f5f7;
+  --c-fg-2: rgb(245 245 247 / 0.72);
+  --c-fg-3: rgb(245 245 247 / 0.5);
+  --c-fg-4: rgb(245 245 247 / 0.24);
+  --c-line: rgb(245 245 247 / 0.1);
+  --c-line-2: rgb(245 245 247 / 0.2);
+  --c-scrim: rgb(5 5 6 / 0.72);
+
+  /* Type */
+  --f-sans: 'Geist Variable', 'PingFang SC', 'HarmonyOS Sans SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --f-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+  --t-display: clamp(52px, 8.4vw, 136px);
+  --t-h1: clamp(40px, 5.6vw, 88px);
+  --t-h2: clamp(32px, 4vw, 60px);
+  --t-h3: clamp(22px, 1.9vw, 28px);
+  --t-lead: clamp(18px, 1.45vw, 22px);
+  --t-body: 17px;
+  --t-small: 14px;
+  --t-caption: 12px;
+  --w-regular: 420;
+  --w-medium: 520;
+  --w-bold: 620;
+
+  /* Space & layout */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px;
+  --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 144px;
+  --gutter: clamp(20px, 4.4vw, 72px);
+  --container: 1440px;
+  --section-y: clamp(112px, 17vh, 208px);
+  --nav-h: 52px;
+
+  /* Shape */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: clamp(18px, 1.8vw, 28px);
+  --r-pill: 999px;
+
+  /* Motion — one vocabulary for CSS and GSAP (see src/ui/motion.js). */
+  --e-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-inout: cubic-bezier(0.7, 0, 0.2, 1);
+  --e-std: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --d-1: 0.2s; --d-2: 0.4s; --d-3: 0.7s; --d-4: 1.1s;
+
+  /* Layers */
+  --z-nav: 50;
+  --z-skip: 90;
+}

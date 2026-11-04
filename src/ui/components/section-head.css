@@ -1,0 +1,4 @@
+.ui-head { display: grid; gap: 18px; }
+.ui-head--center { justify-items: center; text-align: center; }
+.ui-head__lede { max-width: 36em; }
+.ui-head__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }

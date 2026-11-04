@@ -1,3 +1,6 @@
+/** The work the home page opens with: the one marked `featured`, else the first. */
+export const pickFeatured = works => works.find(work => work.featured === true) ?? works[0] ?? null;
+
 export function selectWorks(works, query = '') {
   const words = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
   return works.filter(work => {
