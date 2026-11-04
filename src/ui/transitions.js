@@ -3,6 +3,7 @@
 // Pairs with scripts/vite/atlas-arrival.mjs (injected into every work page).
 const NAME = 'atlas-world';
 const KEY = 'three-atlas.from';
+const FOCUS_KEY = 'three-atlas.return-focus';
 const visible = node => { const r = node.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 0; };
 function imageFor(source) {
   if (!source) return null;
@@ -20,8 +21,21 @@ export function bindTransitions() {
   let last = null;
   document.addEventListener('click', event => {
     const link = event.target instanceof Element ? event.target.closest('a[data-transition]') : null;
-    if (link) last = link.dataset.transition;
+    if (link) {
+      last = link.dataset.transition;
+      try { sessionStorage.setItem(FOCUS_KEY, last); } catch { /* Optional. */ }
+    }
   });
+  const restore = () => {
+    let source;
+    try { source = sessionStorage.getItem(FOCUS_KEY); } catch { return; }
+    if (!source) return;
+    const target = document.querySelector(`a[data-transition="${CSS.escape(source)}"]:not([aria-hidden])`);
+    if (target) requestAnimationFrame(() => { target.scrollIntoView({ block: 'center', behavior: 'instant' }); target.focus({ preventScroll: true }); });
+    try { sessionStorage.removeItem(FOCUS_KEY); } catch { /* Optional. */ }
+  };
+  addEventListener('pageshow', event => { if (event.persisted || performance.getEntriesByType('navigation')[0]?.type === 'back_forward') restore(); });
+  if (document.referrer.includes('/experiences/')) restore();
   addEventListener('pageswap', event => {
     if (!event.viewTransition || !last) return;
     try { sessionStorage.setItem(KEY, last); } catch { /* Optional. */ }

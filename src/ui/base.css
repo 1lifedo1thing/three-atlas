@@ -43,7 +43,9 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: clip; }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 }
 
 [aria-busy='true']:is(.ui-btn, .ui-nav__lang) { opacity: var(--opacity-pending); cursor: progress; }
+
+.ui-search:focus-within { outline: 1.5px solid var(--c-fg); outline-offset: var(--s-1); }

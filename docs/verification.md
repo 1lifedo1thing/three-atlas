@@ -124,3 +124,9 @@ P1-C 浏览器补充：坐标输入曾发生在开窗入场稳定前；用例改
 新增 npm run perf：三次移动 Fast 4G/4 倍 CPU 的 Lighthouse CI，四项均 ≥95、LCP ≤2 秒、CLS ≤0.02、TBT ≤100ms，以及首页 JS ≤70KB gzip，任一失败均退出非零，无报告上传。首轮 SEO 失败后补 robots.txt；实验室语言交互超时后消除重复刷新并先绘制忙碌反馈，最终最长 Event Timing 40ms。实际现场 INP 与实体中端手机仍需上线后确认，未作通过声明。完整报告位于本项 lighthouse/ 与 performance/。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-I/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · P1-J
+
+已验证键盘跳到搜索、搜索后 Tab 进入卡片、进入作品及返回原卡片的焦点恢复；修复语言按钮名称、卡片名称与减少动态的无限徽标。中英文静态首页 AA 自动检查通过，规格允许的纯装饰大编号单独排除。普通动效的逐词点亮仍有对比度冲突，对应用例明确 fixme；P1-J 尚未完成，等待设计参数选择，详见 docs/accessibility.md。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-J/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。

@@ -14,7 +14,7 @@ export function WorkCard({ work, index, labels }) {
     h('span.ui-card__enter', { 'aria-hidden': 'true' }, labels.enter, icon('arrow', 14)));
   picture.querySelector('img').addEventListener('error', event => { event.target.hidden = true; picture.classList.add('is-missing'); }, { once: true });
   return h('article.ui-card', { dataset: { workId: work.id } },
-    h('a.ui-card__link', { href: work.entry, 'aria-label': `${labels.enter} — ${work.title} · ${work.subtitle}`, dataset: { transition: `card:${work.id}` } },
+    h('a.ui-card__link', { href: work.entry, dataset: { transition: `card:${work.id}` } },
       h('div.ui-card__media', null, createImage('ui-ambient', { src: work.cover, alt: '', 'aria-hidden': 'true', loading: 'lazy', decoding: 'async' }), picture),
       h('div.ui-card__info', null,
         h('p.ui-card__meta', null, h('span.ui-card__no', null, pad(index + 1)), h('span', null, work.category)),

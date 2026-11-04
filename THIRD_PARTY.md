@@ -16,6 +16,8 @@
 
 | Lighthouse CI 0.16.0 | GoogleChrome contributors | https://github.com/GoogleChrome/lighthouse-ci | Apache-2.0 | 仅开发：本地移动性能与质量预算，无报告上传 |
 
+| axe-core Playwright 4.14.0 | Deque Systems | https://github.com/dequelabs/axe-core-npm | MPL-2.0 | 仅开发：自动无障碍复核，未修改依赖源码 |
+
 保留首作的完整说明：[WHERE STARS REST 第三方依赖](./experiences/where-stars-rest/THIRD_PARTY.md)。没有修改上游依赖源码。
 
 `public/media/where-stars-rest.jpg` 是本仓库作品的真实浏览器截图。采集时临时隐藏界面，随后恢复；未改动场景几何、材质或灯光。

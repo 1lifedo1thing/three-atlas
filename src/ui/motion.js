@@ -25,11 +25,11 @@ export function startScroll() {
   return lenis;
 }
 
-export function scrollToTarget(target) {
+export function scrollToTarget(target, { onComplete } = {}) {
   const el = typeof target === 'string' ? document.querySelector(target) : target;
   if (!el) return;
-  if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.4, easing: t => 1 - Math.pow(1 - t, 4) });
-  else el.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth' });
+  if (lenis && !reduced()) lenis.scrollTo(el, { offset: 0, duration: 1.4, easing: t => 1 - Math.pow(1 - t, 4), onComplete });
+  else { el.scrollIntoView({ behavior: 'instant' }); onComplete?.(); }
 }
 
 /** Fade-and-rise every [data-reveal] in `root` as it enters; children of [data-reveal="group"] stagger. */

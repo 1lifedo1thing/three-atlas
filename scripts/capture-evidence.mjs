@@ -35,7 +35,15 @@ try {
     await page.goto(base, { waitUntil: 'networkidle' });
     await page.waitForTimeout(1800);
     if (item === 'P1-G') { await page.reload({ waitUntil: 'networkidle' }); await page.waitForTimeout(300); }
+    if (item === 'P1-J') {
+      await page.keyboard.press('Tab'); await page.keyboard.press('Enter');
+      await page.getByRole('searchbox').fill('stars'); await page.keyboard.press('Tab'); await page.keyboard.press('Enter');
+      await page.locator('body.ready').waitFor();
+      await page.locator('.atlas-return').focus(); await page.keyboard.press('Enter');
+      await page.locator('.ui-card__link:focus').waitFor();
+    }
     if (target) await page.locator(target).first().scrollIntoViewIfNeeded();
+    if (item !== 'P1-J') {
     await page.mouse.move(520, 460);
     await page.mouse.wheel(0, target ? 100 : 600);
     await page.waitForTimeout(900);
@@ -44,6 +52,7 @@ try {
       await page.waitForTimeout(500);
     }
     if (!target) { await page.mouse.wheel(0, 1100); await page.waitForTimeout(900); }
+    }
     if (item === 'P1-F') {
       const button = page.locator('.ui-footer .ui-btn').first();
       await button.scrollIntoViewIfNeeded();
