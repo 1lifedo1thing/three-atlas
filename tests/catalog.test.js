@@ -78,3 +78,9 @@ test('亮点校验保留原有 focus 与 zoom 的错误反馈', () => {
   assert.ok(errors.some(error => error.includes('focus')));
   assert.ok(errors.some(error => error.includes('zoom')));
 });
+
+test('视频预览前缀必须是本地媒体路径并具备两种尺寸和格式', () => {
+  for (const preview of ['https://example.com/a', '../private/a', 'media/missing-preview']) {
+    assert.ok(validateWorks([{ ...works[0], preview }], root).some(error => error.includes('preview')), preview);
+  }
+});

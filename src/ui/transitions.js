@@ -6,7 +6,9 @@ const KEY = 'three-atlas.from';
 const visible = node => { const r = node.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 0; };
 function imageFor(source) {
   if (!source) return null;
-  const image = document.querySelector(`[data-transition="${CSS.escape(source)}"]`)?.closest('.ui-window, .ui-card')?.querySelector('.world-image');
+  const container = document.querySelector(`[data-transition="${CSS.escape(source)}"]`)?.closest('.ui-window, .ui-card');
+  const video = container?.querySelector('video.is-playing');
+  const image = video && !video.paused ? video : container?.querySelector('img.world-image');
   return image && visible(image) ? image : null;
 }
 function name(image, transition) {

@@ -27,6 +27,12 @@ export function validateWorks(works, root) {
       errors.push(`${label}：入口必须为独立目录 experiences/<id>/index.html`);
     } else if (!file(resolve(root, work.entry))) errors.push(`${label}：入口文件不存在`);
     if (work.featured !== undefined && typeof work.featured !== 'boolean') errors.push(`${label}：featured 必须为 true 或 false`);
+    if (work.preview !== undefined) {
+      if (typeof work.preview !== 'string' || !/^media\/[a-zA-Z0-9_-]+$/.test(work.preview)) errors.push(`${label}：preview 必须为 media/ 下的本地文件前缀`);
+      else for (const size of [1920, 960]) for (const extension of ['mp4', 'webm']) {
+        if (!file(resolve(root, 'public', `${work.preview}-${size}.${extension}`))) errors.push(`${label}：preview 缺少 ${size}.${extension}`);
+      }
+    }
     if (work.highlights !== undefined) {
       if (!Array.isArray(work.highlights)) errors.push(`${label}：highlights 必须为数组`);
       else {

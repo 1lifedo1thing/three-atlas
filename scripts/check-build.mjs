@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
@@ -10,6 +10,11 @@ for (const work of works) {
   assert.ok(existsSync(resolve(root, 'dist', work.entry)), `缺少作品页面：${work.id}`);
   assert.ok(existsSync(resolve(root, 'dist', work.cover)), `缺少作品封面：${work.id}`);
   assert.ok(manifest[work.entry]?.isEntry, `作品未成为构建入口：${work.id}`);
+  if (work.preview) for (const size of [1920, 960]) for (const extension of ['mp4', 'webm']) {
+    const path = resolve(root, 'dist', `${work.preview}-${size}.${extension}`);
+    assert.ok(existsSync(path), `缺少视频预览：${work.id} ${size}.${extension}`);
+    assert.ok(statSync(path).size <= (size === 1920 ? 4_000_000 : 1_200_000), `视频预览超出体积预算：${work.id} ${size}.${extension}`);
+  }
   const html = readFileSync(resolve(root, 'dist', work.entry), 'utf8');
   assert.ok(html.includes('href="../../"'), `缺少返回图鉴的相对链接：${work.id}`);
   assert.ok(html.includes(`class="atlas-arrival" data-src="${work.cover}"`) && html.includes('data-atlas-arrival'), `作品页缺少进入过渡层：${work.id}`);

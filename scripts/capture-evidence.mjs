@@ -9,7 +9,7 @@ const [item = 'baseline', phase = 'after', target = ''] = process.argv.slice(2);
 const base = process.env.ATLAS_REVIEW_URL || 'http://127.0.0.1:5214/';
 const root = resolve('output/engineering-review', item, phase);
 await mkdir(root, { recursive: true });
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true, ...(process.platform === 'darwin' ? { args: ['--use-angle=metal', '--enable-gpu'] } : {}) });
 const errors = [];
 try {
   for (const [device, viewport] of [['desktop', { width: 1440, height: 900 }], ['mobile', { width: 390, height: 844 }]]) {

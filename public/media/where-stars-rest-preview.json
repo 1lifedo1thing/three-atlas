@@ -1,0 +1,34 @@
+{
+  "duration": 10,
+  "crossfade": 0.6,
+  "outputs": [
+    {
+      "file": "where-stars-rest-1920.mp4",
+      "width": 1920,
+      "height": 1200,
+      "bytes": 2300943,
+      "duration": 10
+    },
+    {
+      "file": "where-stars-rest-1920.webm",
+      "width": 1920,
+      "height": 1200,
+      "bytes": 1186338,
+      "duration": 10
+    },
+    {
+      "file": "where-stars-rest-960.mp4",
+      "width": 960,
+      "height": 600,
+      "bytes": 802796,
+      "duration": 10
+    },
+    {
+      "file": "where-stars-rest-960.webm",
+      "width": 960,
+      "height": 600,
+      "bytes": 473657,
+      "duration": 10
+    }
+  ]
+}

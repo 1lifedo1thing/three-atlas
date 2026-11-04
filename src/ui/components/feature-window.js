@@ -1,6 +1,7 @@
 import { h } from '../dom.js';
 import { Badge, Button } from './button.js';
 import { ScrollTrigger, reduced } from '../motion.js';
+import { observePreview } from '../preview.js';
 
 /**
  * FeatureWindow · a work shown through a rounded window that opens to full screen as the page scrolls.
@@ -13,6 +14,7 @@ export function FeatureWindow({ id, work, meta = [], live, enter, more }) {
       h('img.ui-ambient', { src: work.cover, alt: '', 'aria-hidden': 'true', decoding: 'async' }),
       h('div.ui-window__frame', null,
         h('img.ui-window__image.world-image', { src: work.cover, alt: work.alt, width: 1440, height: 900, decoding: 'async', fetchpriority: 'high' }),
+        work.preview ? h('video.ui-window__video.world-image', { muted: true, playsinline: true, loop: true, preload: 'none', poster: work.cover, 'aria-hidden': 'true', dataset: { preview: work.preview } }) : null,
         h('a.ui-window__hit', { href: enter.href, tabindex: '-1', 'aria-hidden': 'true', dataset: { transition: 'feature' } }),
         h('div.ui-window__shade'),
         h('div.ui-window__caption.ui-container', null,
@@ -47,8 +49,10 @@ export function animateFeatureWindow(section) {
     s.setProperty('--caption', reduced() ? '1' : Math.min(1, Math.max(0, (p - 0.5) / 0.35)).toFixed(3));
   };
   apply();
+  const stopPreview = observePreview(section);
   addEventListener('resize', apply);
-  if (reduced()) return () => removeEventListener('resize', apply);
+  const cleanup = () => { removeEventListener('resize', apply); stopPreview(); };
+  if (reduced()) return cleanup;
   ScrollTrigger.create({ trigger: stage, start: 'top top', end: '+=115%', pin: true, scrub: true, onUpdate: self => { progress = self.progress; apply(); } });
-  return () => removeEventListener('resize', apply);
+  return cleanup;
 }

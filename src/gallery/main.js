@@ -18,7 +18,7 @@ let workIndex = null;
 
 /** Localized view model of a work, as components expect it. */
 const view = work => ({
-  id: work.id, entry: work.entry, cover: work.cover, index: works.indexOf(work),
+  id: work.id, entry: work.entry, cover: work.cover, preview: work.preview, index: works.indexOf(work),
   title: work.title, subtitle: pick(work.subtitle), summary: pick(work.summary), category: pick(work.category),
   alt: pick(work.coverAlt), author: `${work.author.name} / @${work.author.handle}`,
 });

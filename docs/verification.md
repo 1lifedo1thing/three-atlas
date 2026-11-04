@@ -68,3 +68,9 @@
 Roadmap 复用现有 SectionHead 和 Badge，首页仅组合组件，保留现有文案与排版；浏览器验证传入文案和标题关联，四套前后截图及区块录屏已采集。关于区块已有 Principles 组件，沿用现状。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P0-3/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · P1-A
+
+已用 Metal 硬件从首作初始视角录制真实动画，保留场景源码；编码约 10 秒、0.6 秒首尾叠化的 H.264/VP9 两种尺寸，1920 MP4 2.30 MB、960 MP4 0.80 MB，均符合预算。进入视口才播放，后台或离屏暂停，600ms 淡入，减少动态效果、Save-Data 与 2G/3G 不加载；播放时跨页过渡选择视频。四项浏览器测试验证静音、按需播放、重绘清理与三种降级条件。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-A/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
