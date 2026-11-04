@@ -21,25 +21,6 @@
 
 ## P1 · 复用能力
 
-### 4. three.js 复用套件 `src/kit/three/`
-
-给以后的作品页使用，全部基于 three.js 0.186.1 官方 `three/addons`。写法参考官方 examples（`webgl_loader_gltf`、`webgl_postprocessing_unreal_bloom`、`misc_controls_orbit`）和 manual（Responsive Design、Disposing Objects、Rendering on Demand）。
-
-| 模块 | 导出 | 要求 |
-| --- | --- | --- |
-| `renderer.js` | `createRenderer(canvas, { toneMapping = 'agx', exposure = 1, maxPixelRatio = 2, alpha = false })` | `outputColorSpace = SRGBColorSpace`；像素比取 `min(devicePixelRatio, maxPixelRatio)` |
-| `loop.js` | `createLoop(renderer, tick)` → `{ start, stop, setPaused }` | 基于 `setAnimationLoop` 和 `Timer`；页面隐藏时暂停 |
-| `resize.js` | `observeSize(renderer, camera, { onResize })` | 使用 `ResizeObserver`，同步相机与 composer |
-| `controls.js` | `createOrbit(camera, dom, { target, autoRotate, minDistance, maxDistance, reducedMotion })` | 开启阻尼和 `listenToKeyEvents`；减少动态效果时不自动旋转 |
-| `environment.js` | `roomEnvironment(renderer, scene)`、`loadHDR(url)` | `RoomEnvironment` 加 `PMREMGenerator`，`.hdr` 文件用 `HDRLoader` |
-| `loaders.js` | `loadGLTF(url)`、`loadTexture(url)` | 共享单例，挂 `DRACOLoader`、`KTX2Loader`、`MeshoptDecoder`；解码器在 prebuild 时从 `three/examples/jsm/libs/` 复制到 `public/vendor/` |
-| `post.js` | `createComposer(renderer, scene, camera, { bloom })` | `RenderPass` →（可选）`UnrealBloomPass` → `OutputPass` |
-| `dispose.js` | `disposeObject(root)` | 释放 geometry、material、纹理和渲染目标 |
-| `quality.js` | `adaptivePixelRatio(renderer, { min = 1, max = 2, budgetMs = 20 })` | 帧时间持续超出预算时逐级降低像素比 |
-| `lifecycle.js` | `guardContext(canvas, { onLost, onRestored })` | 处理 WebGL 上下文的丢失与恢复 |
-
-**不重构 WHERE STARS REST**，除非用户明确要求。
-
 ### 5. 作品模板与脚手架
 
 - 新增 `experiences/_template/`：用第 4 项的套件搭一个最小作品，界面使用 Atlas UI 令牌，场景就绪时给 `body` 加 `ready`。构建入口要忽略这个目录。

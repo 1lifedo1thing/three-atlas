@@ -18,6 +18,10 @@
 
 | axe-core Playwright 4.14.0 | Deque Systems | https://github.com/dequelabs/axe-core-npm | MPL-2.0 | 仅开发：自动无障碍复核，未修改依赖源码 |
 
+| Draco 解码器（随 three 0.186.1 分发） | Google Draco contributors | https://github.com/google/draco | Apache-2.0，见 third-party/kit/draco-LICENSE.txt（含上游附带的许可通知） | prebuild 原样复制官方 glTF 解码器到 public/vendor/draco |
+| Basis Universal 转码器（随 three 0.186.1 分发） | Binomial LLC contributors | https://github.com/BinomialLLC/basis_universal | Apache-2.0，见 third-party/kit/basis-LICENSE.txt | prebuild 原样复制官方转码器到 public/vendor/basis |
+| Meshoptimizer（随 three 0.186.1 分发） | Arseny Kapoulkine / zeux | https://github.com/zeux/meshoptimizer | MIT，保留官方模块内版权说明 | glTF Meshopt 解码 |
+
 保留首作的完整说明：[WHERE STARS REST 第三方依赖](./experiences/where-stars-rest/THIRD_PARTY.md)。没有修改上游依赖源码。
 
 `public/media/where-stars-rest.jpg` 是本仓库作品的真实浏览器截图。采集时临时隐藏界面，随后恢复；未改动场景几何、材质或灯光。

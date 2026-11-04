@@ -1,4 +1,5 @@
 import sharp from 'sharp';
+import { copyDecoders } from './vendor.mjs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -21,4 +22,4 @@ export async function updateMedia(root = process.cwd()) {
   return works;
 }
 
-if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) await updateMedia();
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) { await updateMedia(); await copyDecoders(); }

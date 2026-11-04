@@ -1,0 +1,24 @@
+import sharp from 'sharp';
+import { test, expect } from '@playwright/test';
+import { mkdir } from 'node:fs/promises';
+test.use({video:{mode:'on',size:{width:1440,height:900}}});
+test('套件真实 GPU 渲染、glTF、后处理、尺寸与上下文恢复',async({page})=>{
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto('/tests/fixtures/kit.html');
+  await page.locator('body.ready').waitFor();await expect.poll(()=>page.evaluate(()=>kit.state.frames)).toBeGreaterThan(2);
+  expect(await page.evaluate(()=>kit.state.color)).toBe(true);
+  const initial=await sharp(await page.locator('canvas').screenshot()).stats();
+  expect(Math.max(...initial.channels.slice(0,3).map(c=>c.max))).toBeGreaterThan(50);
+  const before=await page.evaluate(()=>kit.camera.position.toArray());await page.locator('canvas').focus();await page.keyboard.press('ArrowRight');
+  await expect.poll(()=>page.evaluate(()=>kit.camera.position.toArray())).not.toEqual(before);
+  await page.setViewportSize({width:900,height:600});await expect.poll(()=>page.evaluate(()=>kit.size())).toEqual([900,600]);
+  await page.waitForTimeout(1800);
+  await page.evaluate(()=>kit.lose());await expect.poll(()=>page.evaluate(()=>kit.state.lost)).toBe(1);
+  await page.waitForTimeout(1000);await page.evaluate(()=>kit.restore());await expect.poll(()=>page.evaluate(()=>kit.state.restored)).toBe(1);
+  const frames=await page.evaluate(()=>kit.state.frames);await expect.poll(()=>page.evaluate(()=>kit.state.frames)).toBeGreaterThan(frames);
+  await page.waitForTimeout(1800);
+  await mkdir('output/engineering-review/KIT/after',{recursive:true});await page.screenshot({path:'output/engineering-review/KIT/after/kit-smoke.png'});
+  const restored=await sharp(await page.locator('canvas').screenshot()).stats();
+  expect(Math.max(...restored.channels.slice(0,3).map(c=>c.max))).toBeGreaterThan(50);
+  await page.evaluate(()=>kit.dispose());expect(errors).toEqual([]);
+  const video=page.video();await page.close();await video.saveAs('output/engineering-review/KIT/after/kit-smoke.webm');
+});

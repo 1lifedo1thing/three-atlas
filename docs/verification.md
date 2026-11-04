@@ -130,3 +130,11 @@ P1-C 浏览器补充：坐标输入曾发生在开窗入场稳定前；用例改
 已验证键盘跳到搜索、搜索后 Tab 进入卡片、进入作品及返回原卡片的焦点恢复；修复语言按钮名称、卡片名称与减少动态的无限徽标。中英文静态首页 AA 自动检查通过，规格允许的纯装饰大编号单独排除。普通动效的逐词点亮仍有对比度冲突，对应用例明确 fixme；P1-J 尚未完成，等待设计参数选择，详见 docs/accessibility.md。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-J/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · KIT
+
+新增 ten-module three.js 0.186.1 官方套件，涵盖 renderer、Timer 循环、尺寸、Orbit、环境、共享加载器、后处理、资源释放、持续慢帧降级和上下文恢复；prebuild 从锁定依赖复制解码器与许可证。原首作未重构。三个单元测试与真实 Metal GPU 的 glTF、Bloom、尺寸、键盘和上下文恢复验证通过；KIT/after/kit-smoke.mp4 为套件专项录屏，首页四套对比保持原布局。压缩格式真实文件尚未逐项覆盖，已写明验证边界。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/KIT/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+KIT 补充：像素断言复现上下文恢复后只有背景的缺陷，RoomEnvironment 现会在恢复时重建 PMREM 环境；恢复前后实际像素均有可见三角形。录屏改用 video.saveAs 等待写入，ffprobe 确认 6.32 秒、239714 字节；专项截图已人工查看，黑帧与空文件旧结果被替换。
