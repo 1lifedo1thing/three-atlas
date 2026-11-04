@@ -7,9 +7,30 @@
     <meta name="description" content="宇宙尽头，还有一束光。探索一座漂浮于星海的霓虹岛屿。" />
     <title>WHERE STARS REST — 星海中的微小世界</title>
     <link rel="stylesheet" href="../../src/shared/experience-nav.css" />
+    <!-- Three Atlas arrival: same snippet on every work page (see README · 加入下一个作品). -->
+    <script>
+      (() => {
+        const root = new URL('../../', location.href).href;
+        const atlas = url => { if (!url) return false; const u = new URL(url); u.hash = u.search = ''; return u.href === root || u.href === root + 'index.html'; };
+        addEventListener('pagereveal', event => {
+          if (!event.viewTransition || !atlas(navigation?.activation?.from?.url)) return;
+          const still = document.querySelector('.atlas-arrival');
+          if (!still) return;
+          still.src = new URL(still.dataset.src, root).href;
+          document.documentElement.classList.add('atlas-arrived');
+        });
+        addEventListener('pageswap', event => {
+          if (!event.viewTransition || !atlas(event.activation?.entry?.url)) return;
+          document.documentElement.classList.remove('atlas-arrived');
+          const scene = document.querySelector('canvas');
+          if (scene) scene.style.viewTransitionName = 'atlas-world';
+        });
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070b19'/%3E%3Cpath d='M32 9 51 32 32 55 13 32Z' fill='none' stroke='%239b91ee' stroke-width='2'/%3E%3Cpath d='M32 20v25m0-13-10-8m10 13 12-13' fill='none' stroke='%238be6f3' stroke-width='3'/%3E%3C/svg%3E" />
   </head>
   <body>
+    <img class="atlas-arrival" data-src="media/where-stars-rest.jpg" alt="" aria-hidden="true" decoding="async" />
     <main class="experience" aria-label="漂浮霓虹岛交互场景">
       <canvas id="scene" aria-label="一座漂浮在星海中的岛屿，中央生长着发光的霓虹树。拖动或使用方向键旋转，滚轮或双指缩放。" tabindex="0"></canvas>
       <div class="vignette" aria-hidden="true"></div>

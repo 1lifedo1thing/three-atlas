@@ -5,6 +5,7 @@
 | 依赖 | 作者 / 维护者 | 来源 | 许可证 | 用途 |
 | --- | --- | --- | --- | --- |
 | Three.js 0.186.1 | three.js authors；发起者 mrdoob / Ricardo Cabello | https://github.com/mrdoob/three.js | MIT，见 `experiences/where-stars-rest/third-party/three-LICENSE.txt` | 3D 引擎及官方控制器、后处理插件 |
+| Geist 字体（@fontsource-variable/geist 5.3.0） | Vercel；Basement Studio 设计 | https://github.com/vercel/geist-font | SIL Open Font License 1.1 | 首页拉丁文字体，随站点自托管，未修改 |
 | Vite 8.3.5 | Vite contributors；发起者 Evan You | https://github.com/vitejs/vite | MIT，见 `experiences/where-stars-rest/third-party/vite-LICENSE.txt` | 开发服务与多页面静态构建 |
 
 保留首作的完整说明：[WHERE STARS REST 第三方依赖](./experiences/where-stars-rest/THIRD_PARTY.md)。没有修改上游依赖源码。

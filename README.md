@@ -50,9 +50,10 @@ docs/OPUS-HANDOFF.md               后续设计交接
 ## 加入下一个作品
 
 1. 新建 `experiences/<id>/index.html`，源代码与样式放自己的目录，加入返回 `../../` 的链接。
-2. 将真实封面放入 `public/media/`。
-3. 在 `content/works.json` 登记条目，`entry` 为 `experiences/<id>/index.html`。
-4. 运行 `npm run check`、`npm test`、`npm run build`。目录项自动成为构建入口，无需更改首页控制器或 Vite 入口清单。
+2. 将真实封面放入 `public/media/`。封面要用作品的初始视角截取，因为进入动画会从封面无缝过渡到实时画面。
+3. 在 `content/works.json` 登记条目，`entry` 为 `experiences/<id>/index.html`。排在第一位的作品会作为首页开场的主推作品。
+4. 从 `experiences/where-stars-rest/index.html` 复制两处：`<head>` 里的 Three Atlas arrival 内联脚本，以及 `<body>` 开头的 `<img class="atlas-arrival" data-src="media/<封面>">`。前提是页面已经引用 `src/shared/experience-nav.css`，场景就绪时给 `body` 加上 `ready` class。
+5. 运行 `npm run check`、`npm test`、`npm run build`。目录项自动成为构建入口，无需更改首页控制器或 Vite 入口清单。
 
 使用同一个 Three.js 版本时可复用构建出的引擎包，各作品不共享运行中的渲染器、CSS 或全局状态。出现真实共同需求后，再提取共享能力。
 
