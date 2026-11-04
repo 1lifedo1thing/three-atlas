@@ -10,6 +10,7 @@ for (const work of works) {
   assert.ok(existsSync(resolve(root, 'dist', work.entry)), `缺少作品页面：${work.id}`);
   assert.ok(existsSync(resolve(root, 'dist', work.cover)), `缺少作品封面：${work.id}`);
   assert.ok(manifest[work.entry]?.isEntry, `作品未成为构建入口：${work.id}`);
+  if (work.images) for (const path of [...work.images.avif, ...work.images.webp].map(image => image.src).concat(work.images.ambient)) assert.ok(existsSync(resolve(root, 'dist', path)), `缺少响应式图片：${path}`);
   if (work.preview) for (const size of [1920, 960]) for (const extension of ['mp4', 'webm']) {
     const path = resolve(root, 'dist', `${work.preview}-${size}.${extension}`);
     assert.ok(existsSync(path), `缺少视频预览：${work.id} ${size}.${extension}`);

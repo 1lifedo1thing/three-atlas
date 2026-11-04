@@ -9,13 +9,13 @@ function render(){
  context?.revert();cleanups.forEach(fn=>fn());cleanups=[];
  const lang=getLang(),t=copy[lang],zh=lang==='zh',source=works[0];
  const work={...source,entry:`../../${source.entry}`,cover:`../../${source.cover}`,preview:source.preview&&`../../${source.preview}`,subtitle:pick(source.subtitle),summary:pick(source.summary),category:pick(source.category),alt:pick(source.coverAlt),author:`${source.author.name} / @${source.author.handle}`,index:0};
- const items=source.highlights.map(item=>({title:pick(item.title),text:pick(item.text),tech:pick(item.tech),image:work.cover,tone:work.tone,focus:item.focus,zoom:item.zoom}));
+ const items=source.highlights.map(item=>({title:pick(item.title),text:pick(item.text),tech:pick(item.tech),image:work.cover,images:work.images,tone:work.tone,focus:item.focus,zoom:item.zoom}));
  const nav=GlobalNav({home:'../../',links:[{label:'Buttons',href:'#buttons'},{label:'Cards',href:'#cards'}],cta:{label:t.enter,href:work.entry},lang:{label:t.langLabel,aria:t.langAria,onToggle:e=>requestLang(zh?'en':'zh',e.currentTarget)}});nav.setScrolled(true);nav.showCta(true);
  const buttonRow=h('div.ui-showcase__row',null,['primary','secondary','ghost'].map(variant=>['sm','md','lg'].map(size=>Button({label:`${variant} · ${size}`,variant,size}))),Button({label:zh?'不可用':'Disabled',attrs:{disabled:true}}),Button({label:zh?'处理中':'Working',attrs:{disabled:true,'aria-busy':'true'}}),Badge({label:t.mode,live:true}),Badge({label:zh?'规划中':'Planned'}));
  const head=(id,title,lede)=>SectionHead({id:`${id}-title`,title,lede,eyebrow:'Atlas UI'});
  const window=FeatureWindow({id:'show-window',work,live:t.mode,meta:[t.featured],enter:{label:t.enterLong,href:work.entry},more:{label:t.more,href:'#show-panels'}});
  const statement=Statement({text:t.statement,muted:t.statementMuted});
- const normal=WorkCard({work,index:0,labels:t}),hover=WorkCard({work,index:0,labels:t}),missing=WorkCard({work:{...work,cover:'../../media/missing-specimen.jpg'},index:0,labels:t});hover.querySelector('a').classList.add('is-demo-hover');
+ const normal=WorkCard({work,index:0,labels:t}),hover=WorkCard({work,index:0,labels:t}),missing=WorkCard({work:{...work,cover:'../../media/missing-specimen.jpg',images:undefined},index:0,labels:t});hover.querySelector('a').classList.add('is-demo-hover');
  const shell=ExperienceShell({title:source.title,subtitle:work.subtitle,canvasLabel:zh?'作品画布占位':'Work canvas placeholder',home:'../../',backLabel:'Three Atlas'});shell.setAttribute('role','group');shell.showError(zh?'错误状态示例':'Error state specimen');
  const indexProps={head:head('show-index',t.collection),categories:[work.category,zh?'另一个类别':'Another category'],labels:t};
  const footer=Footer({closing:t.closing,columns:[{title:t.colWorks,links:[{label:source.title,href:work.entry}]},{title:t.colAtlas,links:[{label:'Three Atlas',href:'../../'}]},{title:t.colAuthor,links:[{label:'观默 @guanmo_ai',href:'https://x.com/guanmo_ai',external:true}]}],legal:['Atlas UI · Internal component specimens']});

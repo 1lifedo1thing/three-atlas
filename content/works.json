@@ -102,6 +102,40 @@
         "zoom": 2
       }
     ],
-    "tone": "#161431"
+    "tone": "#13112f",
+    "images": {
+      "width": 2880,
+      "height": 1800,
+      "avif": [
+        {
+          "src": "media/where-stars-rest-720.avif",
+          "width": 720
+        },
+        {
+          "src": "media/where-stars-rest-1440.avif",
+          "width": 1440
+        },
+        {
+          "src": "media/where-stars-rest-2880.avif",
+          "width": 2880
+        }
+      ],
+      "webp": [
+        {
+          "src": "media/where-stars-rest-720.webp",
+          "width": 720
+        },
+        {
+          "src": "media/where-stars-rest-1440.webp",
+          "width": 1440
+        },
+        {
+          "src": "media/where-stars-rest-2880.webp",
+          "width": 2880
+        }
+      ],
+      "ambient": "media/where-stars-rest-ambient.webp",
+      "sourceHash": "ad9c60d5d718e9269ff6234a26aac086e7044961bedcdbe6edb22779a2ad90e9"
+    }
   }
 ]

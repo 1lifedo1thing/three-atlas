@@ -18,7 +18,7 @@ export function Highlights({ id, head, items, labels }) {
     items.map((item, i) => h('li.ui-tile', { 'aria-label': `${i + 1} / ${items.length}` },
       h('figure', null,
         h('div.ui-tile__media', { style: toneStyle(item.tone) },
-          createImage('', { src: item.image, alt: item.alt ?? '', loading: 'lazy', decoding: 'async', style: frame(item) })),
+          createImage('', { src: item.image, media: item.images, sizes: '(max-width: 720px) 200vw, 160vw', alt: item.alt ?? '', loading: 'lazy', decoding: 'async', style: frame(item) })),
         h('figcaption.ui-tile__caption', null, h('strong', null, item.title), ' ', item.text)))));
   const dots = h('div.ui-gallery__dots', null, items.map((_, i) => h('button.ui-gallery__dot', { type: 'button', 'aria-label': `${i + 1} / ${items.length}`, onClick: () => go(i) })));
   const prev = h('button.ui-gallery__paddle', { type: 'button', 'aria-label': labels.prev, onClick: () => go(active - 1) }, icon('prev'));

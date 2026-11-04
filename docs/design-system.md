@@ -109,6 +109,7 @@ Three Atlas 是观默的 3D 作品集，也是一套可以反复使用的创作�
 
 | 字段 | 必填 | 说明 |
 | --- | --- | --- |
+| `images` | 否 | 构建时从原生高清封面生成 AVIF/WebP 720、1440、2880 及 160px 环境光图，组件输出 picture / srcset / sizes |
 | `tone` | 否 | 构建脚本从真实封面像素自动计算的六位十六进制平均色，不手工填写 |
 | `id`、`title`、`subtitle`、`summary`、`category`、`tags`、`entry`、`cover`、`coverAlt`、`author` | 是 | 见 `scripts/content.mjs` 的校验规则 |
 | `featured` | 否 | `true` 表示首页主推，全站最多一个。都没有设置时取第一项。 |

@@ -13,7 +13,9 @@ test('临时副本的新作出现在目录，直接刷新与卡片进入可用',
   server=spawn(process.execPath,[join(source,'node_modules/vite/bin/vite.js'),'--host','127.0.0.1','--port','5314','--strictPort'],{cwd:root,stdio:'ignore'});
   for(let i=0;i<50;i++){try{if((await fetch('http://127.0.0.1:5314/')).ok)break}catch{}await new Promise(r=>setTimeout(r,100))}
   await page.goto(`http://127.0.0.1:5314/${work.entry}`);await page.locator('body.ready').waitFor();
+  await page.setViewportSize({width:2880,height:1800});await page.waitForTimeout(200);
   await page.locator('canvas').screenshot({path:join(root,'public',work.cover),type:'jpeg'});
+  await page.setViewportSize({width:1440,height:900});
   await promisify(execFile)('npm',['run','build'],{cwd:root});
   const manifest=JSON.parse(await readFile(join(root,'dist/.vite/manifest.json'),'utf8'));expect(manifest[work.entry].isEntry).toBe(true);expect(Object.keys(manifest).some(k=>k.includes('_template'))).toBe(false);
   await page.goto('http://127.0.0.1:5314/');const card=page.locator('[data-work-id="engineering-smoke"] .ui-card__link');await card.scrollIntoViewIfNeeded();await card.click();

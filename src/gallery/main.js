@@ -18,7 +18,7 @@ let workIndex = null;
 
 /** Localized view model of a work, as components expect it. */
 const view = work => ({
-  id: work.id, entry: work.entry, cover: work.cover, preview: work.preview, tone: work.tone, index: works.indexOf(work),
+  id: work.id, entry: work.entry, cover: work.cover, preview: work.preview, tone: work.tone, images: work.images, index: works.indexOf(work),
   title: work.title, subtitle: pick(work.subtitle), summary: pick(work.summary), category: pick(work.category),
   alt: pick(work.coverAlt), author: `${work.author.name} / @${work.author.handle}`,
 });
@@ -51,7 +51,7 @@ function render() {
   const featuredSection = featured?.highlights?.length ? Panels({
     id: 'featured',
     head: SectionHead({ id: 'featured-title', size: 'h1', eyebrow: t.featuredEyebrow(featured.title), title: t.featuredTitle, lede: f.summary }),
-    items: featured.highlights.map(item => ({ title: pick(item.title), text: pick(item.text), tech: pick(item.tech), image: featured.cover, tone: featured.tone, focus: item.focus, zoom: item.zoom })),
+    items: featured.highlights.map(item => ({ title: pick(item.title), text: pick(item.text), tech: pick(item.tech), image: featured.cover, images: featured.images, tone: featured.tone, focus: item.focus, zoom: item.zoom })),
   }) : null;
   const about = Principles({ id: 'about', head: SectionHead({ id: 'about-title', size: 'h1', eyebrow: t.aboutEyebrow, title: t.aboutTitle, lede: t.aboutLede }), items: t.about });
   const next = Roadmap({ id: 'next', eyebrow: t.nextEyebrow, title: t.nextTitle, lede: t.nextLede });

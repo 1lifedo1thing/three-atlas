@@ -14,7 +14,8 @@
     "prebuild": "node scripts/media.mjs",
     "perf": "npm run build && node scripts/perf.mjs",
     "new:work": "node scripts/new-work.mjs",
-    "test:visual": "playwright test --config=playwright.visual.config.js"
+    "test:visual": "playwright test --config=playwright.visual.config.js",
+    "predev": "node scripts/media.mjs --dev"
   },
   "dependencies": {
     "@fontsource-variable/geist": "5.3.0",

@@ -33,6 +33,18 @@ export function validateWorks(works, root) {
         if (!file(resolve(root, 'public', `${work.preview}-${size}.${extension}`))) errors.push(`${label}：preview 缺少 ${size}.${extension}`);
       }
     }
+    if (work.tone !== undefined && !/^#[0-9a-fA-F]{6}$/.test(work.tone)) errors.push(`${label}：tone 必须为六位十六进制颜色`);
+    if (work.images !== undefined) {
+      const images = work.images;
+      if (!(images?.width >= 2880 && images?.height > 0) || !/^[a-f0-9]{64}$/.test(images?.sourceHash ?? '')) errors.push(`${label}：images 缺少高清尺寸或源文件摘要`);
+      for (const format of ['avif', 'webp']) {
+        if (!Array.isArray(images?.[format]) || images[format].length !== 3) { errors.push(`${label}：images.${format} 必须为三个尺寸`); continue; }
+        images[format].forEach((image, index) => {
+          if (image.width !== [720, 1440, 2880][index] || typeof image.src !== 'string' || !new RegExp(`^media/[a-zA-Z0-9/_-]+\\.${format}$`).test(image.src) || !file(resolve(root, 'public', image.src))) errors.push(`${label}：images.${format} 路径或宽度无效`);
+        });
+      }
+      if (typeof images?.ambient !== 'string' || !/^media\/[a-zA-Z0-9/_-]+-ambient\.webp$/.test(images.ambient) || !file(resolve(root, 'public', images.ambient))) errors.push(`${label}：images.ambient 路径无效`);
+    }
     if (work.highlights !== undefined) {
       if (!Array.isArray(work.highlights)) errors.push(`${label}：highlights 必须为数组`);
       else {

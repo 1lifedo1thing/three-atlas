@@ -150,3 +150,9 @@ KIT 补充：像素断言复现上下文恢复后只有背景的缺陷，RoomEnv
 新增 pages/ui 的中英文内部陈列页，覆盖所有组件、按钮三种变体、悬停/缺图卡片与空目录，noindex 且首页不链接。Playwright 四套整页基线与复测通过，超过 0.5% 像素差异失败；临时探针制造约 5% 差异时命令确实失败，探针已删除。基线属工程记录，仍待 Claude 与用户审美验收，录屏包含图集翻页。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/SHOWCASE/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · HD
+
+原生采集初始视角 2880×1800 封面，实际画布 DPR1、约95FPS，采集后恢复界面，场景目录相对设计基线无改动。自动生成 AVIF/WebP 720、1440、2880 与 160px 环境光图，统一输出 picture/srcset/sizes，并拒绝低清放大。手机、桌面选图、无额外完整 JPEG、缺图降级和模板集成验证通过。高清源更新后的四套视觉基线复测通过；最终浏览器 23通过/1项设计待定，Lighthouse 三次预算通过，首页 JS 66042字节 gzip，实验室最长交互40ms，现场INP未测。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/HD/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。

@@ -9,13 +9,13 @@ import { Badge } from './button.js';
 export function WorkCard({ work, index, labels }) {
   const picture = h('div.ui-card__picture', { style: toneStyle(work.tone) },
     h('span.ui-card__fallback', { 'aria-hidden': 'true' }, 'Three Atlas'),
-    createImage('ui-card__cover world-image', { src: work.cover, alt: work.alt, width: 1440, height: 900, loading: index === 0 ? 'eager' : 'lazy', decoding: 'async' }),
+    createImage('ui-card__cover world-image', { src: work.cover, media: work.images, sizes: '(min-width: 900px) 60vw, calc(100vw - 40px)', alt: work.alt, width: 1440, height: 900, loading: index === 0 ? 'eager' : 'lazy', decoding: 'async' }),
     h('span.ui-card__badge', null, Badge({ label: labels.mode, live: true })),
     h('span.ui-card__enter', { 'aria-hidden': 'true' }, labels.enter, icon('arrow', 14)));
   picture.querySelector('img').addEventListener('error', event => { event.target.hidden = true; picture.classList.add('is-missing'); }, { once: true });
   return h('article.ui-card', { dataset: { workId: work.id } },
     h('a.ui-card__link', { href: work.entry, dataset: { transition: `card:${work.id}` } },
-      h('div.ui-card__media', null, createImage('ui-ambient', { src: work.cover, alt: '', 'aria-hidden': 'true', loading: 'lazy', decoding: 'async' }), picture),
+      h('div.ui-card__media', null, createImage('ui-ambient', { src: work.cover, media: work.images, sizes: '(min-width: 900px) 60vw, calc(100vw - 40px)', alt: '', 'aria-hidden': 'true', loading: 'lazy', decoding: 'async' }), picture),
       h('div.ui-card__info', null,
         h('p.ui-card__meta', null, h('span.ui-card__no', null, pad(index + 1)), h('span', null, work.category)),
         h('h3.ui-card__title', null, work.title),

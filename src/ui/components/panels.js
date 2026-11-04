@@ -5,7 +5,7 @@ import { h } from '../dom.js';
 const frame = ({ focus = '50% 50%', zoom = 1 }) => ({ 'object-position': focus, 'transform-origin': focus, '--zoom': String(zoom) });
 
 const panel = (item, i) => h('li.ui-panel', null,
-  h('div.ui-panel__painting', { style: toneStyle(item.tone) }, createImage('', { src: item.image, alt: item.alt ?? '', loading: 'lazy', decoding: 'async', style: frame(item) })),
+  h('div.ui-panel__painting', { style: toneStyle(item.tone) }, createImage('', { src: item.image, media: item.images, sizes: '(min-width: 901px) 60vw, 170vw', alt: item.alt ?? '', loading: 'lazy', decoding: 'async', style: frame(item) })),
   h('div.ui-panel__body', null,
     h('p.ui-panel__index', null, String(i + 1).padStart(2, '0')),
     h('h3.ui-panel__title', null, item.title),
