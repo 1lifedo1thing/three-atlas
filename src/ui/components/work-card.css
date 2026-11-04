@@ -6,9 +6,9 @@
 .ui-card__cover { width: 100%; height: 100%; object-fit: cover; transition: opacity var(--d-media) var(--e-std), transform var(--d-card-zoom) var(--e-out); }
 .ui-card__badge { position: absolute; top: 16px; left: 16px; }
 .ui-card__enter { position: absolute; right: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px 0 18px; border-radius: var(--r-pill); background: var(--c-fg); color: var(--c-bg); font-size: 13px; font-weight: var(--w-medium); opacity: 0; transform: translateY(8px); transition: opacity var(--d-2) var(--e-std), transform var(--d-3) var(--e-out); }
-.ui-card__link:hover .ui-card__cover, .ui-card__link:focus-visible .ui-card__cover { transform: scale(1.045); }
-.ui-card__link:hover .ui-ambient, .ui-card__link:focus-visible .ui-ambient { opacity: calc(var(--image-ready, 0) * 0.55); transform: translateY(18%) scale(4.2, 4.4); }
-.ui-card__link:hover .ui-card__enter, .ui-card__link:focus-visible .ui-card__enter { opacity: 1; transform: none; }
+.ui-card__link.is-demo-hover .ui-card__cover, .ui-card__link:hover .ui-card__cover, .ui-card__link:focus-visible .ui-card__cover { transform: scale(1.045); }
+.ui-card__link.is-demo-hover .ui-ambient, .ui-card__link:hover .ui-ambient, .ui-card__link:focus-visible .ui-ambient { opacity: calc(var(--image-ready, 0) * 0.55); transform: translateY(18%) scale(4.2, 4.4); }
+.ui-card__link.is-demo-hover .ui-card__enter, .ui-card__link:hover .ui-card__enter, .ui-card__link:focus-visible .ui-card__enter { opacity: 1; transform: none; }
 .ui-card__link:focus-visible .ui-card__picture { outline: 1.5px solid var(--c-fg); outline-offset: 5px; }
 .ui-card__info { padding-top: 22px; }
 .ui-card__meta { display: flex; gap: 14px; font: var(--w-medium) 12px/1.4 var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-fg-3); }

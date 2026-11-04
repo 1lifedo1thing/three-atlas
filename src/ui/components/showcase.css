@@ -1,0 +1,7 @@
+.ui-showcase { padding-block: var(--s-8); border-top: 1px solid var(--c-line); }
+.ui-showcase__label { margin-bottom: var(--s-6); }
+.ui-showcase__row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-5); }
+.ui-showcase__cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6); }
+.ui-showcase__nav .ui-nav { position: relative; }
+.ui-showcase__shell .ui-experience { height: var(--showcase-stage-h); border-radius: var(--r-lg); background: var(--c-surface); }
+@media (max-width: 720px) { .ui-showcase__cards { grid-template-columns: 1fr; } }

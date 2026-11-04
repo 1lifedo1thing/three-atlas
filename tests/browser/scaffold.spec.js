@@ -7,7 +7,7 @@ test.use({video:{mode:'on',size:{width:1440,height:900}},contextOptions:{reduced
 test('临时副本的新作出现在目录，直接刷新与卡片进入可用',async({page})=>{
  test.setTimeout(60000);const source=process.cwd(),root=await mkdtemp(join(tmpdir(),'atlas-template-browser-'));let server;
  try{
-  for(const name of ['src','experiences','scripts','content','public','third-party','vite.config.js','package.json','index.html'])await cp(join(source,name),join(root,name),{recursive:true});
+  for(const name of ['src','pages','experiences','scripts','content','public','third-party','vite.config.js','package.json','index.html'])await cp(join(source,name),join(root,name),{recursive:true});
   await symlink(join(source,'node_modules'),join(root,'node_modules'),'dir');
   const work=await newWork({root,id:'engineering-smoke',title:'ENGINEERING SMOKE',subtitle:'临时模板验证'});
   server=spawn(process.execPath,[join(source,'node_modules/vite/bin/vite.js'),'--host','127.0.0.1','--port','5314','--strictPort'],{cwd:root,stdio:'ignore'});

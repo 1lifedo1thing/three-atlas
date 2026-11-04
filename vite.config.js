@@ -16,7 +16,7 @@ export default defineConfig({
     target: 'es2022',
     manifest: true,
     rolldownOptions: {
-      input: buildInputs(works, root),
+      input: { ...buildInputs(works, root), 'pages/ui/index.html': fileURLToPath(new URL('./pages/ui/index.html', import.meta.url)) },
       output: { manualChunks: id => id.includes('/node_modules/three/') ? 'three' : undefined },
     },
   },

@@ -144,3 +144,9 @@ KIT 补充：像素断言复现上下文恢复后只有背景的缺陷，RoomEnv
 新增独立作品模板、ExperienceShell 与 npm run new:work，安全追加作品目录并拒绝越界或覆盖，提示补真实封面和审阅中英文草稿。模板不进入目录和构建。临时副本的实际 GPU 作品已验证目录卡片、进入、刷新、返回链接与构建入口，测试后清理，正式目录仍只有首作；TEMPLATE/after/template-smoke.webm 为专项录屏。生成内容待用户审阅。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/TEMPLATE/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · SHOWCASE
+
+新增 pages/ui 的中英文内部陈列页，覆盖所有组件、按钮三种变体、悬停/缺图卡片与空目录，noindex 且首页不链接。Playwright 四套整页基线与复测通过，超过 0.5% 像素差异失败；临时探针制造约 5% 差异时命令确实失败，探针已删除。基线属工程记录，仍待 Claude 与用户审美验收，录屏包含图集翻页。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/SHOWCASE/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。

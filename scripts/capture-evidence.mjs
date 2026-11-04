@@ -43,6 +43,7 @@ try {
       await page.locator('.ui-card__link:focus').waitFor();
     }
     if (target) await page.locator(target).first().scrollIntoViewIfNeeded();
+    if (item === 'SHOWCASE') { await page.locator('.ui-gallery__paddle').last().click(); await page.waitForTimeout(500); }
     if (item !== 'P1-J') {
     await page.mouse.move(520, 460);
     await page.mouse.wheel(0, target ? 100 : 600);
