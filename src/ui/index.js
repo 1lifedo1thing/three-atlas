@@ -3,6 +3,7 @@ export { h, icon, brandMark, pad } from './dom.js';
 export { getLang, setLang, onLang, pick, htmlLang } from './i18n.js';
 export { gsap, ScrollTrigger, reduced, motionQuery, startScroll, scrollToTarget, reveal, riseLines, lightUp, splitWords, scope, EASE, DUR } from './motion.js';
 export { bindTransitions } from './transitions.js';
+export { bindPointerGlow } from './pointer-glow.js';
 export { Button, Badge } from './components/button.js';
 export { GlobalNav } from './components/nav.js';
 export { Hero } from './components/hero.js';

@@ -17,5 +17,6 @@
 .ui-card__subtitle { margin-top: 6px; font-size: var(--t-small); color: var(--c-fg-2); }
 .ui-card__summary { max-width: 34em; margin-top: 14px; font-size: var(--t-small); line-height: 1.75; color: var(--c-fg-3); }
 .ui-card__author { margin-top: 16px; font-size: var(--t-caption); color: var(--c-fg-3); }
-.ui-card__picture.is-missing::before { content: 'Three Atlas'; position: absolute; inset: 0; display: grid; place-items: center; color: var(--c-fg-3); font-size: 22px; letter-spacing: -0.03em; }
+.ui-card__fallback { display: none; }
+.ui-card__picture.is-missing .ui-card__fallback { position: absolute; inset: 0; display: grid; place-items: center; color: var(--c-fg-3); font-size: var(--t-card-fallback); letter-spacing: -0.03em; }
 @media (hover: none) { .ui-card__enter { opacity: 1; transform: none; } }

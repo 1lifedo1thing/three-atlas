@@ -1,0 +1,21 @@
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  :is(.ui-card__picture, .ui-panel) { position: relative; }
+  :is(.ui-card__picture, .ui-panel)::before,
+  :is(.ui-card__picture, .ui-panel)::after {
+    content: ''; position: absolute; inset: 0; z-index: 2; border-radius: inherit; pointer-events: none;
+    opacity: 0; transition: opacity var(--d-pointer-out) var(--e-std);
+  }
+  :is(.ui-card__picture, .ui-panel)::before {
+    background: radial-gradient(var(--r-pointer) circle at var(--mx, 50%) var(--my, 50%), var(--c-pointer-glow), transparent 62%);
+  }
+  :is(.ui-card__picture, .ui-panel)::after {
+    padding: var(--s-pointer-border);
+    background: radial-gradient(var(--r-pointer) circle at var(--mx, 50%) var(--my, 50%), var(--c-pointer-edge), transparent 62%);
+    mask: linear-gradient(var(--c-mask) 0 0) content-box, linear-gradient(var(--c-mask) 0 0);
+    mask-composite: exclude;
+    -webkit-mask: linear-gradient(var(--c-mask) 0 0) content-box, linear-gradient(var(--c-mask) 0 0);
+    -webkit-mask-composite: xor;
+  }
+  :is(.ui-card__picture, .ui-panel).is-pointer-active::before,
+  :is(.ui-card__picture, .ui-panel).is-pointer-active::after { opacity: 1; transition-duration: var(--d-pointer-in); }
+}

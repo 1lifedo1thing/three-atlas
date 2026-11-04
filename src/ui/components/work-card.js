@@ -7,6 +7,7 @@ import { Badge } from './button.js';
  */
 export function WorkCard({ work, index, labels }) {
   const picture = h('div.ui-card__picture', null,
+    h('span.ui-card__fallback', { 'aria-hidden': 'true' }, 'Three Atlas'),
     h('img.ui-card__cover.world-image', { src: work.cover, alt: work.alt, width: 1440, height: 900, loading: index === 0 ? 'eager' : 'lazy', decoding: 'async' }),
     h('span.ui-card__badge', null, Badge({ label: labels.mode, live: true })),
     h('span.ui-card__enter', { 'aria-hidden': 'true' }, labels.enter, icon('arrow', 14)));

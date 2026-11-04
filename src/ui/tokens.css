@@ -53,6 +53,14 @@
   --e-std: cubic-bezier(0.2, 0.7, 0.1, 1);
   --d-1: 0.2s; --d-2: 0.4s; --d-3: 0.7s; --d-4: 1.1s;
   --d-media: 600ms;
+  --d-pointer-in: 300ms;
+  --d-pointer-out: 500ms;
+  --r-pointer: 360px;
+  --s-pointer-border: 1px;
+  --c-pointer-glow: rgb(255 255 255 / 0.09);
+  --c-pointer-edge: rgb(255 255 255 / 0.28);
+  --c-mask: #fff;
+  --t-card-fallback: 22px;
 
   /* Layers */
   --z-nav: 50;
