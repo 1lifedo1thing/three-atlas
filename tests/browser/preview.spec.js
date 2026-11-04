@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.use({ reducedMotion: 'no-preference' });
+test.use({ contextOptions: { reducedMotion: 'no-preference' } });
 
 test('开窗按需播放，离开视口暂停，语言重绘释放旧视频', async ({ page }) => {
   await page.goto('/');

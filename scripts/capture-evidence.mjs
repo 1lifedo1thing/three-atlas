@@ -34,6 +34,7 @@ try {
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(base, { waitUntil: 'networkidle' });
     await page.waitForTimeout(1800);
+    if (item === 'P1-G') { await page.reload({ waitUntil: 'networkidle' }); await page.waitForTimeout(300); }
     if (target) await page.locator(target).first().scrollIntoViewIfNeeded();
     await page.mouse.move(520, 460);
     await page.mouse.wheel(0, target ? 100 : 600);

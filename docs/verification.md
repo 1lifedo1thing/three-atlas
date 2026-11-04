@@ -106,3 +106,9 @@ P1-C 浏览器补充：坐标输入曾发生在开窗入场稳定前；用例改
 按钮、筛选和图集翻页控件按下时缩至 0.97、时长 120ms，释放以 240ms expo 曲线回弹，禁用态不响应。真实按下测试核对三类控件的变换和时长，录屏包含按下与释放。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-F/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · P1-G
+
+首页入场用 sessionStorage 记录，刷新、切换语言、作品返回都直接显示；存储受限时同一文档仍不重复。浏览器验证首访与三个返回路径。录屏含刷新后的直接呈现；此前正常动效用例的 contextOptions 同步修正，并重新验证预览、指针光和视差。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-G/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。

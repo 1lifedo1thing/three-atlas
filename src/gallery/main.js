@@ -6,7 +6,7 @@ import { pickFeatured, selectWorks } from './model.js';
 import { copy } from './copy.js';
 import {
   h, getLang, setLang, onLang, pick, gsap, ScrollTrigger, startScroll, scrollToTarget, reveal, riseLines, scope, reduced,
-  bindTransitions, bindPointerGlow, GlobalNav, animateNav, Hero, FeatureWindow, animateFeatureWindow, Statement, animateStatement, Panels, Principles,
+  claimEntrance, bindTransitions, bindPointerGlow, GlobalNav, animateNav, Hero, FeatureWindow, animateFeatureWindow, Statement, animateStatement, Panels, Principles,
   SectionHead, WorkIndex, Footer, Roadmap,
 } from '../ui/index.js';
 
@@ -81,7 +81,7 @@ function render() {
 
   context = scope(app, () => {
     cleanups.push(bindPointerGlow(app));
-    if (!reduced()) {
+    if (claimEntrance() && !reduced()) {
       riseLines(hero.querySelector('.ui-hero__title'), { delay: 0.1 });
       gsap.from([hero.querySelector('.ui-hero__eyebrow'), hero.querySelector('.ui-hero__lede')], { autoAlpha: 0, y: 16, duration: 1.2, ease: 'expo.out', delay: 0.35, stagger: 0.1 });
       if (opening) gsap.from(opening.querySelector('.ui-window__frame'), { autoAlpha: 0, y: 48, duration: 1.6, ease: 'expo.out', delay: 0.5 });

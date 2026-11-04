@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-test.use({ reducedMotion: 'no-preference' });
+test.use({ contextOptions: { reducedMotion: 'no-preference' } });
 
 test('指针进入开窗产生有限视差，离开后回中，减少动态时停止', async ({ page }) => {
   await page.goto('/');

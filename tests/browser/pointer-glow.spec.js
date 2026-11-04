@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.use({ reducedMotion: 'no-preference' });
+test.use({ contextOptions: { reducedMotion: 'no-preference' } });
 
 test('亮点卡只有一个活动指针光，移动时不重新读取布局', async ({ page }) => {
   await page.goto('/');
