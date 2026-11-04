@@ -53,17 +53,21 @@ export function splitWords(el) {
   const lang = el.closest('[lang]')?.lang || document.documentElement.lang || 'en';
   const segmenter = new Intl.Segmenter(lang, { granularity: 'word' });
   const words = [];
+  const opening = /^[「『（《“‘(\[【〔]+$/;
+  let carry = '';
   const walk = node => {
     for (const child of [...node.childNodes]) {
       if (child.nodeType === Node.TEXT_NODE) {
         const frag = document.createDocumentFragment();
         for (const { segment, isWordLike } of segmenter.segment(child.textContent)) {
           if (!segment.trim()) { frag.append(segment); continue; }
+          if (opening.test(segment)) { carry += segment; continue; }
           const span = document.createElement('span');
           span.className = 'ui-word';
-          span.textContent = segment;
+          span.textContent = carry + segment;
+          carry = '';
           if (isWordLike || words.length === 0) { frag.append(span); words.push(span); }
-          else words[words.length - 1].append(segment);
+          else words[words.length - 1].append(span.textContent);
         }
         child.replaceWith(frag);
       } else walk(child);

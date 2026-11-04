@@ -37,64 +37,72 @@
     "featured": true,
     "highlights": [
       {
+        "mode": "walk",
         "title": {
           "zh": "绕树而行",
           "en": "Circle the tree"
         },
         "text": {
-          "zh": "拖动就能环绕整座岩岛，滚轮或双指靠近每一处细节。",
-          "en": "Drag to circle the whole island. Scroll or pinch to move in on any detail."
+          "zh": "拖动绕岛，滚轮走近，方向键也能带路。",
+          "en": "Drag to circle the island, scroll to draw near. The arrow keys know the way too."
         },
-        "focus": "50% 42%",
-        "zoom": 1.2
+        "tech": {
+          "zh": "轨道相机 · 阻尼缓动 · 键盘可达",
+          "en": "Orbit camera · Damping · Keyboard"
+        },
+        "focus": "50% 50%",
+        "zoom": 1
       },
       {
+        "mode": "gaze",
         "title": {
-          "zh": "同步呼吸",
-          "en": "Breathing as one"
+          "zh": "远望一灯",
+          "en": "A lamp, far off"
         },
         "text": {
-          "zh": "树冠的光芒与萤火，以同一个节奏明灭。",
-          "en": "The glow of the crown and the fireflies rise and fade to a single rhythm."
+          "zh": "树冠的光与萤火同一个节奏明灭，像远处有人为你留了一盏灯。",
+          "en": "The crown and the fireflies glow and fade to one rhythm, like a lamp someone left on for you."
         },
-        "focus": "31% 35%",
-        "zoom": 2.4
+        "tech": {
+          "zh": "13,500 片实例化树叶 · 实时辉光",
+          "en": "13,500 instanced leaves · Real-time bloom"
+        },
+        "focus": "50% 20%",
+        "zoom": 2.0
       },
       {
+        "mode": "wander",
         "title": {
-          "zh": "光芒由你",
+          "zh": "随心调光",
           "en": "Light, your way"
         },
         "text": {
-          "zh": "光芒滑块从 0% 到 100%，让这片庇护所更亮，或更静。",
-          "en": "A glow slider from 0% to 100% makes the sanctuary brighter, or quieter."
+          "zh": "光芒由你拨动，从一夜静谧，到满树盛放。",
+          "en": "Turn the light yourself, from a quiet night to a tree in full bloom."
         },
-        "focus": "50% 22%",
-        "zoom": 1.9
+        "tech": {
+          "zh": "实时参数 · 无障碍滑块",
+          "en": "Live parameters · Accessible slider"
+        },
+        "focus": "30% 34%",
+        "zoom": 2.3
       },
       {
+        "mode": "dwell",
         "title": {
-          "zh": "岛底云层",
-          "en": "Clouds below"
+          "zh": "小住片刻",
+          "en": "Stay a little"
         },
         "text": {
-          "zh": "程序化生成的云层，在岩岛下方缓缓流动。",
-          "en": "Procedural clouds drift slowly beneath the rock."
+          "zh": "开一点声音，听五个正弦音缓缓呼吸，看云从岛下流过。",
+          "en": "Let in a little sound, five sine tones breathing slowly, and watch the clouds drift beneath the island."
         },
-        "focus": "50% 86%",
-        "zoom": 2.1
-      },
-      {
-        "title": {
-          "zh": "可选氛围音",
-          "en": "Optional ambience"
+        "tech": {
+          "zh": "Web Audio 合成 · 宫徵二音 · 程序化云层",
+          "en": "Web Audio synthesis · Two-note harmony · Procedural clouds"
         },
-        "text": {
-          "zh": "打开声音，听见合成的星海氛围；暂停与复位随时可用。",
-          "en": "Turn on a synthesized ambience of the star sea. Pause and reset are always at hand."
-        },
-        "focus": "70% 55%",
-        "zoom": 1.7
+        "focus": "50% 82%",
+        "zoom": 2.0
       }
     ]
   }

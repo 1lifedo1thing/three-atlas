@@ -7,6 +7,8 @@
 | Three.js 0.186.1 | three.js authors；发起者 mrdoob / Ricardo Cabello | https://github.com/mrdoob/three.js | MIT，见 `experiences/where-stars-rest/third-party/three-LICENSE.txt` | 3D 引擎及官方控制器、后处理插件 |
 | Geist 字体（@fontsource-variable/geist 5.3.0） | Vercel；Basement Studio 设计 | https://github.com/vercel/geist-font | SIL Open Font License 1.1 | 首页拉丁文字体，随站点自托管，未修改 |
 | Geist Mono 字体（@fontsource-variable/geist-mono 5.3.0） | Vercel；Basement Studio 设计 | https://github.com/vercel/geist-font | SIL Open Font License 1.1 | 首页等宽标签，自托管，未修改 |
+| Noto Serif SC（@fontsource/noto-serif-sc 5.3.1） | Google、Adobe（思源宋体） | https://github.com/notofonts/noto-cjk | SIL Open Font License 1.1 | 引文、单字与题跋的中文衬线，自托管，未修改 |
+| Instrument Serif（@fontsource/instrument-serif 5.3.0） | Instrument | https://github.com/Instrument/instrument-serif | SIL Open Font License 1.1 | 英文引文与题跋标题，自托管，未修改 |
 | GSAP 3.15.1（含 ScrollTrigger、SplitText） | GreenSock / Webflow | https://gsap.com | GSAP Standard "No Charge" License（https://gsap.com/standard-license），可免费商用 | 首页滚动动效与文字动画 |
 | Lenis 1.3.27 | darkroom.engineering | https://github.com/darkroomengineering/lenis | MIT | 首页平滑滚动 |
 | Vite 8.3.5 | Vite contributors；发起者 Evan You | https://github.com/vitejs/vite | MIT，见 `experiences/where-stars-rest/third-party/vite-LICENSE.txt` | 开发服务与多页面静态构建 |

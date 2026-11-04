@@ -28,3 +28,4 @@
   .ui-search { width: 100%; }
   .ui-search kbd { display: none; }
 }
+.ui-index__heading { display: grid; gap: 14px; }

@@ -9,6 +9,9 @@
 @import './components/feature-window.css';
 @import './components/statement.css';
 @import './components/highlights.css';
+@import './components/quote.css';
+@import './components/panels.css';
+@import './components/principles.css';
 @import './components/work-card.css';
 @import './components/work-index.css';
 @import './components/footer.css';

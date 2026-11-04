@@ -1,0 +1,37 @@
+.ui-panels .ui-head { margin-bottom: clamp(48px, 7vh, 88px); }
+.ui-panels__row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); }
+.ui-panel { display: grid; grid-template-rows: minmax(0, 1fr) auto; aspect-ratio: 9 / 16; max-height: 88svh; overflow: hidden; border-radius: var(--r-lg); background: var(--c-surface); box-shadow: inset 0 0 0 1px var(--c-line); }
+
+/* 画心 · the painting */
+.ui-panel__painting { position: relative; overflow: hidden; }
+.ui-panel__painting img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(var(--zoom)); filter: saturate(0.94); transition: transform 2.4s var(--e-out), filter 1.2s var(--e-std); }
+.ui-panel:hover .ui-panel__painting img { transform: scale(calc(var(--zoom) * 1.06)); filter: none; }
+.ui-panel__painting::after { content: ''; position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(to top, var(--c-surface), rgb(18 18 20 / 0)); }
+
+/* 题跋 · the inscription */
+.ui-panel__inscription { position: relative; display: grid; grid-template-rows: 1fr auto; gap: 14px; min-height: 0; padding: clamp(16px, 1.6vw, 24px); }
+.ui-panel__words { display: grid; align-content: start; gap: 8px; min-height: 0; }
+.ui-panels__row.is-vertical .ui-panel__words { overflow: hidden; }
+.ui-panel__glyph { font-size: clamp(40px, 3.8vw, 64px); margin-bottom: 6px; }
+.ui-panel__title { font: 500 clamp(18px, 1.5vw, 22px)/1.3 var(--f-serif); letter-spacing: 0.02em; }
+.ui-panel__text { font-size: 14px; line-height: 1.65; color: var(--c-fg-2); text-wrap: pretty; }
+.ui-panel__foot { display: flex; flex-wrap: wrap; gap: 4px 12px; padding-top: 12px; border-top: 1px solid var(--c-line); font: var(--w-medium) 10.5px/1.5 var(--f-mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--c-fg-3); }
+.ui-panel__label { color: var(--c-fg-2); }
+
+/* Chinese: the inscription runs top to bottom, right to left, glyph first. */
+.ui-panels__row.is-vertical .ui-panel { grid-template-rows: 11fr 9fr; }
+.ui-panels__row.is-vertical .ui-panel__words { writing-mode: vertical-rl; display: block; height: 100%; }
+.ui-panels__row.is-vertical .ui-panel__glyph { display: block; margin: 0 0 0 14px; font-size: clamp(44px, 4.2vw, 68px); }
+.ui-panels__row.is-vertical .ui-panel__title { margin-left: 12px; font-size: clamp(19px, 1.6vw, 24px); letter-spacing: 0.18em; }
+.ui-panels__row.is-vertical .ui-panel__text { font: 500 15px/1.9 var(--f-serif); letter-spacing: 0.16em; }
+
+@media (max-width: 900px) {
+  .ui-panels__row { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(74vw, 340px); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
+  .ui-panels__row::-webkit-scrollbar { display: none; }
+  .ui-panel { scroll-snap-align: start; max-height: none; }
+}
+
+/* Horizontal inscriptions (English) share one baseline: painting rows and inscription rows align across all four. */
+.ui-panels__row:not(.is-vertical) { grid-template-rows: auto auto; }
+.ui-panels__row:not(.is-vertical) .ui-panel { grid-row: span 2; grid-template-rows: subgrid; aspect-ratio: auto; max-height: none; }
+.ui-panels__row:not(.is-vertical) .ui-panel__painting { aspect-ratio: 4 / 5; }

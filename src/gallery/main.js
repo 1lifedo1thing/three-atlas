@@ -3,11 +3,11 @@ import '../ui/index.css';
 import './gallery.css';
 import works from '../../content/works.json';
 import { pickFeatured, selectWorks } from './model.js';
-import { copy } from './copy.js';
+import { copy, MODES } from './copy.js';
 import {
   h, getLang, setLang, onLang, pick, gsap, ScrollTrigger, startScroll, scrollToTarget, reveal, riseLines, scope, reduced,
-  bindTransitions, GlobalNav, Hero, FeatureWindow, animateFeatureWindow, Statement, animateStatement, Highlights,
-  SectionHead, Button, WorkIndex, Footer,
+  bindTransitions, GlobalNav, Hero, FeatureWindow, animateFeatureWindow, Quote, Panels, Principles, lightUp,
+  SectionHead, WorkIndex, Footer,
 } from '../ui/index.js';
 
 const app = document.querySelector('#app');
@@ -36,7 +36,7 @@ function render() {
   const categories = [...new Set(works.map(w => pick(w.category)))];
 
   const nav = GlobalNav({
-    links: [featured?.highlights?.length ? { label: t.navFeatured, href: '#featured' } : null, { label: t.navWorks, href: '#works' }].filter(Boolean),
+    links: [featured?.highlights?.length ? { label: t.navFeatured, href: '#featured' } : null, { label: t.navCraft, href: '#craft' }, { label: t.navWorks, href: '#works' }].filter(Boolean),
     cta: f && { label: t.enter, href: f.entry },
     lang: { label: t.langLabel, aria: t.langAria, onToggle: () => setLang(lang === 'zh' ? 'en' : 'zh') },
   });
@@ -44,19 +44,23 @@ function render() {
   const hero = Hero({ eyebrow: t.eyebrow, title: t.headline, lede: t.intro });
   const opening = f && FeatureWindow({
     id: 'opening', work: f, live: t.mode, meta: [t.featured, f.category],
-    enter: { label: t.enter, href: f.entry },
+    enter: { label: t.enterLong, href: f.entry },
     more: featured.highlights?.length ? { label: t.more, href: '#featured' } : null,
   });
-  const statement = Statement({ text: t.statement, muted: t.statementMuted });
-  const highlights = featured?.highlights?.length ? Highlights({
+  const woyou = Quote({ id: 'woyou', eyebrow: t.woyouEyebrow, text: t.woyouQuote, translation: t.woyouTranslation, source: t.woyouSource, gloss: t.woyouGloss });
+  const four = featured?.highlights?.length ? Panels({
     id: 'featured',
-    head: SectionHead({ id: 'featured-title', size: 'h1', eyebrow: t.closerEyebrow(featured.title), title: t.closerTitle, actions: [Button({ label: t.enter, href: f.entry, variant: 'secondary' })] }),
-    items: featured.highlights.map(item => ({ title: pick(item.title), text: pick(item.text), image: featured.cover, alt: '', focus: item.focus, zoom: item.zoom })),
-    labels: { prev: t.prev, next: t.next, region: t.region },
+    vertical: lang === 'zh',
+    head: SectionHead({ id: 'featured-title', size: 'h1', eyebrow: t.fourEyebrow, title: t.fourTitle, lede: t.fourLede }),
+    items: featured.highlights.map(item => {
+      const mode = MODES[item.mode] ?? { glyph: '·', zh: '', en: '' };
+      return { glyph: mode.glyph, label: lang === 'zh' ? mode.zh : `${mode.zh} · ${mode.en}`, title: pick(item.title), text: pick(item.text), tech: pick(item.tech), image: featured.cover, focus: item.focus, zoom: item.zoom };
+    }),
   }) : null;
+  const craft = Principles({ id: 'craft', head: SectionHead({ id: 'craft-title', size: 'h1', eyebrow: t.craftEyebrow, title: t.craftTitle }), items: t.craft });
   workIndex = WorkIndex({
     id: 'works',
-    head: h('h2.ui-h2', { id: 'works-title' }, t.collection),
+    head: h('div.ui-index__heading', null, h('p.ui-eyebrow', null, t.indexEyebrow), h('h2.ui-h2', { id: 'works-title' }, t.collection)),
     categories,
     select: (query, category) => selectWorks(works, query).filter(w => !category || pick(w.category) === category).map(view),
     labels: { ...t, count: t.count },
@@ -65,7 +69,7 @@ function render() {
     closing: t.closing,
     columns: [
       { title: t.colWorks, links: works.map(w => ({ label: w.title, href: w.entry })) },
-      { title: t.colAtlas, links: [highlights ? { label: t.navFeatured, href: '#featured' } : null, { label: t.collection, href: '#works' }].filter(Boolean) },
+      { title: t.colAtlas, links: [four ? { label: t.navFeatured, href: '#featured' } : null, { label: t.navCraft, href: '#craft' }, { label: t.navWorks, href: '#works' }].filter(Boolean) },
       { title: t.colAuthor, links: [{ label: `${works[0]?.author.name ?? '观默'} @guanmo_ai`, href: 'https://x.com/guanmo_ai', external: true }] },
     ],
     legal: [`© ${new Date().getFullYear()} 观默 Guanmo`, 'Three Atlas · 三维图鉴'],
@@ -75,7 +79,7 @@ function render() {
   app.replaceChildren(
     h('a.ui-skip', { href: '#works' }, t.skip),
     nav,
-    h('main', null, hero, opening, statement, highlights, workIndex),
+    h('main', null, hero, opening, woyou, four, craft, workIndex),
     footer);
 
   context = scope(app, () => {
@@ -85,10 +89,10 @@ function render() {
       if (opening) gsap.from(opening.querySelector('.ui-window__frame'), { autoAlpha: 0, y: 48, duration: 1.6, ease: 'expo.out', delay: 0.5 });
     }
     if (opening) cleanups.push(animateFeatureWindow(opening));
-    animateStatement(statement);
+    if (!reduced()) lightUp(woyou.querySelector('.ui-quote__gloss'));
     reveal(app);
     ScrollTrigger.create({ start: 8, end: 'max', onToggle: self => nav.setScrolled(self.isActive) });
-    if (f) ScrollTrigger.create({ trigger: statement, start: 'top 70%', endTrigger: workIndex, end: 'top 30%', onToggle: self => nav.showCta(self.isActive) });
+    if (f) ScrollTrigger.create({ trigger: woyou, start: 'top 70%', endTrigger: workIndex, end: 'top 30%', onToggle: self => nav.showCta(self.isActive) });
   });
 }
 
