@@ -14,6 +14,8 @@
 
 | Sharp 0.35.5 | Lovell Fuller / Sharp contributors | https://github.com/lovell/sharp | Apache-2.0 | 仅构建：真实封面平均色与响应式图片 |
 
+| Lighthouse CI 0.16.0 | GoogleChrome contributors | https://github.com/GoogleChrome/lighthouse-ci | Apache-2.0 | 仅开发：本地移动性能与质量预算，无报告上传 |
+
 保留首作的完整说明：[WHERE STARS REST 第三方依赖](./experiences/where-stars-rest/THIRD_PARTY.md)。没有修改上游依赖源码。
 
 `public/media/where-stars-rest.jpg` 是本仓库作品的真实浏览器截图。采集时临时隐藏界面，随后恢复；未改动场景几何、材质或灯光。

@@ -5,7 +5,7 @@ import works from '../../content/works.json';
 import { pickFeatured, selectWorks } from './model.js';
 import { copy } from './copy.js';
 import {
-  h, getLang, setLang, onLang, pick, gsap, ScrollTrigger, startScroll, scrollToTarget, reveal, riseLines, scope, reduced,
+  h, getLang, requestLang, onLang, pick, gsap, ScrollTrigger, startScroll, scrollToTarget, reveal, riseLines, scope, reduced,
   claimEntrance, bindTransitions, bindPointerGlow, GlobalNav, animateNav, Hero, FeatureWindow, animateFeatureWindow, Statement, animateStatement, Panels, Principles,
   SectionHead, WorkIndex, Footer, animateFooter, Roadmap,
 } from '../ui/index.js';
@@ -38,7 +38,7 @@ function render() {
   const nav = GlobalNav({
     links: [featured?.highlights?.length ? { label: t.navFeatured, href: '#featured' } : null, { label: t.navAbout, href: '#about' }, { label: t.navWorks, href: '#works' }].filter(Boolean),
     cta: f && { label: t.enter, href: f.entry },
-    lang: { label: t.langLabel, aria: t.langAria, onToggle: () => setLang(lang === 'zh' ? 'en' : 'zh') },
+    lang: { label: t.langLabel, aria: t.langAria, onToggle: event => requestLang(lang === 'zh' ? 'en' : 'zh', event.currentTarget) },
   });
 
   const hero = Hero({ eyebrow: t.eyebrow, title: t.headline, lede: t.intro });
@@ -70,7 +70,7 @@ function render() {
       { title: t.colAuthor, links: [{ label: `${works[0]?.author.name ?? '观默'} @guanmo_ai`, href: 'https://x.com/guanmo_ai', external: true }] },
     ],
     legal: [`© ${new Date().getFullYear()} 观默 Guanmo`, 'Three Atlas · 三维图鉴'],
-    extra: h('button.ui-btn.ui-btn--ghost.ui-btn--sm', { type: 'button', 'aria-label': t.langAria, onClick: () => setLang(lang === 'zh' ? 'en' : 'zh') }, t.langLabel),
+    extra: h('button.ui-btn.ui-btn--ghost.ui-btn--sm', { type: 'button', 'aria-label': t.langAria, onClick: event => requestLang(lang === 'zh' ? 'en' : 'zh', event.currentTarget) }, t.langLabel),
   });
 
   app.replaceChildren(
@@ -94,7 +94,7 @@ function render() {
     if (f) ScrollTrigger.create({ trigger: statement, start: 'top 70%', endTrigger: workIndex, end: 'top 30%', onToggle: self => nav.showCta(self.isActive) });
     cleanups.push(animateNav(nav, app));
   });
-  document.fonts.ready.then(() => { if (nav.isConnected) ScrollTrigger.refresh(); });
+  document.fonts.ready.then(() => { if (nav.isConnected) ScrollTrigger.refresh(true); });
 }
 
 // In-page anchors go through Lenis so they glide like everything else.
@@ -114,7 +114,6 @@ addEventListener('keydown', event => {
 onLang(() => {
   const y = scrollY;
   render();
-  ScrollTrigger.refresh();
   if (lenis) lenis.scrollTo(y, { immediate: true }); else scrollTo(0, y);
 });
 

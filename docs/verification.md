@@ -118,3 +118,9 @@ P1-C 浏览器补充：坐标输入曾发生在开窗入场稳定前；用例改
 页脚字标使用 SplitText chars，从 yPercent 60 升至 0，1.2 秒 expo.out、错开 0.03 秒，首次进入字标视口时触发；减少动态时直接呈现。保留原渐变字色，组件清理会回收分字与滚动触发器；浏览器验证只播一次及降级。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-H/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · P1-I
+
+新增 npm run perf：三次移动 Fast 4G/4 倍 CPU 的 Lighthouse CI，四项均 ≥95、LCP ≤2 秒、CLS ≤0.02、TBT ≤100ms，以及首页 JS ≤70KB gzip，任一失败均退出非零，无报告上传。首轮 SEO 失败后补 robots.txt；实验室语言交互超时后消除重复刷新并先绘制忙碌反馈，最终最长 Event Timing 40ms。实际现场 INP 与实体中端手机仍需上线后确认，未作通过声明。完整报告位于本项 lighthouse/ 与 performance/。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-I/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。

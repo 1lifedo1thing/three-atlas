@@ -45,3 +45,5 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+[aria-busy='true']:is(.ui-btn, .ui-nav__lang) { opacity: var(--opacity-pending); cursor: progress; }

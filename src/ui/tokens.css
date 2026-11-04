@@ -55,6 +55,7 @@
   --d-card-zoom: 1.4s;
   --d-panel-zoom: 2.4s;
   --d-gallery-zoom: 7s;
+  --opacity-pending: 0.5;
   --d-press: 120ms;
   --d-release: 240ms;
   --d-media: 600ms;

@@ -15,3 +15,13 @@ export function setLang(next) {
   listeners.forEach(fn => fn(lang));
 }
 document.documentElement.lang = htmlLang();
+
+/** Paint a pending state before the locale rebuild so the control responds immediately. */
+export function requestLang(next, control) {
+  if (control?.disabled) return;
+  if (control) { control.disabled = true; control.setAttribute('aria-busy', 'true'); }
+  requestAnimationFrame(() => setTimeout(() => {
+    try { setLang(next); }
+    finally { if (control?.isConnected) { control.disabled = false; control.removeAttribute('aria-busy'); } }
+  }, 0));
+}
