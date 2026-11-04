@@ -8,7 +8,7 @@
 .ui-nav__link { padding: 6px 14px; border-radius: var(--r-pill); font-size: 13px; color: var(--c-fg-2); transition: color var(--d-2), background var(--d-2); }
 .ui-nav__link:hover { color: var(--c-fg); background: rgb(245 245 247 / 0.07); }
 .ui-nav__end { justify-self: end; display: flex; align-items: center; gap: 10px; }
-.ui-nav__cta { opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity var(--d-2) var(--e-std), transform var(--d-3) var(--e-out), background var(--d-2); }
+.ui-nav__cta { opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity var(--d-2) var(--e-std), transform var(--d-release) var(--e-out), background var(--d-2); }
 .ui-nav.is-cta .ui-nav__cta { opacity: 1; transform: none; pointer-events: auto; }
 .ui-nav__lang { height: 32px; min-width: 40px; padding: 0 10px; border: 0; border-radius: var(--r-pill); background: transparent; font: var(--w-medium) 12px/1 var(--f-mono); letter-spacing: 0.04em; color: var(--c-fg-2); transition: color var(--d-2), background var(--d-2); }
 .ui-nav__lang:hover { color: var(--c-fg); background: rgb(245 245 247 / 0.07); }

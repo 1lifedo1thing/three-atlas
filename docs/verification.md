@@ -100,3 +100,9 @@ P1-C 浏览器补充：坐标输入曾发生在开窗入场稳定前；用例改
 导航使用 ScrollTrigger 以视口中线定位，当前项 aria-current 与前景色同步，单个 4px 圆点以 400ms 滑动；字体加载后刷新测量，滚动 pin 建立后再注册导航。普通动效、减少动态及语言切换测试通过。修正 Playwright 减少动态配置至 contextOptions，静态截图原已使用正确的独立上下文选项。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-E/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · P1-F
+
+按钮、筛选和图集翻页控件按下时缩至 0.97、时长 120ms，释放以 240ms expo 曲线回弹，禁用态不响应。真实按下测试核对三类控件的变换和时长，录屏包含按下与释放。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-F/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。

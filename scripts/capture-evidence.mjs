@@ -43,7 +43,15 @@ try {
       await page.waitForTimeout(500);
     }
     if (!target) { await page.mouse.wheel(0, 1100); await page.waitForTimeout(900); }
+    if (item === 'P1-F') {
+      const button = page.locator('.ui-footer .ui-btn').first();
+      await button.scrollIntoViewIfNeeded();
+      await button.hover();
+      await page.mouse.down();
+      await page.waitForTimeout(200);
+    }
     await page.screenshot({ path: resolve(root, 'interaction.jpg'), type: 'jpeg', quality: 88 });
+    if (item === 'P1-F') { await page.mouse.move(10, 100); await page.mouse.up(); await page.waitForTimeout(300); }
     const video = page.video();
     await context.close();
     const raw = await video.path();

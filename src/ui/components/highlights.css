@@ -15,7 +15,7 @@
 .ui-gallery__dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: var(--r-pill); background: var(--c-fg-4); transition: width var(--d-3) var(--e-out), background var(--d-2); }
 .ui-gallery__dot[aria-current='true'] { width: 28px; background: var(--c-fg); }
 .ui-gallery__paddles { display: flex; gap: 10px; }
-.ui-gallery__paddle { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: var(--c-surface-2); color: var(--c-fg); transition: background var(--d-2), opacity var(--d-2); }
+.ui-gallery__paddle { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: var(--c-surface-2); color: var(--c-fg); transition: transform var(--d-release) var(--e-out), background var(--d-2), opacity var(--d-2); }
 .ui-gallery__paddle:hover:not(:disabled) { background: #2a2a2e; }
 .ui-gallery__paddle:disabled { opacity: 0.35; cursor: default; }
 @media (max-width: 720px) {

@@ -1,0 +1,1 @@
+.ui-btn:active:not(:disabled), .ui-chip:active:not(:disabled), .ui-gallery__paddle:active:not(:disabled) { transform: scale(0.97); transition-duration: var(--d-press); }
