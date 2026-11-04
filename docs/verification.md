@@ -138,3 +138,9 @@ P1-C 浏览器补充：坐标输入曾发生在开窗入场稳定前；用例改
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/KIT/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
 
 KIT 补充：像素断言复现上下文恢复后只有背景的缺陷，RoomEnvironment 现会在恢复时重建 PMREM 环境；恢复前后实际像素均有可见三角形。录屏改用 video.saveAs 等待写入，ffprobe 确认 6.32 秒、239714 字节；专项截图已人工查看，黑帧与空文件旧结果被替换。
+
+## 2026-11-04 · TEMPLATE
+
+新增独立作品模板、ExperienceShell 与 npm run new:work，安全追加作品目录并拒绝越界或覆盖，提示补真实封面和审阅中英文草稿。模板不进入目录和构建。临时副本的实际 GPU 作品已验证目录卡片、进入、刷新、返回链接与构建入口，测试后清理，正式目录仍只有首作；TEMPLATE/after/template-smoke.webm 为专项录屏。生成内容待用户审阅。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/TEMPLATE/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。

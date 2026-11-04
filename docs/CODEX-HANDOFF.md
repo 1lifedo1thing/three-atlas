@@ -21,12 +21,6 @@
 
 ## P1 · 复用能力
 
-### 5. 作品模板与脚手架
-
-- 新增 `experiences/_template/`：用第 4 项的套件搭一个最小作品，界面使用 Atlas UI 令牌，场景就绪时给 `body` 加 `ready`。构建入口要忽略这个目录。
-- `npm run new:work -- <id> "<TITLE>" "<中文副标题>"`：复制模板、在 works.json 追加条目、提示补封面。
-- 验收：新作品出现在目录里；直接访问并刷新正常；从首页进入时过渡无缝。
-
 ### 6. 组件陈列页与视觉回归
 
 - `pages/ui/`（加 `noindex`，首页不链接）：展示 `src/ui` 全部组件和状态，包括 Statement、Panels、Principles、Highlights、按钮三种变体、卡片的悬停与缺图、目录的空结果，中英文各一份。

@@ -19,3 +19,5 @@ export { WorkIndex } from './components/work-index.js';
 export { Footer, animateFooter } from './components/footer.js';
 
 export { claimEntrance } from './entrance.js';
+
+export { ExperienceShell } from './components/experience-shell.js';
