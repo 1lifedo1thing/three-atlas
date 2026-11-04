@@ -77,6 +77,8 @@ Three Atlas 是观默的 3D 作品集，也是一套可以反复使用的创作�
 
 ## 6. 动效（`src/ui/motion.js`）
 
+交互细节的精确参数（视频、指针光、视差、渐显、导航、按压、入场、性能预算）见 `docs/design-polish.md`。
+
 - 技术栈：GSAP 3（ScrollTrigger、SplitText）加 Lenis 平滑滚动，都是免费的开源方案。不再手写滚动监听。
 - 词汇表：入场用 `expo.out`，时长 1.1–1.4 秒，位移 16–48px；同组元素错开 0.08 秒。滚动相关的动效一律 `scrub`，不做自动播放。
 - 现成的辅助函数：`reveal(root)` 处理所有 `[data-reveal]`（值为 `group` 时子元素依次入场）；`riseLines(el)` 让标题逐行从遮罩中升起；`lightUp(el)` 让段落逐词点亮（中文用 `Intl.Segmenter` 分词，不会把「环绕」拆开）。
