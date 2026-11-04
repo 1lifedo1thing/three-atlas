@@ -1,0 +1,18 @@
+{
+  "slug": "strata",
+  "plate": 1,
+  "title": { "en": "Strata", "zh": "地层" },
+  "summary": {
+    "en": "A living island surveyed in contour lines. The land breathes, a survey line sweeps up through its elevations, and wherever your cursor rests, the ground rises to meet it.",
+    "zh": "一座以等高线测绘的活岛屿。地势缓缓呼吸，测绘线自低向高扫过每一层海拔；光标停留之处，大地随之隆起。"
+  },
+  "medium": [
+    { "en": "Procedural terrain", "zh": "程序化地形" },
+    { "en": "GLSL contours", "zh": "GLSL 等高线" }
+  ],
+  "year": 2026,
+  "toneMapping": "neutral",
+  "exposure": 1.0,
+  "accent": "#ff5b37",
+  "controls": { "en": "Drag to orbit · Scroll to zoom · Hover to raise the land", "zh": "拖动环绕 · 滚轮缩放 · 悬停抬升大地" }
+}
