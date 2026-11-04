@@ -13,11 +13,6 @@
 
 ## P0 · 先做
 
-### 1. `highlights` 校验与测试
-
-- `scripts/content.mjs`：`highlights` 为 3–4 项；每项的 `title`、`text`、`tech` 都要有中英文；`focus`、`zoom` 沿用现有校验。
-- 在 `tests/catalog.test.js` 中补充对应的测试用例。
-
 ### 2. 文风检查 `scripts/check-copy.mjs`（加入 `npm run check`）
 
 依据 `docs/design-system.md` 第 8 节，扫描 `src/gallery/copy.js` 和 `content/works.json`：

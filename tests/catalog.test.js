@@ -48,3 +48,33 @@ test('首页主推作品可手动指定，最多一个', async () => {
   assert.ok(validateWorks([{ ...works[0], featured: true }, { ...second }], root).some(error => error.includes('featured')));
   assert.ok(validateWorks([{ ...works[0], highlights: [{ title: { zh: '甲' }, text: { zh: '乙', en: 'b' } }] }], root).some(error => error.includes('亮点')));
 });
+
+test('亮点必须为三至四项，不能发布空列表、两项或五项', () => {
+  const highlight = works[0].highlights[0];
+  for (const count of [0, 2, 5]) {
+    const errors = validateWorks([{ ...works[0], highlights: Array.from({ length: count }, () => structuredClone(highlight)) }], root);
+    assert.ok(errors.some(error => error.includes('highlights') && error.includes('3–4')), `${count} 项应被拒绝`);
+  }
+  for (const count of [3, 4]) {
+    assert.deepEqual(validateWorks([{ ...works[0], highlights: Array.from({ length: count }, () => structuredClone(highlight)) }], root), []);
+  }
+  const { highlights, ...withoutHighlights } = works[0];
+  assert.deepEqual(validateWorks([withoutHighlights], root), []);
+});
+
+test('每项亮点的技术说明必须有非空的中英文', () => {
+  for (const tech of [undefined, null, {}, { zh: '实例化树叶' }, { en: 'Instancing' }, { zh: ' ', en: 'Instancing' }]) {
+    const work = structuredClone(works[0]);
+    work.highlights[1].tech = tech;
+    assert.ok(validateWorks([work], root).some(error => error.includes('第 2 个亮点') && error.includes('技术')), JSON.stringify(tech));
+  }
+});
+
+test('亮点校验保留原有 focus 与 zoom 的错误反馈', () => {
+  const work = structuredClone(works[0]);
+  work.highlights[0].focus = 'left top';
+  work.highlights[0].zoom = 0.5;
+  const errors = validateWorks([work], root);
+  assert.ok(errors.some(error => error.includes('focus')));
+  assert.ok(errors.some(error => error.includes('zoom')));
+});

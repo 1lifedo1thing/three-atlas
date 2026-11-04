@@ -10,6 +10,7 @@
 | GSAP 3.15.1（含 ScrollTrigger、SplitText） | GreenSock / Webflow | https://gsap.com | GSAP Standard "No Charge" License（https://gsap.com/standard-license），可免费商用 | 首页滚动动效与文字动画 |
 | Lenis 1.3.27 | darkroom.engineering | https://github.com/darkroomengineering/lenis | MIT | 首页平滑滚动 |
 | Vite 8.3.5 | Vite contributors；发起者 Evan You | https://github.com/vitejs/vite | MIT，见 `experiences/where-stars-rest/third-party/vite-LICENSE.txt` | 开发服务与多页面静态构建 |
+| Playwright Test 1.58.0 | Microsoft / Playwright contributors | https://github.com/microsoft/playwright | Apache-2.0（https://github.com/microsoft/playwright/blob/main/LICENSE） | 仅开发验证：独立浏览器截图、录屏与回归测试 |
 
 保留首作的完整说明：[WHERE STARS REST 第三方依赖](./experiences/where-stars-rest/THIRD_PARTY.md)。没有修改上游依赖源码。
 

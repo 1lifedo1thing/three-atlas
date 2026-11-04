@@ -29,11 +29,15 @@ export function validateWorks(works, root) {
     if (work.featured !== undefined && typeof work.featured !== 'boolean') errors.push(`${label}：featured 必须为 true 或 false`);
     if (work.highlights !== undefined) {
       if (!Array.isArray(work.highlights)) errors.push(`${label}：highlights 必须为数组`);
-      else work.highlights.forEach((item, i) => {
+      else {
+        if (work.highlights.length < 3 || work.highlights.length > 4) errors.push(`${label}：highlights 必须为 3–4 项`);
+        work.highlights.forEach((item, i) => {
         if (!bilingual(item?.title) || !bilingual(item?.text)) errors.push(`${label}：第 ${i + 1} 个亮点缺少中英文标题或说明`);
+        if (!bilingual(item?.tech)) errors.push(`${label}：第 ${i + 1} 个亮点缺少中英文技术说明`);
         if (item?.focus !== undefined && !/^\d{1,3}% \d{1,3}%$/.test(item.focus)) errors.push(`${label}：第 ${i + 1} 个亮点 focus 应形如 "50% 40%"`);
         if (item?.zoom !== undefined && !(typeof item.zoom === 'number' && item.zoom >= 1 && item.zoom <= 4)) errors.push(`${label}：第 ${i + 1} 个亮点 zoom 应在 1–4 之间`);
-      });
+        });
+      }
     }
     if (typeof work.cover !== 'string' || !/^media\/[a-zA-Z0-9/_-]+\.(?:jpg|jpeg|png|webp|avif)$/.test(work.cover)) {
       errors.push(`${label}：封面必须位于 public/media/，且不能包含越界路径或查询串`);
