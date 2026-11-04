@@ -80,3 +80,11 @@ Roadmap 复用现有 SectionHead 和 Badge，首页仅组合组件，保留现�
 按规范使用 360px 光层、0.09 亮度和 0.28 边缘光，300ms 进入、500ms 离开，只有细指针且非减少动态时启用；pointerenter 缓存一次布局、pointermove 只排队一帧更新，委托事件覆盖搜索重建卡片。桌面单活动卡片与粗指针降级浏览器用例通过。
 
 验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-B/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+## 2026-11-04 · P1-C
+
+开窗媒体在细指针、非减少动态条件下以每帧 lerp 0.08 追随，最大位移 ±1.2%，离开回中并在收敛后停止帧循环。图片与视频共用媒体容器；遮边缩放仅由当前位移推导，居中保持原构图。单元与真实指针浏览器测试通过，减少动态状态立即归零。
+
+验证：`npm run check`、`npm test`、`npm run build` 均通过。截图与录屏：`output/engineering-review/P1-C/`（桌面 1440×900、手机 390×844，中英文，before / after；after/interaction.mp4 为真实浏览器录屏）。页面证据属于工程验收，审美仍待 Claude 与用户接受。
+
+P1-C 浏览器补充：坐标输入曾发生在开窗入场稳定前；用例改为等待元素可见稳定后的真实悬停，保留位移与回中期望，现已通过。产品动效参数不变。
