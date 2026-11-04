@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#070b19" />
+    <meta name="description" content="宇宙尽头，还有一束光。探索一座漂浮于星海的霓虹岛屿。" />
+    <title>WHERE STARS REST — 星海中的微小世界</title>
+    <link rel="stylesheet" href="../../src/shared/experience-nav.css" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070b19'/%3E%3Cpath d='M32 9 51 32 32 55 13 32Z' fill='none' stroke='%239b91ee' stroke-width='2'/%3E%3Cpath d='M32 20v25m0-13-10-8m10 13 12-13' fill='none' stroke='%238be6f3' stroke-width='3'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <main class="experience" aria-label="漂浮霓虹岛交互场景">
+      <canvas id="scene" aria-label="一座漂浮在星海中的岛屿，中央生长着发光的霓虹树。拖动或使用方向键旋转，滚轮或双指缩放。" tabindex="0"></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <a class="wordmark" href="./" aria-label="WHERE STARS REST 首页">
+          <svg class="sigil" viewBox="0 0 36 42" fill="none" aria-hidden="true"><path d="M18 1 35 21 18 41 1 21Z"/><path d="M18 10v22m0-12-8-6m8 11 8-11"/><circle cx="18" cy="10" r="1.4"/></svg>
+          <span>WHERE STARS REST<span class="wordmark-sub">A PLACE BETWEEN STARS</span></span>
+        </a>
+        <div class="top-actions">
+          <a class="atlas-return" href="../../" aria-label="返回 Three Atlas" title="返回 Three Atlas"><span aria-hidden="true">←</span><span class="atlas-return-name">Three Atlas</span></a>
+          <span class="world-index"><span class="status-dot"></span> SANCTUARY <span class="index-divider">/</span> 001</span>
+          <button class="icon-button" id="sound" type="button" aria-label="开启氛围音" aria-pressed="false" title="开启氛围音">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m11 5-5 4H3v6h3l5 4V5Z"/><path class="sound-wave" d="M15 8c2 2 2 6 0 8m3-11c4 4 4 10 0 14"/><path class="sound-slash" d="m16 10 4 4m0-4-4 4"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="glow-control" id="glow-control">
+        <div class="glow-label"><label for="glow"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/></svg>光芒</label><output id="glow-value" for="glow">55%</output></div>
+        <input id="glow" type="range" min="0" max="100" step="1" value="55" aria-label="光芒亮度" aria-valuetext="55%" />
+      </div>
+
+      <div class="location-label" aria-hidden="true"><span class="location-line"></span><span>漂浮于万籁之间</span><span class="location-coordinates">∞ &nbsp; / &nbsp; 00.01</span></div>
+
+      <footer class="bottom-bar">
+        <div class="title-block">
+          <div class="eyebrow"><span></span> SOMEWHERE, SOMETHING STILL GLOWS</div>
+          <h1>WHERE STARS <span>REST</span></h1>
+          <p>宇宙尽头，还有一束光。</p>
+        </div>
+        <div class="explore-hint" id="hint"><span class="drag-glyph" aria-hidden="true"><svg viewBox="0 0 34 24" fill="none"><path d="m5 9-4 3 4 3m24-6 4 3-4 3M1 12h8m16 0h8"/><rect x="12" y="2" width="10" height="19" rx="5"/><path d="M17 6v4"/></svg></span><span>拖动探索</span><span class="hint-dot">·</span><span class="zoom-hint">滚轮缩放</span></div>
+        <div class="view-actions">
+          <button class="icon-button" id="motion" type="button" aria-label="暂停自动旋转" aria-pressed="false" title="暂停自动旋转"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="pause-icon" d="M9 6v12M15 6v12"/><path class="play-icon" d="m9 6 9 6-9 6V6Z"/></svg></button>
+          <button class="icon-button" id="reset" type="button" aria-label="回到初始视角" title="回到初始视角"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 10a7 7 0 1 1 .8 6.5M5 5v5h5"/></svg></button>
+          <span class="view-label">TAKE A MOMENT.<br/>STAY A LITTLE.</span>
+        </div>
+      </footer>
+
+      <div class="loading" id="loading" role="status"><span class="loading-orbit"><i></i></span><span>正在寻找星光的归处</span></div>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      <section class="error-panel" id="error" hidden><span class="eyebrow">WHERE STARS REST</span><h2>星海暂时无法抵达</h2><p id="error-message">请使用支持 WebGL 2 的现代浏览器，并开启硬件加速。</p><button type="button" onclick="location.reload()">重新载入</button></section>
+      <noscript><div class="noscript">请开启 JavaScript，进入这片星海。</div></noscript>
+    </main>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

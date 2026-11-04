@@ -1,0 +1,26 @@
+export const copy = {
+  zh: {
+    pageTitle: 'Three Atlas · 三维图鉴',
+    skip: '跳到作品', nav: '作品', language: 'English', languageLabel: 'Switch to English',
+    eyebrow: '三维图鉴 / 持续生长的作品集',
+    headline: '每个入口，\n另一个世界。',
+    intro: '在浏览器里，走近一个个可以探索的三维世界。',
+    collection: '探索作品', search: '搜索作品', placeholder: '搜索作品、主题或技术',
+    count: count => `${String(count).padStart(2, '0')} 个作品`,
+    enter: '进入体验', mode: '实时交互',
+    emptyTitle: '还没有找到这个世界。', emptyText: '换一个关键词，或回到全部作品。', reset: '查看全部作品',
+    footer: '由观默创作与维护',
+  },
+  en: {
+    pageTitle: 'Three Atlas · Interactive 3D worlds',
+    skip: 'Skip to works', nav: 'Works', language: '中文', languageLabel: '切换为中文',
+    eyebrow: 'AN EVER-GROWING ATLAS OF 3D EXPERIENCES',
+    headline: 'A small window.\nAnother world.',
+    intro: 'Step inside a collection of worlds made to be explored in your browser.',
+    collection: 'Explore the atlas', search: 'Search works', placeholder: 'Search worlds, themes, or technology',
+    count: count => `${String(count).padStart(2, '0')} ${count === 1 ? 'experience' : 'experiences'}`,
+    enter: 'Enter experience', mode: 'Interactive 3D',
+    emptyTitle: 'This world is still out there.', emptyText: 'Try another search, or return to all experiences.', reset: 'View all experiences',
+    footer: 'Created and maintained by 观默',
+  },
+};

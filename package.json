@@ -1,0 +1,17 @@
+{
+  "name": "three-atlas",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "An atlas of interactive 3D worlds and creative experiments for the web.",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5194 --strictPort",
+    "check": "node scripts/check.mjs",
+    "test": "node --test tests/*.test.js experiences/*/tests/*.test.js",
+    "build": "node scripts/check-content.mjs && vite build && node scripts/check-build.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 4194 --strictPort"
+  },
+  "dependencies": { "three": "0.186.1" },
+  "devDependencies": { "vite": "8.3.5" },
+  "engines": { "node": "^20.19.0 || >=22.12.0" }
+}

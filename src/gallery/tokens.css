@@ -1,0 +1,14 @@
+:root {
+  color-scheme: dark;
+  --atlas-bg: #111113;
+  --atlas-panel: #19191d;
+  --atlas-ink: #efeeed;
+  --atlas-muted: #a5a3ac;
+  --atlas-line: #323137;
+  --atlas-accent: #c0b4f1;
+  --atlas-width: 1320px;
+  --atlas-gutter: clamp(24px, 5vw, 80px);
+  --atlas-font: 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--atlas-font);
+  font-synthesis: none;
+}

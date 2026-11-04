@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111113" />
+    <meta name="description" content="Three Atlas · 三维图鉴。在浏览器里探索交互式 3D 世界、模型、仿真与创意实验。" />
+    <meta name="author" content="观默 / @guanmo_ai" />
+    <title>Three Atlas · 三维图鉴</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23111113'/%3E%3Cpath d='m20 7 12 7v13l-12 7-12-7V14Zm0 0v27M8 14l12 7 12-7' stroke='%23efeeed' fill='none' stroke-width='1.5'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <a class="skip-link" href="#collection" data-copy="skip">跳到作品</a>
+    <div class="shell">
+      <header class="site-header">
+        <a class="brand" href="./" aria-label="Three Atlas">
+          <svg viewBox="0 0 30 34" fill="none" aria-hidden="true"><path d="m15 1 13 8v16L15 33 2 25V9Z" stroke="currentColor"/><path d="m2 9 13 8 13-8M15 1v32" stroke="currentColor"/></svg>
+          <span>Three Atlas</span>
+        </a>
+        <nav class="site-nav" aria-label="Three Atlas">
+          <a class="nav-works" href="#collection" data-copy="nav">作品</a>
+          <a href="https://github.com/guanmo-ai/three-atlas" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <button id="language" class="language-button" type="button" data-copy="language" aria-label="Switch to English">English</button>
+        </nav>
+      </header>
+      <main>
+        <section class="intro" aria-labelledby="intro-title">
+          <p class="eyebrow" data-copy="eyebrow">三维图鉴 / 持续生长的作品集</p>
+          <h1 id="intro-title" data-copy="headline">每个入口，&#10;另一个世界。</h1>
+          <p class="intro-description" data-copy="intro">在浏览器里，走近一个个可以探索的三维世界。</p>
+        </section>
+        <section id="collection" aria-labelledby="collection-title">
+          <div class="collection-head">
+            <div class="collection-title"><h2 id="collection-title" data-copy="collection">探索作品</h2><p id="result-count" class="result-count" role="status" aria-live="polite"></p></div>
+            <label class="search">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg>
+              <span class="sr-only" data-copy="search">搜索作品</span>
+              <input id="search" type="search" placeholder="搜索作品、主题或技术" autocomplete="off" />
+            </label>
+          </div>
+          <div id="works" class="work-grid"></div>
+          <div id="empty" class="empty" hidden><h3 data-copy="emptyTitle">还没有找到这个世界。</h3><p data-copy="emptyText">换一个关键词，或回到全部作品。</p><button id="reset-search" class="reset-search" type="button" data-copy="reset">查看全部作品</button></div>
+          <noscript><p>浏览作品目录需要 JavaScript。你也可以直接<a href="./experiences/where-stars-rest/index.html">进入 WHERE STARS REST</a>。</p></noscript>
+        </section>
+      </main>
+      <footer class="site-footer"><p data-copy="footer">由观默创作与维护</p><a href="https://x.com/guanmo_ai" target="_blank" rel="noopener noreferrer">@guanmo_ai ↗</a></footer>
+    </div>
+    <script type="module" src="./src/gallery/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "where-stars-rest",
+    "title": "WHERE STARS REST",
+    "subtitle": { "zh": "星光的归处", "en": "A place between stars" },
+    "summary": {
+      "zh": "一座悬浮于星海的微小庇护所。绕树而行，看光芒与萤火一起呼吸。",
+      "en": "A tiny sanctuary adrift among the stars. Orbit a luminous tree and watch its light breathe with the fireflies."
+    },
+    "category": { "zh": "微型世界", "en": "Miniature world" },
+    "tags": ["Three.js", "程序化", "Procedural", "岛屿", "Island", "交互", "Interactive"],
+    "entry": "experiences/where-stars-rest/index.html",
+    "cover": "media/where-stars-rest.jpg",
+    "coverAlt": {
+      "zh": "深蓝星空中的悬浮岩岛，岛上生长着一棵紫色发光树，萤火围绕树冠。",
+      "en": "A floating rock island in a dark blue starfield, with a luminous violet tree and drifting fireflies."
+    },
+    "author": { "name": "观默", "handle": "guanmo_ai", "url": "https://x.com/guanmo_ai" }
+  }
+]

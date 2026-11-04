@@ -1,0 +1,17 @@
+.atlas-return {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 0;
+  color: #a6abc2;
+  text-decoration: none;
+  font: 10px 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: .025em;
+  white-space: nowrap;
+}
+.atlas-return:hover { color: #e4e4ef; }
+@media (max-width: 600px) {
+  .atlas-return { width: 28px; justify-content: center; font-size: 17px; }
+  .atlas-return-name { display: none; }
+  .top-actions { gap: 10px; }
+}
