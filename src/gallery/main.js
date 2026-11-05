@@ -24,7 +24,7 @@ const view = (work, featured) => ({
 });
 
 /**
- * Home is a gallery: one line of title, one of description, then the works — the featured one first and largest.
+ * Home is a gallery: one line of title, one of description, then equally sized works with the featured one first.
  * Everything else (about, footer) waits below for whoever keeps scrolling.
  */
 function render() {

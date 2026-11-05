@@ -32,7 +32,7 @@ export function WorkIndex({ id, head, select, categories = [], labels }) {
     list.forEach((work, index) => {
       let card = cards.get(work.id);
       if (!card) {
-        const el = WorkCard({ work, index: work.index, labels });
+        const el = WorkCard({ work, index: work.index, labels, uniform: true });
         card = { el, stop: observePreview(el, { hover: !work.featured }) };
         cards.set(work.id, card);
       }

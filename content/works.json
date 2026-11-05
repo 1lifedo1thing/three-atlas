@@ -212,5 +212,75 @@
       "ambient": "media/lumen-corallum-ambient.webp",
       "sourceHash": "f944467d39f54fcd8b5557c3305dcea6f3a470c5492f8e75fa67f8349ccca653"
     }
+  },
+  {
+    "id": "atoll-jelly",
+    "title": "Atoll Jelly",
+    "subtitle": {
+      "zh": "环礁果冻",
+      "en": "A lagoon in miniature"
+    },
+    "summary": {
+      "zh": "一座落日里的果冻泻湖。搅动海水，投喂鱼群，看水上飞机从岛边起飞。",
+      "en": "A jelly lagoon at sunset. Stir the water, feed the fish and watch a seaplane leave the island."
+    },
+    "category": {
+      "zh": "微型世界",
+      "en": "Miniature world"
+    },
+    "tags": [
+      "WebGPU",
+      "WGSL",
+      "岛屿",
+      "Island",
+      "互动",
+      "Interactive"
+    ],
+    "entry": "experiences/atoll-jelly/index.html",
+    "cover": "media/atoll-jelly.jpg",
+    "coverAlt": {
+      "zh": "金色夕光下的微缩环礁，透明海水中有鱼群，沙岛旁是一座带泳池的海边住宅。",
+      "en": "A miniature atoll in golden light, with fish in translucent water and a waterside villa with a pool."
+    },
+    "author": {
+      "name": "观默",
+      "handle": "guanmo_ai",
+      "url": "https://x.com/guanmo_ai"
+    },
+    "tone": "#6b6354",
+    "images": {
+      "width": 2880,
+      "height": 1800,
+      "avif": [
+        {
+          "src": "media/atoll-jelly-720.avif",
+          "width": 720
+        },
+        {
+          "src": "media/atoll-jelly-1440.avif",
+          "width": 1440
+        },
+        {
+          "src": "media/atoll-jelly-2880.avif",
+          "width": 2880
+        }
+      ],
+      "webp": [
+        {
+          "src": "media/atoll-jelly-720.webp",
+          "width": 720
+        },
+        {
+          "src": "media/atoll-jelly-1440.webp",
+          "width": 1440
+        },
+        {
+          "src": "media/atoll-jelly-2880.webp",
+          "width": 2880
+        }
+      ],
+      "ambient": "media/atoll-jelly-ambient.webp",
+      "sourceHash": "1ea308338251497e8462dfd6a052a4a65ed4a6dab403e422af78e7143f55fc5e"
+    }
   }
 ]

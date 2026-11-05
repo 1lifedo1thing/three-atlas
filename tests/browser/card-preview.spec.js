@@ -24,7 +24,7 @@ test('普通卡片停留 120ms 加载，暂停主推，离开 300ms 复位并恢
   const { featured, regular, link } = await cards(page);
   await expect(featured).toHaveJSProperty('paused', false);
   await page.clock.install();
-  await page.clock.pauseAt(new Date());
+  await page.clock.pauseAt(await page.evaluate(() => Date.now() + 1000));
   await link.dispatchEvent('pointerenter');
   await page.clock.runFor(119);
   await expect(regular.locator('source')).toHaveCount(0);
@@ -75,7 +75,7 @@ for (const mode of ['reduce', 'save-data', 'slow-2g', '2g', '3g', 'touch']) test
 test('主推卡至少一半可见才自动播放，移除普通卡后释放旧源', async ({ page }) => {
   const { featured, regular, link } = await cards(page);
   await expect(featured).toHaveJSProperty('paused', false);
-  await featured.locator('..').locator('..').evaluate(el => scrollTo(0, el.getBoundingClientRect().top + scrollY + el.offsetHeight * 0.6));
+  await featured.locator('..').locator('..').locator('..').evaluate(el => scrollTo(0, el.getBoundingClientRect().top + scrollY + el.offsetHeight * 0.75));
   await expect(featured).toHaveJSProperty('paused', true);
   await link.scrollIntoViewIfNeeded(); await link.focus();
   await expect(regular).toHaveClass(/is-playing/);

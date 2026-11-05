@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
+import { selectWorks } from '../../src/gallery/model.js';
 const works = JSON.parse(readFileSync(new URL('../../content/works.json', import.meta.url), 'utf8'));
 const categoryCount = new Set(works.map(work => work.category.zh)).size;
 
@@ -16,6 +17,12 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 1280, height: 800
     await expect(page.locator('.ui-chips')).toHaveCount(categoryCount > 1 ? 1 : 0);
     const box = await page.locator('.ui-card--featured .ui-card__picture').boundingBox();
     expect(box.y).toBeLessThan(viewport.height);
+    const boxes = await page.locator('.ui-card__picture').evaluateAll(cards => cards.map(card => ({ width: card.getBoundingClientRect().width, height: card.getBoundingClientRect().height })));
+    expect(boxes).toHaveLength(works.length);
+    for (const item of boxes) {
+      expect(Math.abs(item.width - boxes[0].width)).toBeLessThan(1);
+      expect(Math.abs(item.height - boxes[0].height)).toBeLessThan(1);
+    }
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
     const search = page.getByRole('searchbox');
     await search.fill('不存在的世界'); await expect(page.locator('.ui-card')).toHaveCount(0);
@@ -24,7 +31,10 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 1280, height: 800
     await expect(page.locator('.ui-card')).toHaveCount(works.length);
     await page.keyboard.press('Escape'); await search.blur();
     await page.keyboard.press('/'); await expect(search).toBeFocused();
-    await search.fill('three.js'); await expect(page.locator('.ui-card')).toHaveCount(works.length);
+    await search.fill('three.js'); await expect(page.locator('.ui-card')).toHaveCount(selectWorks(works, 'three.js').length);
+    const filteredBox = await page.locator('.ui-card__picture').first().boundingBox();
+    expect(Math.abs(filteredBox.width - boxes[0].width)).toBeLessThan(1);
+    expect(Math.abs(filteredBox.height - boxes[0].height)).toBeLessThan(1);
     if (categoryCount > 1) {
       await page.locator('.ui-chip').last().click();
       await search.fill('不存在的世界'); await page.locator('.ui-index__empty button').click();
