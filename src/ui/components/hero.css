@@ -2,3 +2,8 @@
 .ui-hero__eyebrow { margin-bottom: clamp(18px, 2.6vh, 28px); }
 .ui-hero__title { max-width: 12em; }
 .ui-hero__lede { max-width: 30em; margin-top: clamp(18px, 2.6vh, 28px); text-wrap: balance; }
+
+/* Compact: a gallery page opens with one line of title and one of description, then the work. */
+.ui-hero--compact { justify-items: start; text-align: start; padding-top: calc(var(--nav-h) + clamp(24px, 4vh, 44px)); padding-bottom: clamp(14px, 2vh, 22px); }
+.ui-hero--compact .ui-hero__title { max-width: none; font-size: clamp(30px, 3.2vw, 46px); line-height: 1.1; letter-spacing: -0.04em; }
+.ui-hero--compact .ui-hero__lede { max-width: 46em; margin-top: 10px; font-size: clamp(14px, 1.05vw, 16px); text-wrap: pretty; }

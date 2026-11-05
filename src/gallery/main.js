@@ -5,9 +5,8 @@ import works from '../../content/works.json';
 import { pickFeatured, selectWorks } from './model.js';
 import { copy } from './copy.js';
 import {
-  h, getLang, requestLang, onLang, pick, gsap, ScrollTrigger, startScroll, scrollToTarget, reveal, riseLines, scope, reduced,
-  claimEntrance, bindTransitions, bindPointerGlow, GlobalNav, animateNav, Hero, FeatureWindow, animateFeatureWindow, Statement, animateStatement, Panels, Principles,
-  SectionHead, WorkIndex, Footer, animateFooter, Roadmap,
+  h, getLang, requestLang, onLang, pick, gsap, ScrollTrigger, startScroll, scrollToTarget, reveal, scope, reduced,
+  claimEntrance, bindTransitions, bindPointerGlow, GlobalNav, animateNav, Hero, Principles, SectionHead, WorkIndex, Footer, animateFooter,
 } from '../ui/index.js';
 
 const app = document.querySelector('#app');
@@ -17,56 +16,48 @@ let cleanups = [];
 let workIndex = null;
 
 /** Localized view model of a work, as components expect it. */
-const view = work => ({
+const view = (work, featured) => ({
   id: work.id, entry: work.entry, cover: work.cover, preview: work.preview, tone: work.tone, images: work.images, index: works.indexOf(work),
+  featured: work === featured,
   title: work.title, subtitle: pick(work.subtitle), summary: pick(work.summary), category: pick(work.category),
   alt: pick(work.coverAlt), author: `${work.author.name} / @${work.author.handle}`,
 });
 
+/**
+ * Home is a gallery: one line of title, one of description, then the works — the featured one first and largest.
+ * Everything else (about, footer) waits below for whoever keeps scrolling.
+ */
 function render() {
   const lang = getLang();
   const t = copy[lang];
   context?.revert();
   cleanups.forEach(fn => fn());
   cleanups = [];
+  workIndex?.dispose?.();
   document.title = t.pageTitle;
 
   const featured = pickFeatured(works);
-  const f = featured && view(featured);
   const categories = [...new Set(works.map(w => pick(w.category)))];
+  const ordered = list => [...list].sort((a, b) => (b === featured) - (a === featured));
 
   const nav = GlobalNav({
-    links: [featured?.highlights?.length ? { label: t.navFeatured, href: '#featured' } : null, { label: t.navAbout, href: '#about' }, { label: t.navWorks, href: '#works' }].filter(Boolean),
-    cta: f && { label: t.enter, href: f.entry },
+    links: [{ label: t.navWorks, href: '#works' }, { label: t.navAbout, href: '#about' }],
     lang: { label: t.langLabel, aria: t.langAria, onToggle: event => requestLang(lang === 'zh' ? 'en' : 'zh', event.currentTarget) },
   });
-
-  const hero = Hero({ eyebrow: t.eyebrow, title: t.headline, lede: t.intro });
-  const opening = f && FeatureWindow({
-    id: 'opening', work: f, live: t.mode, meta: [t.featured, f.category],
-    enter: { label: t.enterLong, href: f.entry },
-    more: featured.highlights?.length ? { label: t.more, href: '#featured' } : null,
-  });
-  const statement = Statement({ text: t.statement, muted: t.statementMuted });
-  const featuredSection = featured?.highlights?.length ? Panels({
-    id: 'featured',
-    head: SectionHead({ id: 'featured-title', size: 'h1', eyebrow: t.featuredEyebrow(featured.title), title: t.featuredTitle, lede: f.summary }),
-    items: featured.highlights.map(item => ({ title: pick(item.title), text: pick(item.text), tech: pick(item.tech), image: featured.cover, images: featured.images, tone: featured.tone, focus: item.focus, zoom: item.zoom })),
-  }) : null;
-  const about = Principles({ id: 'about', head: SectionHead({ id: 'about-title', size: 'h1', eyebrow: t.aboutEyebrow, title: t.aboutTitle, lede: t.aboutLede }), items: t.about });
-  const next = Roadmap({ id: 'next', eyebrow: t.nextEyebrow, title: t.nextTitle, lede: t.nextLede });
+  const hero = Hero({ compact: true, title: t.headline, lede: t.intro });
   workIndex = WorkIndex({
     id: 'works',
-    head: h('div.ui-index__heading', null, h('p.ui-eyebrow', null, t.indexEyebrow), h('h2.ui-h2', { id: 'works-title' }, t.collection)),
+    head: h('h2.ui-sr', { id: 'works-title' }, t.collection),
     categories,
-    select: (query, category) => selectWorks(works, query).filter(w => !category || pick(w.category) === category).map(view),
+    select: (query, category) => ordered(selectWorks(works, query).filter(w => !category || pick(w.category) === category)).map(w => view(w, featured)),
     labels: { ...t, count: t.count },
   });
+  const about = Principles({ id: 'about', compact: true, head: SectionHead({ id: 'about-title', size: 'h3', title: t.aboutTitle }), items: t.about });
   const footer = Footer({
     closing: t.closing,
     columns: [
       { title: t.colWorks, links: works.map(w => ({ label: w.title, href: w.entry })) },
-      { title: t.colAtlas, links: [featuredSection ? { label: t.navFeatured, href: '#featured' } : null, { label: t.navAbout, href: '#about' }, { label: t.navWorks, href: '#works' }].filter(Boolean) },
+      { title: t.colAtlas, links: [{ label: t.navWorks, href: '#works' }, { label: t.navAbout, href: '#about' }] },
       { title: t.colAuthor, links: [{ label: `${works[0]?.author.name ?? '观默'} @guanmo_ai`, href: 'https://x.com/guanmo_ai', external: true }] },
     ],
     legal: [`© ${new Date().getFullYear()} 观默 Guanmo`, 'Three Atlas · 三维图鉴'],
@@ -76,22 +67,18 @@ function render() {
   app.replaceChildren(
     h('a.ui-skip', { href: '#works' }, t.skip),
     nav,
-    h('main', null, hero, opening, statement, featuredSection, about, next, workIndex),
+    h('main', null, hero, workIndex, about),
     footer);
 
   context = scope(app, () => {
     cleanups.push(bindPointerGlow(app));
     if (claimEntrance() && !reduced()) {
-      riseLines(hero.querySelector('.ui-hero__title'), { delay: 0.1 });
-      gsap.from([hero.querySelector('.ui-hero__eyebrow'), hero.querySelector('.ui-hero__lede')], { autoAlpha: 0, y: 16, duration: 1.2, ease: 'expo.out', delay: 0.35, stagger: 0.1 });
-      if (opening) gsap.from(opening.querySelector('.ui-window__frame'), { autoAlpha: 0, y: 48, duration: 1.6, ease: 'expo.out', delay: 0.5 });
+      gsap.from(hero.children, { autoAlpha: 0, y: 16, duration: 1.1, ease: 'expo.out', stagger: 0.08 });
+      gsap.from(workIndex.querySelectorAll('.ui-index__bar, .ui-card'), { autoAlpha: 0, y: 24, duration: 1.1, ease: 'expo.out', stagger: 0.06, delay: 0.15 });
     }
-    if (opening) cleanups.push(animateFeatureWindow(opening));
     cleanups.push(animateFooter(footer));
-    animateStatement(statement);
     reveal(app);
     ScrollTrigger.create({ start: 8, end: 'max', onToggle: self => nav.setScrolled(self.isActive) });
-    if (f) ScrollTrigger.create({ trigger: statement, start: 'top 70%', endTrigger: workIndex, end: 'top 30%', onToggle: self => nav.showCta(self.isActive) });
     cleanups.push(animateNav(nav, app));
   });
   document.fonts.ready.then(() => { if (nav.isConnected) ScrollTrigger.refresh(true); });

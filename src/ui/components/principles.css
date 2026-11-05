@@ -9,3 +9,12 @@
 @media (max-width: 720px) {
   .ui-principle + .ui-principle { padding-left: 0; border-left: 0; border-top: 1px solid var(--c-line); }
 }
+
+/* Compact: a quiet strip of facts under a gallery. */
+.ui-principles--compact { padding-block: clamp(96px, 14vh, 144px) 0; }
+.ui-principles--compact .ui-head { margin-bottom: 24px; }
+.ui-principles--compact .ui-principles__row { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.ui-principles--compact .ui-principle { padding-top: 22px; gap: 8px; }
+.ui-principles--compact .ui-principle__index { margin-bottom: 6px; font: var(--w-medium) 12px/1 var(--f-mono); letter-spacing: 0.06em; color: var(--c-fg-3); }
+.ui-principles--compact .ui-principle__title { font-size: 16px; }
+.ui-principles--compact .ui-principle__text { font-size: 14px; line-height: 1.7; }

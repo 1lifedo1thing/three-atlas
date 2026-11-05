@@ -35,7 +35,7 @@ export function observePreview(section) {
   const playing = () => { if (permitted()) video.classList.add('is-playing'); else pause(); };
   const onPause = () => video.classList.remove('is-playing');
   const observer = new IntersectionObserver(entries => { inView = entries[0].isIntersecting; update(); });
-  observer.observe(section.querySelector('.ui-window__stage'));
+  observer.observe(section.querySelector('[data-preview-trigger]') ?? section.querySelector('.ui-window__stage') ?? section);
   video.addEventListener('playing', playing);
   video.addEventListener('pause', onPause);
   document.addEventListener('visibilitychange', update);

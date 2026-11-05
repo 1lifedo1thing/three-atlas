@@ -1,8 +1,8 @@
 import { h } from '../dom.js';
 
 /** Principles · three or four plain statements of how something works. items: [{ label, title, text }] */
-export function Principles({ id, head, items }) {
-  return h('section.ui-principles.ui-section', { id, 'aria-labelledby': `${id}-title` },
+export function Principles({ id, head, items, compact = false }) {
+  return h(`section.ui-principles.ui-section${compact ? '.ui-principles--compact' : ''}`, { id, 'aria-labelledby': `${id}-title` },
     h('div.ui-container', null,
       head,
       h('ol.ui-principles__row', { 'data-reveal': 'group' }, items.map((item, i) =>

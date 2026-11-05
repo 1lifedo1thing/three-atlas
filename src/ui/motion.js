@@ -80,7 +80,7 @@ export function splitWords(el) {
 /** A paragraph that lights up word by word as it scrolls through the viewport. */
 export function lightUp(el) {
   if (reduced() || !el) return;
-  gsap.fromTo(splitWords(el), { opacity: 0.16 }, { opacity: 1, ease: 'none', stagger: 0.1, scrollTrigger: { trigger: el, start: 'top 78%', end: 'bottom 42%', scrub: true } });
+  gsap.fromTo(splitWords(el), { opacity: 0.4 }, { opacity: 1, ease: 'none', stagger: 0.1, scrollTrigger: { trigger: el, start: 'top 78%', end: 'bottom 42%', scrub: true } });
 }
 
 /** Run `build` inside a GSAP context so every tween, trigger and split it creates can be reverted at once. */

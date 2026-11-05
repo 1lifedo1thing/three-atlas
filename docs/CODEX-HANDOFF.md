@@ -11,22 +11,41 @@
 
 ---
 
-## P0 · 先做
+## P0 · 先做（首页改为画廊之后）
+
+2026-11-05：按用户意见，首页改为**画廊优先**：一进来就是作品卡片，去掉开窗、宣言、亮点、关于、接下来等长段落。设计见 `docs/design.md` 第六版和 `docs/design-system.md` 第 10 节。
+
+### 1. 修复 `package-lock.json` 与 `package.json` 不同步
+
+`npm ci` 目前直接失败（缺 `proxy-agent` 等依赖），以后的 CI 和部署都会因此出错。重新生成 lock 文件，并确认 `npm ci && npm run check && npm test && npm run build` 能在干净环境里跑通。
+
+### 2. 浏览器测试与视觉基线跟着新首页更新
+
+- `tests/browser/` 里依赖首页开窗、宣言、亮点卡的用例（parallax、preview、showcase、accessibility、responsive 等），改为在组件陈列页 `pages/ui/` 上验证这些组件；首页用例改测新结构：标题区、工具条、主推卡、卡片网格、关于条、页脚。
+- 更新视觉回归基线（桌面 1440×900、1280×800，手机 390×844，中英文）。
+- 首页改动只在 `src/gallery/` 与 `src/ui/components/{work-card,work-index,hero,principles}`，以及 `src/ui/preview.js`（观察对象改为 `[data-preview-trigger]`）。
+- 排查：本地 Playwright 从首页点进作品时，控制台出现 `Transition was aborted because of invalid state. ViewTransition opt-in disabled`。确认是测试环境（无 GPU、自动化）造成的，还是真实问题；真实问题就修复，并在真机上确认首页与作品之间的过渡无缝。
+
+### 3. 普通卡片的悬停预览（`docs/design-polish.md` 二·A2）
+
+主推卡进入视口时已经会自动播放预览（复用 `observePreview`）。普通卡片按 A2 的参数做成悬停播放；没有 `preview` 字段的作品保持静帧。
+
+### 4. 逐词点亮的对比度
+
+设计决定：`lightUp` 的起始透明度从 0.16 改为 **0.4**（已改，见 `src/ui/motion.js`），用于 ≥24px 的大字时满足 AA 3:1。请去掉 accessibility 用例里对应的 fixme，并更新 `docs/accessibility.md`。
+
 
 ## P1 · 交互与质感（按 `docs/design-polish.md` 的参数实现）
 
 这一组决定网站能不能达到顶尖水准，优先级高于复用能力。每项完成后附截图和录屏，由 Claude 做审美验收。
 
-- **P1-J** 无障碍复核（二·J）：键盘流程与名称已修；逐词点亮 0.16 起始透明度与 AA 冲突，等待设计参数确认（见 docs/accessibility.md）
+- **P1-J** 无障碍复核（二·J）：键盘流程与名称已修；逐词点亮的设计参数已确定为 0.4，见 P0-4。
 
 ## P1 · 复用能力
 
 ## P2 · 之后
 
-### 8. 卡片视频预览（等有 2–3 个作品后再做；开窗视频见 P1-A，素材与字段可以共用）
-
-- 新增可选字段 `preview`（webm 和 mp4，6 秒，静音循环）。
-- 同一时间只播放一个；离开视口即暂停；开启「减少动态效果」或 Save-Data 时不播放。
+### 8. 卡片视频预览：已并入 P0-3。
 
 ### 9. 分享卡片和 meta
 

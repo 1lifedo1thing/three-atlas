@@ -1,12 +1,13 @@
 import { h, icon } from '../dom.js';
 import { WorkCard } from './work-card.js';
+import { observePreview } from '../preview.js';
 
 /**
  * WorkIndex · searchable, filterable catalogue of WorkCards.
  * select(query, category) → localized works · categories: [string] (chips appear when there are 2+)
  */
 export function WorkIndex({ id, head, select, categories = [], labels }) {
-  let query = '', category = null;
+  let query = '', category = null, previews = [];
   const count = h('p.ui-index__count', { role: 'status', 'aria-live': 'polite' });
   const grid = h('div.ui-index__grid');
   const empty = h('div.ui-index__empty', { hidden: true },
@@ -20,13 +21,17 @@ export function WorkIndex({ id, head, select, categories = [], labels }) {
   function paint() {
     const list = select(query, category);
     grid.dataset.count = String(list.length);
+    previews.forEach(stop => stop());
     grid.replaceChildren(...list.map(work => WorkCard({ work, index: work.index, labels })));
+    // The featured card plays its preview while in view. Hover previews for regular cards: see docs/design-polish.md · A2.
+    previews = [...grid.querySelectorAll('.ui-card--featured')].map(card => observePreview(card));
     count.textContent = labels.count(list.length);
     empty.hidden = list.length !== 0;
   }
   paint();
-  const el = h('section.ui-index.ui-section.ui-container', { id, 'aria-labelledby': `${id}-title` },
-    h('div.ui-index__bar', null, h('div.ui-index__title', null, head, count), h('div.ui-index__tools', null, chips, search)),
+  const el = h('section.ui-index.ui-container', { id, 'aria-labelledby': `${id}-title` },
+    head,
+    h('div.ui-index__bar', null, h('div.ui-index__title', null, count, chips), h('div.ui-index__tools', null, search)),
     grid, empty);
-  return Object.assign(el, { focusSearch: () => input.focus({ preventScroll: true }) });
+  return Object.assign(el, { focusSearch: () => input.focus({ preventScroll: true }), dispose: () => previews.forEach(stop => stop()) });
 }
