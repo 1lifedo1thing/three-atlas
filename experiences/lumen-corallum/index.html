@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#060a14">
+  <title>幽珊 V2 · 萤光呼吸</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='none' stroke='%23bcd8ff' stroke-width='2' d='M8 30C8 2 56 2 56 30Q32 43 8 30ZM20 36q-8 24 1 24m11-20v20m12-24q8 24-1 24'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../../src/shared/experience-nav.css">
+  <link rel="stylesheet" href="./src/style.css">
+
+</head>
+<body>
+  <main id="stage" aria-label="幽珊，可拖动旋转并缩放的三维发光生物" data-i18n-aria="stageLabel"></main>
+  <div class="ambient" aria-hidden="true"></div>
+  <header>
+    <a class="atlas-return" href="../../" aria-label="返回三维图鉴" data-i18n-aria="homeLabel"><span aria-hidden="true">←</span><span class="atlas-return-name">Three Atlas</span></a>
+    <div class="header-actions"><div class="version-links"><span class="edition" data-i18n="edition">V2 · 萤光呼吸</span></div>
+      <div class="language-switch" role="group" aria-label="语言" data-i18n-aria="languageLabel"><button type="button" data-language="zh" lang="zh-CN" aria-label="中文" aria-pressed="true">中文</button><button type="button" data-language="en" lang="en" aria-label="English" aria-pressed="false">EN</button></div>
+    </div>
+  </header>
+  <section class="intro">
+    <p class="eyebrow"><span></span><span data-i18n="eyebrow">想象生物 / CORALLUM</span></p>
+    <h1 data-i18n-html="title">幽<span>珊</span></h1>
+    <p class="latin">Lumen corallum</p>
+    <p class="description" data-i18n-html="description">薄如呼吸的膜。<br>随水舒展的触须。<br>一枚悬浮着的心。</p>
+    <div class="specimen-key"><span class="fine-rule"></span><span id="view-note">01 / 完整形态</span></div>
+  </section>
+  <aside class="observation" aria-label="形态组成" data-i18n-aria="morphologyLabel"><span class="tiny">MORPHOLOGY</span><div><i class="dot blue"></i><span data-i18n="mantle">半透明瓣膜</span><span class="index">01</span></div><div><i class="dot pink"></i><span data-i18n="coral">珊瑚分枝骨架</span><span class="index">02</span></div><div><i class="dot warm"></i><span data-i18n="core">悬浮种核</span><span class="index">03</span></div><p data-i18n="driftCaption">缓慢漂游 · 内源幽光</p></aside>
+  <nav class="views" aria-label="观察视角" data-i18n-aria="viewsLabel"><button class="active" data-view="whole" aria-pressed="true"><small>01</small><span data-i18n="whole">整体</span></button><button data-view="skeleton" aria-pressed="false"><small>02</small><span data-i18n="skeleton">骨架</span></button><button data-view="seed" aria-pressed="false"><small>03</small><span data-i18n="seed">种核</span></button><button data-view="trails" aria-pressed="false"><small>04</small><span data-i18n="trails">触须</span></button></nav>
+  <div class="tools"><button id="motion" aria-pressed="false" aria-label="暂停漂游"><svg viewBox="0 0 20 20"><path d="M7 5v10M13 5v10"/></svg><span>暂停</span></button><button id="wake"><span class="wake-star">✧</span><span data-i18n="wake">唤光</span></button><button id="clean" aria-pressed="false" title="隐藏文字与操作（H）" data-i18n-title="cleanHint">纯享</button></div>
+  <footer><span class="interaction" data-i18n-html="interaction">拖动旋转 <b>·</b> 滚动拉近 <b>·</b> 轻点唤光</span><span class="credit"><span class="author-name" data-i18n="author">观默</span><span>@guanmo_ai</span></span><button id="about" data-i18n="about">创作与来源 ↗</button></footer>
+  <div id="loader" role="status"><div class="loader-mark">✳</div><p data-i18n="loading">正在凝聚微光</p></div>
+  <dialog id="sources"><button id="close-about" aria-label="关闭来源说明" data-i18n-aria="closeAbout">×</button><p class="eyebrow" data-i18n="aboutEyebrow">创作与来源</p><h2 data-i18n="aboutTitle">幽珊</h2><p data-i18n-html="aboutDescription">V2 以略透明的圆润软触腕和多层细触须，延续水母瓣膜、珊瑚分枝与漂浮种核的融合形态。体内外萤光漂游，形体与光晕同步缓慢呼吸。造型、纹理与动态均由程序生成。</p><p data-i18n-html="aboutReferences">形态参考 <a href="https://www.mbari.org/animal/deep-sea-crown-jelly/" target="_blank" rel="noreferrer">MBARI 冠水母</a> 与 <a href="https://nautiluslive.org/video/2017/12/31/burst-deep-sea-fireworks-halitrephes-jelly" target="_blank" rel="noreferrer">Ocean Exploration Trust 的 Halitrephes 观察</a>；发光氛围参考 <a href="https://x.com/scottstts/status/2112866606988857719" target="_blank" rel="noreferrer">Scott 的 Lumen Hollow</a>。本作品的发光是艺术设定。</p><p data-i18n-html="aboutLicense">渲染使用 <a href="https://github.com/mrdoob/three.js" target="_blank" rel="noreferrer">Three.js authors</a> 的开源组件，遵循 <a href="./third-party/three-LICENSE.txt" target="_blank">MIT License</a>。未使用参考照片、视频或外部模型资产。</p><p class="shortcuts" data-i18n="shortcuts">空格 暂停 / 继续 · H 纯享 / 显示界面 · 1 / 2 / 3 / 4 切换观察视角</p></dialog>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

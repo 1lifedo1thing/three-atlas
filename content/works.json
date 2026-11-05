@@ -137,5 +137,80 @@
       "ambient": "media/where-stars-rest-ambient.webp",
       "sourceHash": "ad9c60d5d718e9269ff6234a26aac086e7044961bedcdbe6edb22779a2ad90e9"
     }
+  },
+  {
+    "id": "lumen-corallum",
+    "title": "Lumen Corallum",
+    "subtitle": {
+      "zh": "幽珊",
+      "en": "A life form made of light"
+    },
+    "summary": {
+      "zh": "一只悬浮的发光生物。转近看看透明触须、分枝骨架与种核，和它一起慢慢呼吸。",
+      "en": "A luminous creature adrift in the dark. Move closer to its translucent tentacles, branching skeleton and floating seed core, and watch it breathe."
+    },
+    "category": {
+      "zh": "幻想生物",
+      "en": "Imagined creature"
+    },
+    "tags": [
+      "Three.js",
+      "程序化",
+      "Procedural",
+      "幽珊",
+      "Corallum",
+      "水母",
+      "Jellyfish",
+      "呼吸",
+      "Breathing",
+      "交互",
+      "Interactive"
+    ],
+    "entry": "experiences/lumen-corallum/index.html",
+    "cover": "media/lumen-corallum.jpg",
+    "coverAlt": {
+      "zh": "冰蓝淡紫的发光水母形生物，半透明触须围绕暖色种核，周围漂浮萤光。",
+      "en": "A luminous ice-blue and lavender jellyfish-like creature with translucent tentacles, a warm seed core and drifting points of light."
+    },
+    "author": {
+      "name": "观默",
+      "handle": "guanmo_ai",
+      "url": "https://x.com/guanmo_ai"
+    },
+    "tone": "#101420",
+    "images": {
+      "width": 2880,
+      "height": 1800,
+      "avif": [
+        {
+          "src": "media/lumen-corallum-720.avif",
+          "width": 720
+        },
+        {
+          "src": "media/lumen-corallum-1440.avif",
+          "width": 1440
+        },
+        {
+          "src": "media/lumen-corallum-2880.avif",
+          "width": 2880
+        }
+      ],
+      "webp": [
+        {
+          "src": "media/lumen-corallum-720.webp",
+          "width": 720
+        },
+        {
+          "src": "media/lumen-corallum-1440.webp",
+          "width": 1440
+        },
+        {
+          "src": "media/lumen-corallum-2880.webp",
+          "width": 2880
+        }
+      ],
+      "ambient": "media/lumen-corallum-ambient.webp",
+      "sourceHash": "f944467d39f54fcd8b5557c3305dcea6f3a470c5492f8e75fa67f8349ccca653"
+    }
   }
 ]

@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5194 --strictPort",
     "check": "node scripts/check.mjs",
+    "audit": "npm audit --registry=https://registry.npmjs.org",
     "test": "node --test tests/*.test.js experiences/*/tests/*.test.js",
     "test:browser": "playwright test",
     "build": "node scripts/check-content.mjs && vite build && node scripts/check-build.mjs",
@@ -15,6 +16,8 @@
     "perf": "npm run build && node scripts/perf.mjs",
     "new:work": "node scripts/new-work.mjs",
     "test:visual": "playwright test --config=playwright.visual.config.js",
+    "test:compat": "playwright test --config=playwright.compat.config.js",
+    "test:transitions": "npm run build && playwright test --config=playwright.production.config.js",
     "predev": "node scripts/media.mjs --dev"
   },
   "dependencies": {
@@ -30,6 +33,10 @@
     "@playwright/test": "1.58.0",
     "sharp": "0.35.5",
     "vite": "8.3.5"
+  },
+  "overrides": {
+    "basic-ftp": "6.2.6",
+    "glob@>=9": "14.0.3"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

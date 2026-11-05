@@ -6,6 +6,20 @@ import { resolve } from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const works = JSON.parse(readFileSync(resolve(root, 'content/works.json'), 'utf8'));
 const manifest = JSON.parse(readFileSync(resolve(root, 'dist/.vite/manifest.json'), 'utf8'));
+const home = readFileSync(resolve(root, 'dist/index.html'), 'utf8');
+const siteURL = home.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+assert.ok(siteURL && /^https?:\/\//.test(siteURL), '首页缺少正式 canonical URL');
+function checkMeta(html, entry, cover) {
+  const url = new URL(entry, siteURL).href;
+  const image = new URL(cover, siteURL).href;
+  for (const tag of [
+    `<link rel="canonical" href="${url}"`, `<meta property="og:url" content="${url}"`,
+    `<meta property="og:image" content="${image}"`, '<meta name="twitter:card" content="summary_large_image"',
+    `<meta name="twitter:image" content="${image}"`,
+  ]) assert.ok(html.includes(tag), `${entry || '首页'} 缺少分享信息：${tag}`);
+}
+const featured = works.find(work => work.featured) ?? works[0];
+checkMeta(home, '', featured.cover);
 for (const work of works) {
   assert.ok(existsSync(resolve(root, 'dist', work.entry)), `缺少作品页面：${work.id}`);
   assert.ok(existsSync(resolve(root, 'dist', work.cover)), `缺少作品封面：${work.id}`);
@@ -17,6 +31,7 @@ for (const work of works) {
     assert.ok(statSync(path).size <= (size === 1920 ? 4_000_000 : 1_200_000), `视频预览超出体积预算：${work.id} ${size}.${extension}`);
   }
   const html = readFileSync(resolve(root, 'dist', work.entry), 'utf8');
+  checkMeta(html, work.entry, work.cover);
   assert.ok(html.includes('href="../../"'), `缺少返回图鉴的相对链接：${work.id}`);
   assert.ok(html.includes(`class="atlas-arrival" data-src="${work.cover}"`) && html.includes('data-atlas-arrival'), `作品页缺少进入过渡层：${work.id}`);
 }

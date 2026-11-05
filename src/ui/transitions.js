@@ -43,7 +43,7 @@ export function bindTransitions() {
   });
   addEventListener('pagereveal', event => {
     if (!event.viewTransition) return;
-    if (!(globalThis.navigation?.activation?.from?.url ?? '').includes('/experiences/')) return;
+    if (!(globalThis.navigation?.activation?.from?.url || document.referrer).includes('/experiences/')) return;
     let source = null;
     try { source = sessionStorage.getItem(KEY); } catch { /* Optional. */ }
     name(imageFor(source), event.viewTransition);

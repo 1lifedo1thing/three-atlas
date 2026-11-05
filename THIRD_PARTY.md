@@ -32,3 +32,5 @@
 - [Tripo Studio](https://studio.tripo3d.ai/)：作品画廊参考。没有使用其代码、品牌或模型资产。
 
 依赖许可证不代表本项目的整体许可证，后者尚未选择。
+
+开发依赖安全维护：Lighthouse CI 仍为 0.16.0，使用 npm overrides 将其依赖链的 basic-ftp 固定至 6.2.6（Patrick Juchli，MIT，https://github.com/patrickjuchli/basic-ftp），将 glob 9+ 固定至 14.0.3（Isaac Z. Schlueter，BlueOak-1.0.0，https://github.com/isaacs/node-glob），后者带入 minimatch 11.0.4。旧工具使用的 glob 7 保持原兼容版本。这些包只供开发工具使用，不进入网站运行时包；未修改上游源码。

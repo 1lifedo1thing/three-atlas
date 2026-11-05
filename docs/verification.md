@@ -162,3 +162,46 @@ KIT 补充：像素断言复现上下文恢复后只有背景的缺陷，RoomEnv
 四项 Important 已分别复现失败后修复：模板 arrival 布局与淡出、透明 caption 的 Tab 焦点、导航/页脚语言切换的可见焦点、缺失衍生图的自动重建。桌面与手机语言按钮均测试；初始仅恢复焦点仍可能落在视口外，新增边界断言复现后补最近滚动。P1-J 对比度设计项继续未完成。审查记录见 docs/engineering-review.md，红绿日志与最终检查在 output/engineering-review/final/。
 
 收尾验证：check、Node32测试、build通过；完整浏览器28通过、1项明确设计fixme；视觉4通过；性能三轮严格预算通过，首页JS66218字节gzip，受限实验室最长交互48ms（不等同现场INP）。136张截图与17段5–10秒录屏库存检查通过，另有KIT和模板专项录屏。
+
+
+## 2026-11-04 · 画廊首页 P0
+
+基于最新设计分支 `32cdd1f`，本地分支为 `codex/gallery-p0`。本轮没有提交、推送或部署；首作场景源码、资源与正式作品目录未改动。
+
+- **锁文件**：原锁文件在 npm 12 可安装，但 npm 10 的 `npm ci` 明确报缺少 proxy-agent 8 等 14 项依赖。使用 npm 10 补齐传递依赖，同时保留原有版本及 libc 平台元数据。临时干净副本执行 npm 10 `ci → check → test → build`，以及 npm 12 `ci` 全部成功；未使用 legacy-peer-deps 或跳过依赖校验。
+- **测试迁移与基线**：首页改测简短标题、工具条、主推卡、作品网格、关于条、页脚、搜索空结果与布局；开窗、视差、亮点卡、逐词点亮改在 `/pages/ui/` 测试。陈列页保留自己的完整中英文文案，避免紧凑首页删除字段后出现空标题。视觉基线覆盖首页和陈列页、1440×900 / 1280×800 / 390×844、中英文，共 12 张；旧的 4 张无引用基线已移除。
+- **过渡根因与修复**：复现了开发模式返回首页时没有 ViewTransition，以及生产构建返回时虽然 ready 但没有任何 `atlas-world` 元素的失败。开发模式的首页 CSS 原本由 JS 异步引入；生产构建还丢掉了源码入口 script 的 blocking 属性，使首页 DOM 与 pagereveal 监听可能晚于首次快照。现将过渡样式表置于 head，并在 Vite HTML 后处理阶段保留首页模块的 `blocking="render"`。这属于真实加载时序缺陷，不能仅归因于自动化或缺少 GPU。[Chrome 官方说明](https://developer.chrome.com/docs/web-platform/view-transitions/cross-document)要求 pagereveal 监听在首次渲染前注册，异步模块需显式阻塞渲染。
+- **过渡验证边界**：Metal GPU 的开发与生产用例均确认进入／返回的 ready 成功且唯一封面参与，清理临时名称，返回卡片焦点正确；减少动态时普通跳转无异常。生产构建两项用例各连续执行三次，共 6 次通过。原始 `ViewTransition opt-in disabled` 文字未稳定重现；本轮修复的是上述已复现的时序问题。额外 SwiftShader 软件渲染探针仍出现过渡被跳过（present=false），该探针不记通过。另排查 Vite 对追踪 HTML 的更新通知：客户端按路径过滤，专项探针确认首页没有刷新，已排除此猜测，未修改 watcher 配置。物理手机、Safari / Firefox 与最终动效视觉接受仍待 P2。
+- **普通卡预览**：120ms 停留后才加载，离开即暂停、300ms 后归零；400ms 使用共享令牌淡入。同一时间一个视频，普通卡优先，结束后可见主推恢复。主推至少一半可见才自动播放。验证扫过、键盘焦点、后台、离屏、重绘回收、缺 preview 静帧、减少动态、Save-Data、slow-2g / 2g / 3g 和粗指针降级。额外卡片仅存在于浏览器测试临时 DOM，正式目录仍为 1 个作品。
+- **对比度**：主句 0.4；按用户补充选择，辅句单独从 0.72 起步并继续逐词点亮。整句中英文初始状态的 axe 检查通过，无 fixme，详见 `docs/accessibility.md`。
+
+收尾结果：干净安装、`npm run check`、原有场景在内的 Node 32 项、`npm run build`、浏览器 47 项、视觉回归 12 项及生产过渡 6 次均通过。构建仍有原有 Three.js 场景 chunk 体积提示。另跑现有性能预算：三轮 Lighthouse 全部达标，首页 JS 65462 字节 gzip，实验室最长交互 72ms（不等同现场 INP）。测试为工程验证，不能代替用户或 Claude 的审美接受。
+
+证据：`output/gallery-p0/` 保存红绿日志、干净副本检查、软件渲染未通过记录、辅句截图与普通卡真实预览录屏；`output/engineering-review/gallery-p0/` 保存桌面与手机中英文的 before / after 截图及首页交互录屏。所有 output 均不提交。
+
+
+## 2026-11-04：幽珊卡片接入
+
+- 目录新增 `lumen-corallum`，独立入口为 `experiences/lumen-corallum/index.html`；首作目录项与导入前完全一致。作品使用仓库内源码和 Three.js 0.186.1，不依赖相邻项目。
+- 实际初始视角以原生 2880 × 1800 渲染捕获，捕获时临时隐藏界面并恢复。生成三档 AVIF/WebP 和环境光缩略图；首页仍无 WebGL canvas，生产依赖检查确认首页不加载 Three.js。
+- 作品保留四个视角、圆润半透明触腕、体内外光点、同步呼吸、暂停和唤光。语言与图鉴共用 `three-atlas.language`；加入返回导航、就绪信号及初始化失败时的返回入口。许可证随构建内联，来源面板链接有效。
+- 已执行 `npm run check`、`npm test`（41/41）和 `npm run build`。原场景测试一并通过；新增作品的几何、圆形截面、呼吸、粒子和翻译覆盖测试通过。浏览器测试里依赖单卡片的定位已改为明确选择首作；本轮未执行 Playwright CLI 自动化或更新既有视觉基线。
+- 独立浏览器实际检查：1440 × 900 和 390 × 844、中英文图鉴与作品、搜索、类别过滤、卡片进入、切换语言保留暂停与视角、刷新保留语言、返回恢复对应卡片焦点。手机尺寸无横向溢出；该检查是桌面浏览器窄视口，并非实体手机性能验收。
+- 生产构建在根路径及 `/three-atlas/` 子路径均完成进入、刷新和返回；减少动态效果时默认暂停。浏览器检查期间没有 error/warn 日志。
+- 本轮证据在被忽略的 `output/lumen-corallum-integration/`：`before/`、`after/`、`verification.json` 与真实封面底图。导入溯源与清单备份在被忽略的 `.local/lumen-corallum-import/`。
+
+## 2026-11-04 · 上线前问题修复
+
+用户要求将检查发现的问题全部修复。本次完成：初始化失败时退出进入封面，显示重试与返回；缺少 Navigation API 时使用安全检测和同源来源回退；首作沿用图鉴语言，覆盖操作、无障碍、动态及错误提示；静态注入首页与所有登记作品的分享信息和 canonical；修复开发依赖链审计项。保留并行接入的幽珊，不改首作几何、材质、灯光、云层、呼吸或音效合成。
+
+开发依赖采用 basic-ftp 6.2.6、glob 14.0.3 和其依赖 minimatch 11.0.4，Lighthouse CI 版本及预算不变。保留 npm 10 所需锁文件项，并将项目 registry 和锁文件 tarball 地址统一到 npm 官方源，解决 npm 12 的 EALLOWREMOTE 干净安装失败；没有放宽远程包或安装脚本限制。
+
+最终检查：`npm run check`（110 个 JS 文件、2 件作品）、`npm test`（41/41）、`npm run build`、完整 npm 审计（0 项）通过。Chromium 浏览器 54/54、生产转场和双语 7/7、Playwright WebKit 26.0 与 Firefox 146.0.1 桌面/手机视口 4/4 通过；生产静态根路径及 `/three-atlas/` 专项 9/9 通过。干净副本 npm 10 的 ci/check/test/build 和 npm 12 的 ci 均通过，另用不同 SITE_URL 验证实际构建注入。
+
+视觉回归最终 12/12。新增幽珊使原六张首页基线产生内容差异，逐张查看后只更新这六张；组件基线及阈值不变，旧基线和初次失败证据保留。首页与首作桌面 1440×900 / 手机 390×844、中英文 before/after 已采集，另有错误页截图及交互录屏。这不代替用户或 Claude 的审美接受。
+
+性能复测三轮四项均为 100，LCP 516–599ms、CLS 0、TBT 5–11ms，首页 JS 66158 字节 gzip，实验室最长 Event Timing 72ms；不等同现场 INP。Three.js 场景 chunk 仍有原有体积提示，首页未加载它。
+
+部署工作流与 SITE_URL 示例已在本地准备，步骤见 `docs/deployment.md`。尚未提交、推送、公开或配置远程 Pages，目标线上地址仍待部署；实际 Safari / Edge、物理手机和线上分享抓取没有宣称完成。
+
+证据入口：`output/prelaunch-fixes-2026-11-04/report.md`。原检查、红绿失败、安装失败与修复后的记录均保留；output 不提交。

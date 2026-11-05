@@ -10,6 +10,8 @@ An atlas of interactive 3D worlds, models, simulations, and creative experiments
 
 首作 **WHERE STARS REST / 星光的归处**：程序化悬浮岛屿、紫色发光树、同步呼吸的粒子、萤火与岛底云层。支持环绕、缩放、光芒调节、暂停、复位和可选的合成氛围音。
 
+第二作 **幽珊 / Lumen Corallum**：半透明触须、珊瑚分枝与悬浮种核组成的幻想生物。体内外萤光与形体同步呼吸，支持四个观察视角、暂停、唤光及中英文切换。
+
 首页以轻量卡片汇总作品，每个作品拥有独立页面。首页视觉目前是结构初稿，后续由 Opus 5.5 完整设计；现有作品画面与交互沿用原版本。
 
 ## 本地运行
@@ -21,7 +23,7 @@ npm ci
 npm run dev
 ```
 
-打开 `http://127.0.0.1:5194/`。首作可直接访问 `/experiences/where-stars-rest/index.html`。
+打开 `http://127.0.0.1:5194/`。首作可直接访问 `/experiences/where-stars-rest/index.html`，幽珊入口为 `/experiences/lumen-corallum/index.html`。
 
 生产构建与预览：
 
@@ -32,7 +34,7 @@ npm run build
 npm run preview
 ```
 
-生产预览在 `http://127.0.0.1:4194/`。`dist/` 可静态部署，根路径与项目子路径均使用相对资源地址；本次没有配置线上部署。
+生产预览在 `http://127.0.0.1:4194/`。`dist/` 可静态部署，根路径与项目子路径均使用相对资源地址。分享卡片和 canonical 通过 `SITE_URL` 注入，示例见 `.env.example`；本地 GitHub Pages 工作流已准备，实际发布与授权步骤见 [部署说明](docs/deployment.md)。
 
 ## 内容与代码边界
 
@@ -42,6 +44,7 @@ src/ui/                           Atlas UI 组件库与设计令牌（规则见 
 src/gallery/                      首页：组合组件与文案
 src/shared/experience-nav.css      轻量返回导航样式
 experiences/where-stars-rest/      首作的独立 HTML、源码、测试与许可证
+experiences/lumen-corallum/        幽珊的独立 HTML、源码、测试与许可证
 public/media/                     真实作品封面
 scripts/                          目录与多页面构建检查
 docs/OPUS-HANDOFF.md               后续设计交接

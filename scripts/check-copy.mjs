@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -25,8 +26,15 @@ export function scanCopy(data, file) {
 
 export async function checkProjectCopy(root = fileURLToPath(new URL('../', import.meta.url))) {
   const { copy } = await import(pathToFileURL(resolve(root, 'src/gallery/copy.js')).href);
+  const { copy: specimens } = await import(pathToFileURL(resolve(root, 'src/pages/ui/copy.js')).href);
   const works = JSON.parse(await readFile(resolve(root, 'content/works.json'), 'utf8'));
-  return [...scanCopy(copy, 'src/gallery/copy.js'), ...scanCopy(works, 'content/works.json')];
+  const experiences = await Promise.all(works.map(async work => {
+    const file = work.entry.replace(/index\.html$/, 'src/copy.js');
+    if (!existsSync(resolve(root, file))) return [];
+    const messages = await import(pathToFileURL(resolve(root, file)).href);
+    return scanCopy(messages.copy ?? messages.MESSAGES, file);
+  }));
+  return [...scanCopy(copy, 'src/gallery/copy.js'), ...scanCopy(specimens, 'src/pages/ui/copy.js'), ...scanCopy(works, 'content/works.json'), ...experiences.flat()];
 }
 
 export function reportCopyErrors(errors) {

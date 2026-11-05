@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 test.use({ contextOptions: { reducedMotion: 'no-preference' } });
 
 test('指针进入开窗产生有限视差，离开后回中，减少动态时停止', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/pages/ui/');
   const frame = page.locator('.ui-window__frame');
   await frame.scrollIntoViewIfNeeded();
   const box = await frame.boundingBox();

@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';import{join,resolve}from'node:path';import{spaw
 import { newWork } from '../../scripts/new-work.mjs';
 test.use({video:{mode:'on',size:{width:1440,height:900}},contextOptions:{reducedMotion:'no-preference'}});
 test('临时副本的新作出现在目录，直接刷新与卡片进入可用',async({page})=>{
- test.setTimeout(60000);const source=process.cwd(),root=await mkdtemp(join(tmpdir(),'atlas-template-browser-'));let server;
+ test.setTimeout(60000);const source=process.cwd(),root=await mkdtemp(join(tmpdir(),'atlas-template-browser-'));const originalCatalog=await readFile(resolve(source,'content/works.json'),'utf8');let server;
  try{
   for(const name of ['src','pages','experiences','scripts','content','public','third-party','vite.config.js','package.json','index.html'])await cp(join(source,name),join(root,name),{recursive:true});
   await symlink(join(source,'node_modules'),join(root,'node_modules'),'dir');
@@ -28,6 +28,6 @@ test('临时副本的新作出现在目录，直接刷新与卡片进入可用',
   await page.waitForTimeout(3000);const pixels=await sharp(await page.locator('canvas').screenshot()).stats();expect(pixels.channels[0].max).toBeGreaterThan(50);
   await mkdir('output/engineering-review/TEMPLATE/after',{recursive:true});await page.screenshot({path:'output/engineering-review/TEMPLATE/after/template-smoke.png'});
   const video=page.video();await page.close();await video.saveAs('output/engineering-review/TEMPLATE/after/template-smoke.webm');
-  expect(JSON.parse(await readFile(resolve(source,'content/works.json'),'utf8'))).toHaveLength(1);
+  expect(await readFile(resolve(source,'content/works.json'),'utf8')).toBe(originalCatalog);
  }finally{server?.kill();await rm(root,{recursive:true,force:true})}
 });

@@ -23,8 +23,8 @@ export function WorkIndex({ id, head, select, categories = [], labels }) {
     grid.dataset.count = String(list.length);
     previews.forEach(stop => stop());
     grid.replaceChildren(...list.map(work => WorkCard({ work, index: work.index, labels })));
-    // The featured card plays its preview while in view. Hover previews for regular cards: see docs/design-polish.md · A2.
-    previews = [...grid.querySelectorAll('.ui-card--featured')].map(card => observePreview(card));
+    // Featured cards autoplay in view; regular cards wait for pointer or keyboard intent.
+    previews = [...grid.querySelectorAll('.ui-card')].map(card => observePreview(card, { hover: !card.classList.contains('ui-card--featured') }));
     count.textContent = labels.count(list.length);
     empty.hidden = list.length !== 0;
   }

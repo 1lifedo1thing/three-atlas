@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.use({ contextOptions: { reducedMotion: 'no-preference' } });
 
 test('开窗按需播放，离开视口暂停，语言重绘释放旧视频', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/pages/ui/');
   const video = page.locator('.ui-window__video');
   await expect(video).toHaveCount(1);
   await expect(video).toHaveAttribute('preload', 'none');
@@ -12,7 +12,7 @@ test('开窗按需播放，离开视口暂停，语言重绘释放旧视频', as
   await expect(video).toHaveClass(/is-playing/, { timeout: 5000 });
   await expect(video).toHaveJSProperty('paused', false);
   const old = await video.elementHandle();
-  await page.locator('#works').scrollIntoViewIfNeeded();
+  await page.locator('#show-index').scrollIntoViewIfNeeded();
   await expect(video).toHaveJSProperty('paused', true);
   await page.locator('.ui-nav__lang').click();
   await expect(page.locator('.ui-window__video')).toHaveCount(1);
@@ -27,7 +27,7 @@ for (const mode of ['reduce', 'save-data', '3g']) {
     else await page.addInitScript(value => {
       Object.defineProperty(navigator, 'connection', { configurable: true, value: Object.assign(new EventTarget(), { saveData: value === 'save-data', effectiveType: value === '3g' ? '3g' : '4g' }) });
     }, mode);
-    await page.goto('/');
+    await page.goto('/pages/ui/');
     await expect(page.locator('.ui-window__video')).toHaveCount(1);
     await page.locator('.ui-window__stage').scrollIntoViewIfNeeded();
     await page.waitForTimeout(700);

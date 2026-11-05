@@ -10,17 +10,20 @@ const root = new URL('../', import.meta.url).pathname;
 test('首作及未来多个作品使用中英文标题、简介和标签搜索', () => {
   const second = { ...works[0], id: 'other-world', title: 'MOON LAB', tags: ['physics'] };
   assert.equal(selectWorks(works, '星光')[0].id, 'where-stars-rest');
-  assert.equal(selectWorks(works, '  THREE.JS  ').length, 1);
+  assert.equal(selectWorks(works, '  THREE.JS  ').length, works.filter(work => work.tags.includes('Three.js')).length);
   assert.equal(selectWorks(works, 'island')[0].id, 'where-stars-rest');
+  assert.equal(selectWorks(works, '幽珊')[0].id, 'lumen-corallum');
+  assert.equal(selectWorks(works, 'lumen')[0].id, 'lumen-corallum');
+  assert.equal(selectWorks(works, 'Jellyfish')[0].id, 'lumen-corallum');
   assert.equal(selectWorks(works, '不存在的作品').length, 0);
-  assert.equal(selectWorks([...works, second], '').length, 2);
+  assert.equal(selectWorks([...works, second], '').length, works.length + 1);
   assert.equal(selectWorks([...works, second], 'moon')[0].id, 'other-world');
 });
 
 test('新增目录项自动生成独立构建入口', () => {
   const second = { ...works[0], id: 'moon-lab', entry: 'experiences/moon-lab/index.html' };
   const inputs = buildInputs([...works, second], root);
-  assert.equal(Object.keys(inputs).length, 3);
+  assert.equal(Object.keys(inputs).length, works.length + 2);
   assert.ok(inputs['moon-lab'].endsWith('/experiences/moon-lab/index.html'));
   assert.ok(inputs.gallery.endsWith('/index.html'));
 });

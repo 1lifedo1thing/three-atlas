@@ -2,6 +2,23 @@ import './style.css';
 import { Raycaster, Sphere, Vector2, Vector3 } from 'three';
 import { createWorld } from './world.js';
 import { AmbientAudio } from './audio.js';
+import { getLang } from '../../../src/ui/i18n.js';
+import { copy } from './copy.js';
+
+const t = copy[getLang()];
+document.title = t.pageTitle;
+document.querySelector('meta[name="description"]').content = t.description;
+for (const [selector, key] of [
+  ['.location-label > span:nth-child(2)', 'location'], ['.title-block > p', 'tagline'],
+  ['#hint > span:nth-child(2)', 'drag'], ['.zoom-hint', 'zoom'], ['#loading > span:last-child', 'loading'],
+  ['#error h2', 'errorTitle'], ['#error-message', 'errorMessage'], ['#error button', 'retry'], ['#error a', 'back'],
+]) document.querySelector(selector).textContent = t[key];
+document.querySelector('label[for="glow"]').lastChild.textContent = t.glow;
+for (const [selector, key] of [['.experience', 'experience'], ['#scene', 'scene'], ['.wordmark', 'home'], ['#glow', 'glowAria'], ['#reset', 'reset'], ['#sound', 'soundOn'], ['.atlas-return', 'back']]) {
+  const el = document.querySelector(selector);
+  el.setAttribute('aria-label', t[key]);
+  if (el.hasAttribute('title')) el.title = t[key];
+}
 
 const canvas = document.querySelector('#scene');
 const motion = document.querySelector('#motion');
@@ -36,6 +53,7 @@ function notify(message) {
 }
 
 function fail(message) {
+  document.body.classList.add('has-error');
   document.querySelector('#error-message').textContent = message;
   document.querySelector('#error').hidden = false;
   document.querySelector('#loading').hidden = true;
@@ -45,7 +63,7 @@ function fail(message) {
 function syncMotion() {
   const paused = !world.rotationEnabled;
   motion.setAttribute('aria-pressed', String(paused));
-  motion.setAttribute('aria-label', paused ? '继续自动旋转' : '暂停自动旋转');
+  motion.setAttribute('aria-label', paused ? t.resume : t.pause);
   motion.title = motion.getAttribute('aria-label');
 }
 
@@ -63,7 +81,7 @@ async function initialize() {
     syncMotion();
   } catch (error) {
     console.error('[Where Stars Rest]', error);
-    fail('请使用支持 WebGL 2 的现代浏览器，并开启硬件加速。如果画面仍无法载入，请重新载入页面。');
+    fail(t.loadFailed);
     return;
   }
 
@@ -81,16 +99,16 @@ async function initialize() {
   }, eventOptions);
 
   motion.addEventListener('click', () => { world.setAutoRotate(!world.rotationEnabled); syncMotion(); }, eventOptions);
-  reset.addEventListener('click', () => { world.reset(); notify('已回到最初的星海'); }, eventOptions);
+  reset.addEventListener('click', () => { world.reset(); notify(t.resetNotice); }, eventOptions);
   sound.addEventListener('click', async () => {
     sound.disabled = true;
     try {
       const enabled = await audio.toggle();
       sound.setAttribute('aria-pressed', String(enabled));
-      sound.setAttribute('aria-label', enabled ? '关闭氛围音' : '开启氛围音');
+      sound.setAttribute('aria-label', enabled ? t.soundOff : t.soundOn);
       sound.title = sound.getAttribute('aria-label');
-      notify(enabled ? '星海有了声音' : '回归宁静');
-    } catch (error) { notify(error.message); }
+      notify(enabled ? t.soundOnNotice : t.soundOffNotice);
+    } catch { notify(t.audioFailed); }
     finally { sound.disabled = false; }
   }, eventOptions);
 
@@ -105,7 +123,7 @@ async function initialize() {
     const rect = canvas.getBoundingClientRect();
     ndc.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1);
     raycaster.setFromCamera(ndc, world.camera);
-    if (raycaster.ray.intersectSphere(canopy, hit)) { world.pulse(); notify('这束光，回应了你。'); }
+    if (raycaster.ray.intersectSphere(canopy, hit)) { world.pulse(); notify(t.pulseNotice); }
   }, eventOptions);
   canvas.addEventListener('pointercancel', () => { pointerDown = null; }, eventOptions);
   canvas.addEventListener('keydown', event => {
@@ -122,7 +140,7 @@ async function initialize() {
       const distance = Math.max(world.controls.minDistance, Math.min(world.controls.maxDistance, offset.length() * (event.key === '-' ? 1.08 : .92)));
       world.camera.position.copy(world.controls.target).add(offset.setLength(distance));
     } else if (event.key === 'Home') world.reset();
-    else if (event.key === ' ') { world.pulse(); notify('这束光，回应了你。'); }
+    else if (event.key === ' ') { world.pulse(); notify(t.pulseNotice); }
   }, eventOptions);
 
   preference.addEventListener('change', event => { world.setReducedMotion(event.matches); syncMotion(); }, eventOptions);
@@ -132,7 +150,7 @@ async function initialize() {
   }, eventOptions);
   canvas.addEventListener('webglcontextlost', event => {
     event.preventDefault(); world.setVisible(false);
-    fail('图形上下文暂时中断。请重新载入，回到这片星海。');
+    fail(t.contextLost);
   }, eventOptions);
 
   const cleanup = () => {
