@@ -25,6 +25,13 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 1280, height: 800
     await page.keyboard.press('Escape'); await search.blur();
     await page.keyboard.press('/'); await expect(search).toBeFocused();
     await search.fill('three.js'); await expect(page.locator('.ui-card')).toHaveCount(works.length);
+    if (categoryCount > 1) {
+      await page.locator('.ui-chip').last().click();
+      await search.fill('不存在的世界'); await page.locator('.ui-index__empty button').click();
+      await expect(page.locator('.ui-chip').first()).toHaveAttribute('aria-pressed', 'true');
+      await expect(page.locator('.ui-chip').last()).toHaveAttribute('aria-pressed', 'false');
+      await expect(page.locator('.ui-card')).toHaveCount(works.length);
+    }
     expect(engines).toEqual([]);
   });
 }

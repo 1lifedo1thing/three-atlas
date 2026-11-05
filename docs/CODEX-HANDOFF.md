@@ -20,12 +20,7 @@
 
 ## P2 · 之后
 
-### 10. 部署（需用户授权）
-
-- 目标是免费的 `guanmo-ai.github.io/three-atlas`。前提是用户先把仓库改为公开，并在 Settings → Pages 中选 GitHub Actions。
-- 新增 `.github/workflows/deploy.yml`：依次执行 `npm ci`、`check`、`test`、`build`，然后部署 `dist/`。
-
-本地工作流、`SITE_URL` 分享配置与构建检查已准备，见 `docs/deployment.md`。尚未提交、推送或修改远程设置；公开仓库及实际部署等待用户明确授权。
+部署已于 2026-11-05 按用户明确授权完成。正式站点为 `https://guanmo-ai.github.io/three-atlas/`，维护入口见 `docs/deployment.md`，验证记录见 `docs/verification.md`。
 
 ### 11. 真机验收
 

@@ -1,6 +1,6 @@
-# Three Atlas 部署准备
+# Three Atlas 部署与维护
 
-目标地址为 `https://guanmo-ai.github.io/three-atlas/`。本地部署文件已准备；创建这些文件不表示站点已发布，也没有修改仓库可见性或 GitHub Pages 设置。
+正式地址为 `https://guanmo-ai.github.io/three-atlas/`。用户于 2026-11-05 明确授权公开仓库、提交推送及部署；仓库现为公开，Pages 发布来源为 GitHub Actions，HTTPS 已启用。首次发布的运行记录：[GitHub Actions](https://github.com/guanmo-ai/three-atlas/actions/runs/41992624987)。
 
 `.github/workflows/deploy.yml` 在 main 收到推送或手动触发后，依次执行干净安装、静态检查、单元和场景测试、完整依赖审计及生产构建，上传 `dist/`，再部署到 GitHub Pages。构建任务只有仓库读取权限；部署任务使用 Pages 与 OIDC 所需权限。
 
@@ -21,11 +21,13 @@ SITE_URL=https://guanmo-ai.github.io/three-atlas/ npm run build
 npm run preview
 ```
 
-实际发布前，仍需用户授权：
+本次已按用户授权完成：
 
 1. 将 `guanmo-ai/three-atlas` 改为公开，采用项目既定的免费 GitHub Pages 方案。
-2. 提交并推送当前工作树到该仓库。
-3. 将 Pages 发布来源设为 GitHub Actions，执行已准备的部署工作流。
+2. 提交并推送双作品版本到 main，首发提交为 `baedf251bda1ecb808b794fe686c67db041ac840`。
+3. 将 Pages 发布来源设为 GitHub Actions，完成构建、上传与部署。
+
+后续经授权更新 main 即会运行相同发布流程，也可在 Actions 中手动运行。遇到部署失败，先查看失败步骤；保留上一次成功版本，不强制推送或绕过检查。回滚时选择已验证的历史版本创建回退提交，再走同一工作流。
 
 发布后再验证正式地址及作品深链接的 HTTPS、刷新、返回、媒体响应和分享抓取。物理 Android / iPhone、实际 Safari / Edge 仍需验收；Playwright WebKit / Firefox 结果不代表这些设备已通过。
 

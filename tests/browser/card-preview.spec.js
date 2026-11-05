@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.use({ contextOptions: { reducedMotion: 'no-preference' } });
 
-// A real WorkIndex with extra test-only cards; the published catalogue keeps its one work.
+// A real WorkIndex with extra test-only cards.
 async function cards(page) {
   await page.goto('/');
   await page.evaluate(async () => {
@@ -11,11 +11,11 @@ async function cards(page) {
     const { default: works } = await import('/content/works.json');
     const source = works[0];
     const work = { ...source, alt: source.coverAlt.zh, subtitle: source.subtitle.zh, category: source.category.zh, summary: source.summary.zh };
-    document.querySelector('#works').replaceWith(WorkIndex({ id: 'preview-fixture', labels: copy.zh, select: () => [
+    document.querySelector('#works').replaceWith(WorkIndex({ id: 'preview-fixture', labels: copy.zh, select: query => [
       { ...work, id: 'featured', featured: true, index: 0 },
-      { ...work, id: 'regular', featured: false, index: 1 },
-      { ...work, id: 'still', featured: false, preview: undefined, index: 2 },
-    ] }));
+      { ...work, id: 'regular', title: 'MOON LAB', featured: false, index: 1 },
+      { ...work, id: 'still', title: 'QUIET FIELD', featured: false, preview: undefined, index: 2 },
+    ].filter(work => !query || work.title.toLowerCase().includes(query.toLowerCase())) }));
   });
   return { featured: page.locator('[data-work-id="featured"] video'), regular: page.locator('[data-work-id="regular"] video'), link: page.locator('[data-work-id="regular"] a') };
 }
@@ -72,7 +72,7 @@ for (const mode of ['reduce', 'save-data', 'slow-2g', '2g', '3g', 'touch']) test
   await expect(regular.locator('source')).toHaveCount(0);
 });
 
-test('主推卡至少一半可见才自动播放，普通卡重绘后释放旧源', async ({ page }) => {
+test('主推卡至少一半可见才自动播放，移除普通卡后释放旧源', async ({ page }) => {
   const { featured, regular, link } = await cards(page);
   await expect(featured).toHaveJSProperty('paused', false);
   await featured.locator('..').locator('..').evaluate(el => scrollTo(0, el.getBoundingClientRect().top + scrollY + el.offsetHeight * 0.6));
@@ -82,4 +82,20 @@ test('主推卡至少一半可见才自动播放，普通卡重绘后释放旧�
   const old = await regular.elementHandle();
   await page.getByRole('searchbox').fill('stars');
   expect(await old.evaluate(el => el.paused && el.querySelectorAll('source').length === 0)).toBe(true);
+});
+
+test('搜索保留仍匹配的卡片与视频，连续输入不会重新加载预览', async ({ page }) => {
+  await page.goto('/');
+  const video = page.locator('[data-work-id="where-stars-rest"] video');
+  await expect(video).toHaveClass(/is-playing/);
+  const original = await video.elementHandle();
+  await original.evaluate(el => { el.dataset.reloads = '0'; el.addEventListener('loadstart', () => { el.dataset.reloads = String(Number(el.dataset.reloads) + 1); }); });
+  const search = page.getByRole('searchbox');
+  for (const query of ['s', 'st', 'stars']) {
+    await search.fill(query);
+    expect(await original.evaluate(el => el.isConnected)).toBe(true);
+    await expect(video).toHaveJSProperty('paused', false);
+    await expect(video.locator('source')).toHaveCount(2);
+  }
+  expect(await original.getAttribute('data-reloads')).toBe('0');
 });

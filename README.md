@@ -4,6 +4,8 @@
 
 **三维图鉴**：在浏览器里探索可以旋转、靠近、停留的三维世界。
 
+[打开 Three Atlas](https://guanmo-ai.github.io/three-atlas/)
+
 An atlas of interactive 3D worlds, models, simulations, and creative experiments for the web.
 
 ## 当前内容
@@ -12,7 +14,7 @@ An atlas of interactive 3D worlds, models, simulations, and creative experiments
 
 第二作 **幽珊 / Lumen Corallum**：半透明触须、珊瑚分枝与悬浮种核组成的幻想生物。体内外萤光与形体同步呼吸，支持四个观察视角、暂停、唤光及中英文切换。
 
-首页以轻量卡片汇总作品，每个作品拥有独立页面。首页视觉目前是结构初稿，后续由 Opus 5.5 完整设计；现有作品画面与交互沿用原版本。
+首页以轻量卡片汇总作品，每个作品拥有独立页面。现有作品画面与交互保留，首页视觉仍待用户验收。
 
 ## 本地运行
 
@@ -34,7 +36,7 @@ npm run build
 npm run preview
 ```
 
-生产预览在 `http://127.0.0.1:4194/`。`dist/` 可静态部署，根路径与项目子路径均使用相对资源地址。分享卡片和 canonical 通过 `SITE_URL` 注入，示例见 `.env.example`；本地 GitHub Pages 工作流已准备，实际发布与授权步骤见 [部署说明](docs/deployment.md)。
+生产预览在 `http://127.0.0.1:4194/`。`dist/` 可静态部署，根路径与项目子路径均使用相对资源地址。分享卡片和 canonical 通过 `SITE_URL` 注入，示例见 `.env.example`。站点已使用 GitHub Pages 发布，维护步骤见 [部署说明](docs/deployment.md)。
 
 ## 内容与代码边界
 
