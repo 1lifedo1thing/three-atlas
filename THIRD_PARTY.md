@@ -37,3 +37,5 @@
 开发依赖安全维护：Lighthouse CI 仍为 0.16.0，使用 npm overrides 将其依赖链的 basic-ftp 固定至 6.2.6（Patrick Juchli，MIT，https://github.com/patrickjuchli/basic-ftp），将 glob 9+ 固定至 14.0.3（Isaac Z. Schlueter，BlueOak-1.0.0，https://github.com/isaacs/node-glob），后者带入 minimatch 11.0.4。旧工具使用的 glob 7 保持原兼容版本。这些包只供开发工具使用，不进入网站运行时包；未修改上游源码。
 
 `public/media/atoll-jelly.jpg` 来自 Atoll Jelly 自身的 WebGPU 画布，采集时临时将画布渲染尺寸设为 2880 × 1800，未修改场景几何、材质或光照。
+
+`public/media/endless-vale.jpg` 来自 ENDLESS VALE 初始视角的真实浏览器渲染（2880 × 1800），采集时仅临时隐藏界面，未修改场景。该作品的来源说明见 [ENDLESS VALE 第三方依赖](./experiences/endless-vale/THIRD_PARTY.md)。

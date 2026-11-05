@@ -1,0 +1,97 @@
+/* ENDLESS VALE · page chrome. Colours, type, radii and curves come from Atlas UI tokens. */
+html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+.ev { position: fixed; inset: 0; overflow: hidden; background: var(--c-bg); color: var(--c-fg); user-select: none; -webkit-user-select: none; }
+.ev-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+.ev-canvas:active { cursor: grabbing; }
+.ev-canvas:focus { outline: none; }
+.ev-canvas:focus-visible { outline: 1.5px solid var(--c-fg); outline-offset: calc(var(--s-1) * -1); border-radius: 0; }
+
+.ev-scrim { position: absolute; inset: 0; pointer-events: none; background:
+  linear-gradient(to top, color-mix(in srgb, var(--c-bg) 62%, transparent), transparent 42%),
+  linear-gradient(to bottom, color-mix(in srgb, var(--c-bg) 30%, transparent), transparent 16%); }
+
+.ev-top { position: absolute; inset: var(--s-5) var(--gutter) auto; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+.ev-top > * { pointer-events: auto; }
+.ev-back .ui-icon { order: -1; }
+.ev-back:hover .ui-icon { transform: translateX(-3px); }
+
+.ev-lang, .ev-times { display: flex; gap: 2px; padding: 3px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--c-bg) 34%, transparent); box-shadow: inset 0 0 0 1px var(--c-line-2); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.ev-chip { height: 28px; min-width: 40px; padding: 0 var(--s-3); border: 0; border-radius: var(--r-pill); background: transparent; color: var(--c-fg-2); font: var(--w-medium) var(--t-caption)/1 var(--f-sans); white-space: nowrap; transition: background var(--d-2) var(--e-std), color var(--d-2) var(--e-std); }
+.ev-chip:hover { color: var(--c-fg); }
+.ev-chip[aria-pressed='true'] { background: var(--c-fg); color: var(--c-bg); }
+.ev-chip:focus-visible { outline-offset: 2px; border-radius: var(--r-pill); }
+
+.ev-intro { position: absolute; left: var(--gutter); bottom: calc(var(--s-6) + var(--s-10)); max-width: min(560px, 44vw); pointer-events: none; transition: opacity var(--d-3) var(--e-std); }
+.ev-title { margin-top: var(--s-3); letter-spacing: -0.03em; }
+.ev-subtitle { margin-top: var(--s-2); font-size: var(--t-lead); line-height: 1.4; color: var(--c-fg-2); }
+.ev-lead { margin-top: var(--s-4); max-width: 34em; }
+
+.ev-bottom { position: absolute; inset: auto var(--gutter) var(--s-6); display: flex; justify-content: space-between; align-items: flex-end; gap: var(--s-6); pointer-events: none; }
+.ev-bottom > * { pointer-events: auto; }
+.ev-readout { display: grid; grid-auto-flow: column; gap: var(--s-6); margin: 0; padding-top: var(--s-4); border-top: 1px solid var(--c-line-2); }
+.ev-readout dt { font: var(--w-medium) var(--t-caption)/1.4 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-fg-3); }
+.ev-readout dd { margin: var(--s-1) 0 0; min-width: 9ch; font: var(--w-regular) var(--t-small)/1.4 var(--f-mono); font-variant-numeric: tabular-nums; color: var(--c-fg); white-space: nowrap; }
+.ev-controls { display: flex; flex-direction: column; align-items: flex-end; gap: var(--s-3); }
+.ev-actions { display: flex; align-items: center; gap: var(--s-2); }
+.ev-actions .ui-btn--ghost { padding-inline: var(--s-2); }
+
+.ev-hint { position: absolute; top: calc(var(--s-5) + 8px); left: 50%; transform: translateX(-50%); max-width: min(560px, calc(100% - 2 * var(--gutter) - 340px)); text-align: center; font-size: var(--t-caption); line-height: 1.5; color: var(--c-fg-2); pointer-events: none; transition: opacity var(--d-4) var(--e-std); }
+.ev-hint.is-faded { opacity: 0; }
+
+.ev-banner { position: absolute; top: 24%; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: var(--s-3); text-align: center; pointer-events: none; opacity: 0; }
+.ev-banner__name { font-size: var(--t-h2); font-weight: var(--w-regular); letter-spacing: 0.04em; line-height: 1.1; white-space: nowrap; }
+.ev-banner .ui-eyebrow { color: var(--c-fg-2); letter-spacing: 0.32em; }
+.ev-banner.is-on { animation: ev-banner 4.6s var(--e-out) both; }
+@keyframes ev-banner {
+  0% { opacity: 0; transform: translate(-50%, 14px); letter-spacing: 0.02em; }
+  22% { opacity: 1; transform: translate(-50%, 0); }
+  72% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -6px); }
+}
+
+.ev-loader { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s-4); background: var(--c-bg); transition: opacity var(--d-4) var(--e-std), visibility 0s linear var(--d-4); }
+.ev-loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+.ev-loader__bar { width: 160px; height: 1px; background: var(--c-line-2); overflow: hidden; }
+.ev-loader__bar i { display: block; height: 100%; background: var(--c-fg); transform: scaleX(0); transform-origin: left; transition: transform var(--d-2) var(--e-std); }
+
+.ev-error { position: absolute; inset: 0; z-index: 30; display: grid; place-content: center; gap: var(--s-4); padding: var(--gutter); text-align: center; background: var(--c-bg); color: var(--c-fg-2); font-size: var(--t-small); }
+
+.ev-about { width: min(520px, calc(100% - 2 * var(--gutter))); padding: var(--s-7); border: 0; border-radius: var(--r-lg); background: var(--c-surface); color: var(--c-fg-2); box-shadow: inset 0 0 0 1px var(--c-line); }
+.ev-about::backdrop { background: var(--c-scrim); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.ev-about .ui-h3 { color: var(--c-fg); }
+.ev-about__body { display: grid; gap: var(--s-3); margin-top: var(--s-4); font-size: var(--t-small); line-height: 1.75; }
+.ev-about__keys { margin-top: var(--s-5); font: var(--t-caption)/1.6 var(--f-mono); color: var(--c-fg-3); }
+.ev-about .ui-btn { margin-top: var(--s-5); }
+
+/* Focus mode keeps only the switch that brings the interface back. */
+.ev-top, .ev-readout, .ev-times, .ev-scrim, .ev-actions > * { transition: opacity var(--d-3) var(--e-std); }
+.is-clean :is(.ev-top, .ev-intro, .ev-readout, .ev-times, .ev-scrim, .ev-hint, #pause, #about) { opacity: 0; pointer-events: none; visibility: hidden; }
+.is-clean #clean { opacity: 0.45; }
+.is-clean #clean:hover, .is-clean #clean:focus-visible { opacity: 1; }
+
+body.has-error :is(.ev-intro, .ev-bottom, .ev-hint) { display: none; }
+
+@media (max-width: 1100px) {
+  .ev-lead { display: none; }
+  .ev-intro { bottom: calc(var(--s-6) + var(--s-9)); }
+}
+@media (max-width: 720px) {
+  .ev-intro { top: calc(var(--s-5) + 48px); bottom: auto; max-width: none; right: var(--gutter); }
+  .ev-intro .ui-eyebrow { display: none; }
+  .ev-title { margin-top: 0; }
+  .ev-subtitle { font-size: var(--t-small); }
+  .ev-hint { top: calc(var(--s-5) + 132px); left: var(--gutter); right: var(--gutter); transform: none; max-width: none; text-align: left; }
+  .ev-bottom { flex-direction: column; align-items: stretch; gap: var(--s-4); bottom: var(--s-5); }
+  .ev-readout { grid-auto-flow: row; grid-template-columns: 1fr 1fr; gap: var(--s-3) var(--s-4); }
+  .ev-controls { align-items: stretch; }
+  .ev-times { justify-content: space-between; }
+  .ev-chip { flex: 1; padding: 0 var(--s-2); min-width: 0; }
+  .ev-actions { justify-content: space-between; }
+  .ev-banner { top: 34%; }
+}
+@media (pointer: coarse) {
+  .ev-chip { height: 40px; }
+  .ev-actions .ui-btn { min-height: 44px; }
+}
+/* Reduced motion: the land name simply appears and later disappears. */
+.ev-banner.is-static { opacity: 1; animation: none; }

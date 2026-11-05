@@ -14,6 +14,8 @@ An atlas of interactive 3D worlds, models, simulations, and creative experiments
 
 第二作 **幽珊 / Lumen Corallum**：半透明触须、珊瑚分枝与悬浮种核组成的幻想生物。体内外萤光与形体同步呼吸，支持四个观察视角、暂停、唤光及中英文切换。
 
+**ENDLESS VALE / 无尽之谷**：沿着一条无尽的河飞行，程序化山谷在前方实时生成，金色草甸、粉雾花坡、赤岩台地、霜白高原轮流出现。滚动调速，拖动环顾，昼夜随时间流转，内容待用户审阅。
+
 首页以轻量卡片汇总作品，每个作品拥有独立页面。现有作品画面与交互保留，首页视觉仍待用户验收。
 
 ## 本地运行
@@ -25,7 +27,7 @@ npm ci
 npm run dev
 ```
 
-打开 `http://127.0.0.1:5194/`。首作可直接访问 `/experiences/where-stars-rest/index.html`，幽珊入口为 `/experiences/lumen-corallum/index.html`。
+打开 `http://127.0.0.1:5194/`。首作可直接访问 `/experiences/where-stars-rest/index.html`，幽珊入口为 `/experiences/lumen-corallum/index.html`，无尽之谷为 `/experiences/endless-vale/index.html`。
 
 生产构建与预览：
 
@@ -47,6 +49,7 @@ src/gallery/                      首页：组合组件与文案
 src/shared/experience-nav.css      轻量返回导航样式
 experiences/where-stars-rest/      首作的独立 HTML、源码、测试与许可证
 experiences/lumen-corallum/        幽珊的独立 HTML、源码、测试与许可证
+experiences/endless-vale/          无尽之谷的独立 HTML、源码、测试与许可证
 public/media/                     真实作品封面
 scripts/                          目录与多页面构建检查
 docs/OPUS-HANDOFF.md               后续设计交接

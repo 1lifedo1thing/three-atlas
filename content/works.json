@@ -282,5 +282,78 @@
       "ambient": "media/atoll-jelly-ambient.webp",
       "sourceHash": "1ea308338251497e8462dfd6a052a4a65ed4a6dab403e422af78e7143f55fc5e"
     }
+  },
+  {
+    "id": "endless-vale",
+    "title": "ENDLESS VALE",
+    "subtitle": {
+      "zh": "无尽之谷",
+      "en": "A valley that never ends"
+    },
+    "summary": {
+      "zh": "沿着河一直往前飞。山谷在前方实时生成，草甸、花坡、赤岩与霜原轮流出现，天色也跟着慢慢变。",
+      "en": "Follow the river and keep flying. The valley is built just ahead of you, through golden meadows, pink hills, red mesas and frost, while the light slowly changes."
+    },
+    "category": {
+      "zh": "无限世界",
+      "en": "Endless world"
+    },
+    "tags": [
+      "Three.js",
+      "程序化",
+      "Procedural",
+      "无限地形",
+      "Infinite terrain",
+      "飞行",
+      "Flight",
+      "交互",
+      "Interactive"
+    ],
+    "entry": "experiences/endless-vale/index.html",
+    "cover": "media/endless-vale.jpg",
+    "coverAlt": {
+      "zh": "黄昏的金色山谷，一条河蜿蜒向远方，两岸是橙红的树、石灯和村舍，低垂的太阳穿过薄雾。",
+      "en": "A golden valley at dusk with a river winding into the distance, amber trees, stone lanterns and cottages on its banks, and a low sun through the haze."
+    },
+    "author": {
+      "name": "观默",
+      "handle": "guanmo_ai",
+      "url": "https://x.com/guanmo_ai"
+    },
+    "tone": "#ad7559",
+    "images": {
+      "width": 2880,
+      "height": 1800,
+      "avif": [
+        {
+          "src": "media/endless-vale-720.avif",
+          "width": 720
+        },
+        {
+          "src": "media/endless-vale-1440.avif",
+          "width": 1440
+        },
+        {
+          "src": "media/endless-vale-2880.avif",
+          "width": 2880
+        }
+      ],
+      "webp": [
+        {
+          "src": "media/endless-vale-720.webp",
+          "width": 720
+        },
+        {
+          "src": "media/endless-vale-1440.webp",
+          "width": 1440
+        },
+        {
+          "src": "media/endless-vale-2880.webp",
+          "width": 2880
+        }
+      ],
+      "ambient": "media/endless-vale-ambient.webp",
+      "sourceHash": "23e4f1a6debe78132735d6325993870587648c865654b534fb8c37e1ed4577dc"
+    }
   }
 ]
