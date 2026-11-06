@@ -69,9 +69,9 @@ export function createSky({ cloudOctaves = 5 } = {}) {
           vec2 uv = dir.xz / (dir.y + 0.09) * 0.75 + cameraPosition.xz * 0.00022 + vec2(uTime * 0.0035, -uTime * 0.0012);
           float d = vfbm(uv * 1.6, CLOUD_OCTAVES);
           float shade = vfbm(uv * 1.6 + uSunDir.xz * 0.09, CLOUD_OCTAVES);
-          cover = smoothstep(1.0 - uClouds, 1.08 - uClouds * 0.35, d) * smoothstep(0.0, 0.16, dir.y);
+          cover = smoothstep(1.0 - uClouds, 1.0 - uClouds * 0.55, d) * smoothstep(0.0, 0.16, dir.y);
           float lit = clamp(0.55 + (d - shade) * 4.0, 0.0, 1.0);
-          vec3 dark = mix(uZenith, uFogColor, 0.55) * (0.8 + 0.2 * day);
+          vec3 dark = mix(uZenith, uHorizon, 0.45) * (0.85 + 0.25 * day);
           vec3 bright = uSunColor * (0.75 + 0.6 * day) + uHorizon * 0.35;
           vec3 cloud = mix(dark, bright, lit * (0.35 + 0.65 * day));
           cloud += uSunColor * pow(max(mu, 0.0), 10.0) * 1.2 * day;

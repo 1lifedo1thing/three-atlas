@@ -23,6 +23,7 @@ import { Land } from './land.js';
 import { createMotes, createLanterns } from './particles.js';
 import { createFlock } from './birds.js';
 import { Pipeline } from './post.js';
+import { createAmbience } from './audio.js';
 
 const params = new URLSearchParams(location.search);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -54,6 +55,8 @@ const readoutList = h('dl.ev-readout', null, ['distance', 'speed', 'clock', 'lan
 const timeButtons = TIMES.map(name => h('button.ev-chip', { type: 'button', dataset: { time: name }, onClick: () => chooseTime(name) }));
 const timeGroup = h('div.ev-times', { role: 'group' }, timeButtons);
 const pauseButton = Button({ label: '', variant: 'secondary', size: 'sm', icon: null, attrs: { id: 'pause', 'aria-pressed': 'false' }, onClick: () => togglePause() });
+const ambience = createAmbience();
+const soundButton = Button({ label: '', variant: 'ghost', size: 'sm', icon: null, attrs: { id: 'sound', 'aria-pressed': 'false' }, onClick: () => toggleSound() });
 const cleanButton = Button({ label: '', variant: 'ghost', size: 'sm', icon: null, attrs: { id: 'clean', 'aria-pressed': 'false' }, onClick: () => toggleClean() });
 const aboutButton = Button({ label: '', variant: 'ghost', size: 'sm', icon: 'external', attrs: { id: 'about' }, onClick: () => about.showModal() });
 const hint = h('p.ev-hint');
@@ -69,7 +72,7 @@ const errorText = h('p.ev-error', { role: 'alert', hidden: true });
 root.append(canvas, h('div.ev-scrim', { 'aria-hidden': 'true' }),
   h('header.ev-top', null, back, langGroup),
   h('section.ev-intro', null, eyebrow, title, subtitle, lead),
-  h('footer.ev-bottom', null, readoutList, h('div.ev-controls', null, timeGroup, h('div.ev-actions', null, pauseButton, cleanButton, aboutButton))),
+  h('footer.ev-bottom', null, readoutList, h('div.ev-controls', null, timeGroup, h('div.ev-actions', null, pauseButton, soundButton, cleanButton, aboutButton))),
   hint, banner, loader, errorText, about);
 
 let paused = reduced, cleanMode = false, timeMode = 'flow', timeTarget = null, hour = Number(params.get('hour')) || START_HOUR;
@@ -102,6 +105,9 @@ function renderState() {
   pauseButton.querySelector('.ui-btn__label').textContent = t(paused ? 'resume' : 'pause');
   pauseButton.setAttribute('aria-label', t(paused ? 'resumeLabel' : 'pauseLabel'));
   pauseButton.setAttribute('aria-pressed', String(paused));
+  soundButton.querySelector('.ui-btn__label').textContent = t(ambience.on ? 'soundOff' : 'sound');
+  soundButton.setAttribute('aria-label', t(ambience.on ? 'soundOffLabel' : 'soundLabel'));
+  soundButton.setAttribute('aria-pressed', String(ambience.on));
   cleanButton.querySelector('.ui-btn__label').textContent = t(cleanMode ? 'cleanBack' : 'clean');
   cleanButton.setAttribute('aria-pressed', String(cleanMode));
   for (const button of timeButtons) button.setAttribute('aria-pressed', String(button.dataset.time === timeMode));
@@ -190,7 +196,7 @@ function start() {
     const weights = landAt(flight.s);
     motes.uniforms.uLand.value.set(weights[0], weights[1], weights[2], weights[3]);
     sky.uniforms.uAurora.value = 0.35 + 0.65 * weights[3];
-    sky.uniforms.uClouds.value = 0.5 + 0.12 * weights[1] - 0.1 * weights[2] + 0.06 * weights[3];
+    sky.uniforms.uClouds.value = 0.4 + 0.1 * weights[1] - 0.08 * weights[2] + 0.06 * weights[3];
   }
 
   function placeShadow() {
@@ -238,6 +244,7 @@ function start() {
     motes.uniforms.uCenter.value.copy(camera.position).addScaledVector(forward, 60);
     lanterns.uniforms.uCenter.value.copy(camera.position).addScaledVector(forward, 380);
     flock.update(flight.s, worldTime, state.night, live ? dt : 0);
+    try { ambience.update({ speed: flight.speed, night: state.night, paused }); } catch { /* Sound must never stop the picture. */ }
 
     // Skip frames that would look identical: paused, settled and nothing new streamed in.
     const key = [flight.s, flight.y, flight.yaw, flight.pitch, flight.roll, camera.fov, hour, land.version].map(v => v.toFixed(4)).join();
@@ -335,6 +342,7 @@ function start() {
     }
     if (event.code === 'Space' && !onControl) { event.preventDefault(); togglePause(); }
     else if (event.code === 'KeyH') toggleClean();
+    else if (event.code === 'KeyM') toggleSound();
     else if (event.code === 'KeyT') chooseTime(TIMES[(TIMES.indexOf(timeMode) + 1) % TIMES.length]);
   });
   addEventListener('keyup', event => { if (KEYS[event.code]) flight.keys[KEYS[event.code]] = 0; });
@@ -357,12 +365,14 @@ function start() {
   const stopGuard = guardContext(canvas, { onLost: () => loop.setPaused(true), onRestored: () => { quality.reset(); loop.setPaused(false); } });
   loop.start();
   addEventListener('pagehide', event => {
-    if (event.persisted) { loop.setPaused(true); return; }
+    if (event.persisted) { loop.setPaused(true); ambience.suspend(); return; }
+    ambience.dispose();
     loop.dispose(); stopResize(); stopGuard(); streamer.dispose(); land.dispose(); pipeline.dispose(); reflection.dispose();
     for (const object of [sky.mesh, motes.points, lanterns.points, flock.mesh]) { object.geometry.dispose(); object.material.dispose(); }
     renderer.dispose();
   });
-  addEventListener('pageshow', event => { if (event.persisted) loop.setPaused(false); });
+  addEventListener('pageshow', event => { if (event.persisted) { loop.setPaused(false); ambience.resume(); } });
+  document.addEventListener('visibilitychange', () => (document.hidden ? ambience.suspend() : ambience.resume()));
   window.__endlessVale = { flight, land, get hour() { return hour; }, set hour(value) { hour = value; } };
 }
 
@@ -371,6 +381,10 @@ function updateReadout() {}
 function showBanner() {}
 function togglePause() {}
 function chooseTime() {}
+async function toggleSound() {
+  await ambience.toggle();
+  renderState();
+}
 function toggleClean() {
   cleanMode = !cleanMode;
   document.body.classList.toggle('is-clean', cleanMode);

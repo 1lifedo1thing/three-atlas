@@ -220,26 +220,34 @@ export function cottage() {
   ]);
 }
 
-/** Floating island: an inverted rock spire with a grassy cap and two trees. */
+/** Floating island: a broken rock mass with several hanging spires, a grassy crown and a few trees. */
 export function island() {
   const r = random(5), parts = [];
-  const spire = lumpy(new ConeGeometry(10, 18, 10, 4), 0.18, 0.22, 2);
-  const rockShade = v => { const k = 0.45 + 0.4 * Math.min(Math.max((v.y + 18) / 18, 0), 1); return [0.42 * k, 0.36 * k, 0.33 * k, 0, 0, 0]; };
-  parts.push(part(spire, { matrix: T(0, -9.2, 0, Math.PI, 0, 0), flat: true, shade: rockShade }));
-  const cap = lumpy(new CylinderGeometry(10.6, 10, 1.6, 12, 1), 0.06, 0.4, 9);
-  const top = lin('#b89a5a');
-  parts.push(part(cap, { matrix: T(0, -0.5, 0), flat: true, shade: v => { const k = v.y > -0.4 ? 1 : 0.7; return [top[0] * k, top[1] * k, top[2] * k, 0, 0, 0]; } }));
+  const rock = lin('#8a7466'), deep = lin('#3e3438'), top = lin('#b89a5a');
+  const rockShade = v => { const k = Math.min(Math.max((v.y + 22) / 22, 0), 1); return [deep[0] + (rock[0] - deep[0]) * k, deep[1] + (rock[1] - deep[1]) * k, deep[2] + (rock[2] - deep[2]) * k, 0, 0, 0]; };
+  // Crown: a flattened, lumpy disc.
+  const crown = lumpy(new IcosahedronGeometry(1, 2), 0.16, 1.4, 3);
+  const cp = crown.attributes.position;
+  for (let i = 0; i < cp.count; i++) if (cp.getY(i) > 0.25) cp.setY(i, 0.25 + (cp.getY(i) - 0.25) * 0.15);
+  parts.push(part(crown, { matrix: T(0, -1.2, 0, 0, 0.3, 0, 11, 6, 9.5), flat: true,
+    shade: v => v.y > -0.2 ? [top[0], top[1], top[2], 0, 0, 0] : rockShade(v) }));
+  // Hanging spires of different lengths, leaning slightly outward.
+  for (const [x, z, radius, length] of [[0, 0, 7.5, 20], [4.5, 2.5, 4.2, 13], [-4.8, 1.8, 3.8, 15], [1.5, -4.6, 3.6, 10], [-2.5, -3.2, 2.6, 8]]) {
+    const spire = lumpy(new ConeGeometry(radius, length, 8, 4), 0.2, 0.35, x + z);
+    parts.push(part(spire, { matrix: T(x, -3 - length / 2, z, Math.PI + z * 0.03, r() * 6, -x * 0.03), flat: true, shade: rockShade }));
+  }
   const center = new Vector3(0, 6, 0);
-  for (const [x, z, s] of [[-2.5, 1.5, 1.3], [3.8, -2.2, 0.9], [1.2, 4.6, 0.7]]) {
+  for (const [x, z, s] of [[-3, 1.5, 1.25], [3.8, -2.4, 0.95], [1.2, 4.2, 0.75]]) {
     parts.push(part(new CylinderGeometry(0.25, 0.45, 4.5, 5, 1, true), { matrix: T(x, 2.2 * s, z, 0, 0, 0, s), normals: g => g.computeVertexNormals(), shade: () => [BARK[0], BARK[1], BARK[2], 0, 0, 0] }));
     const blob = lumpy(new IcosahedronGeometry(2.6, 1), 0.25, 1, r() * 9);
     parts.push(part(blob, { matrix: T(x, 5.6 * s, z, 0, r() * 6, 0, s), normals: radial(new Vector3(x, 5.6 * s, z), 0.7), shade: v => { const k = 0.55 + 0.45 * Math.min(Math.max((v.y - 3 * s) / (5 * s), 0), 1); return [k, k, k, 1, 0, 0]; } }));
   }
-  // A few stones hanging beneath, like the island is still shedding its roots.
-  for (let i = 0; i < 4; i++) {
-    const a = r() * 6.28, d = 4 + r() * 4;
-    parts.push(part(lumpy(new IcosahedronGeometry(0.9 + r(), 0), 0.2, 1, i), { matrix: T(Math.cos(a) * d, -14 - r() * 6, Math.sin(a) * d), flat: true, shade: rockShade }));
+  // Loose stones drifting beneath, as if the island is still shedding its roots.
+  for (let i = 0; i < 5; i++) {
+    const a = r() * 6.28, d = 5 + r() * 6;
+    parts.push(part(lumpy(new IcosahedronGeometry(0.8 + r() * 1.1, 0), 0.2, 1, i), { matrix: T(Math.cos(a) * d, -18 - r() * 10, Math.sin(a) * d, r(), r(), r()), flat: true, shade: rockShade }));
   }
+  void center;
   return merge(parts);
 }
 

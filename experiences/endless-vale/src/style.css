@@ -7,6 +7,7 @@ html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
 .ev-canvas:focus-visible { outline: 1.5px solid var(--c-fg); outline-offset: calc(var(--s-1) * -1); border-radius: 0; }
 
 .ev-scrim { position: absolute; inset: 0; pointer-events: none; background:
+  radial-gradient(ellipse 60% 55% at 0% 100%, color-mix(in srgb, var(--c-bg) 55%, transparent), transparent 70%),
   linear-gradient(to top, color-mix(in srgb, var(--c-bg) 62%, transparent), transparent 42%),
   linear-gradient(to bottom, color-mix(in srgb, var(--c-bg) 30%, transparent), transparent 16%); }
 
@@ -65,7 +66,7 @@ html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
 
 /* Focus mode keeps only the switch that brings the interface back. */
 .ev-top, .ev-readout, .ev-times, .ev-scrim, .ev-actions > * { transition: opacity var(--d-3) var(--e-std); }
-.is-clean :is(.ev-top, .ev-intro, .ev-readout, .ev-times, .ev-scrim, .ev-hint, #pause, #about) { opacity: 0; pointer-events: none; visibility: hidden; }
+.is-clean :is(.ev-top, .ev-intro, .ev-readout, .ev-times, .ev-scrim, .ev-hint, #pause, #sound, #about) { opacity: 0; pointer-events: none; visibility: hidden; }
 .is-clean #clean { opacity: 0.45; }
 .is-clean #clean:hover, .is-clean #clean:focus-visible { opacity: 1; }
 

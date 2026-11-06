@@ -73,6 +73,8 @@ export class Pipeline {
           if (uRays > 0.0) col += texture2D(tRays, vUv).rgb * uRayColor * uRays;
           float l = dot(col, vec3(0.2126, 0.7152, 0.0722));
           col = max(mix(vec3(l), col, uSaturation), 0.0);
+          // A soft contrast curve around mid-grey, applied in log space so highlights keep their roll-off.
+          col = exp2((log2(col + 1e-4) - log2(0.18)) * 1.08 + log2(0.18));
           col *= 1.0 - uVignette * smoothstep(0.08, 0.6, r2 * 1.5);
           gl_FragColor = vec4(col, 1.0);
           #include <tonemapping_fragment>

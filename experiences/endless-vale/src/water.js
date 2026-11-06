@@ -94,37 +94,36 @@ export function waterMaterial(reflection) {
       varying vec4 vReflectUv;
       ${ATMOSPHERE}
 
+      float wHash(vec2 p) { p = fract(p * vec2(234.34, 435.345)); p += dot(p, p + 34.23); return fract(p.x * p.y); }
+      float wNoise(vec2 p) {
+        vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+        return mix(mix(wHash(i), wHash(i + vec2(1.0, 0.0)), f.x), mix(wHash(i + vec2(0.0, 1.0)), wHash(i + vec2(1.0, 1.0)), f.x), f.y);
+      }
+      // Irregular ripples: three noise layers drifting downstream at different speeds and angles.
+      float waveHeight(vec2 p, float t) {
+        return wNoise(p * 0.32 + vec2(0.13 * t, 0.42 * t)) * 0.55
+             + wNoise(mat2(0.8, -0.6, 0.6, 0.8) * p * 0.83 + vec2(-0.21 * t, 0.66 * t)) * 0.3
+             + wNoise(mat2(0.6, 0.8, -0.8, 0.6) * p * 2.1 + vec2(0.35 * t, 1.1 * t)) * 0.15;
+      }
       vec2 waveGradient(vec2 p, float t) {
-        vec2 g = vec2(0.0);
-        // direction, frequency, amplitude, speed: long swells under fine ripples, drifting downstream.
-        vec4 waves[6];
-        waves[0] = vec4(0.28, 0.96, 0.23, 0.035);
-        waves[1] = vec4(-0.52, 0.85, 0.41, 0.03);
-        waves[2] = vec4(0.91, 0.41, 0.83, 0.022);
-        waves[3] = vec4(-0.2, 0.98, 1.37, 0.016);
-        waves[4] = vec4(0.71, -0.7, 2.23, 0.011);
-        waves[5] = vec4(-0.96, 0.27, 3.71, 0.0065);
-        for (int i = 0; i < 6; i++) {
-          vec2 d = waves[i].xy;
-          float f = waves[i].z, a = waves[i].w;
-          g += d * f * a * cos(dot(d, p) * f + t * (1.2 + f * 1.4));
-        }
-        return g;
+        const float e = 0.12;
+        float h = waveHeight(p, t);
+        return vec2(waveHeight(p + vec2(e, 0.0), t) - h, waveHeight(p + vec2(0.0, e), t) - h) / e;
       }
 
       void main() {
         vec3 toFrag = vWorldPos - cameraPosition;
         float dist = length(toFrag);
         vec3 view = toFrag / dist;
-        vec2 g = waveGradient(vWorldPos.xz, uTime) * mix(1.0, 0.3, smoothstep(40.0, 500.0, dist));
-        vec3 n = normalize(vec3(-g.x * 1.6, 1.0, -g.y * 1.6));
+        vec2 g = waveGradient(vWorldPos.xz, uTime) * mix(1.0, 0.2, smoothstep(30.0, 420.0, dist));
+        vec3 n = normalize(vec3(-g.x * 0.16, 1.0, -g.y * 0.16));
         float cosTheta = max(dot(-view, n), 0.0);
-        float fresnel = 0.16 + 0.84 * pow(1.0 - cosTheta, 4.0);
+        float fresnel = 0.1 + 0.9 * pow(1.0 - cosTheta, 4.0);
         vec3 reflected = reflect(view, n);
         reflected.y = abs(reflected.y);
         vec3 mirror = skyColor(reflected);
         if (uHasReflection > 0.5) {
-          vec2 uv = vReflectUv.xy / vReflectUv.w + n.xz * 0.02;
+          vec2 uv = vReflectUv.xy / vReflectUv.w + n.xz * 0.06;
           mirror = texture2D(tReflect, uv).rgb;
         }
         // Light through the water body: dusky indigo depths, warmer over the shallows.
@@ -135,7 +134,7 @@ export function waterMaterial(reflection) {
         vec3 glint = uKeyLight * (pow(sunDot, 1400.0) * 9.0 + pow(sunDot, 120.0) * 0.12) * smoothstep(-0.05, 0.05, uSunDir.y);
         glint += vec3(0.55, 0.65, 1.0) * pow(max(dot(reflected, uMoonDir), 0.0), 220.0) * 2.5 * uNight;
         // Foam where the river meets the bank.
-        float foamNoise = 0.5 + 0.5 * sin(vWorldPos.x * 1.7 + uTime * 1.3) * sin(vWorldPos.z * 1.3 - uTime * 0.9);
+        float foamNoise = wNoise(vWorldPos.xz * 1.4 + vec2(0.0, uTime * 0.8));
         float foam = smoothstep(0.42, 0.0, vDepth) * (0.35 + 0.65 * foamNoise) * smoothstep(-0.25, 0.04, vDepth);
         vec3 foamColor = (uKeyLight * max(uSunDir.y, 0.08) * 0.32 + uSkyFill * 0.5);
         float alpha = 1.0 - (1.0 - absorb) * (1.0 - fresnel);

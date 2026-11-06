@@ -320,7 +320,7 @@
       "handle": "guanmo_ai",
       "url": "https://x.com/guanmo_ai"
     },
-    "tone": "#ad7559",
+    "tone": "#af7558",
     "images": {
       "width": 2880,
       "height": 1800,
@@ -353,7 +353,7 @@
         }
       ],
       "ambient": "media/endless-vale-ambient.webp",
-      "sourceHash": "23e4f1a6debe78132735d6325993870587648c865654b534fb8c37e1ed4577dc"
+      "sourceHash": "678e33e5cb0be703c89adebe120db5bcdb117511a16d9ff6e0d1e77ca2c73d8b"
     }
   }
 ]

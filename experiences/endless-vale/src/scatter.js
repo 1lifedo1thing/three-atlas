@@ -176,7 +176,8 @@ export function scatterCell(cx, cz) {
   eachSub(cx, cz, 64, 17, (x, z, r) => {
     const g = ground(x, z), { ad } = lateral(x, z);
     if (ad < 95 || ad > 360) return;
-    if (r() > mixLand(g.w, L => L.islands)) return;
+    // Islands keep their distance from each other: only every other cell may hold one.
+    if (((cx + cz) & 1) !== 0 || r() > mixLand(g.w, L => L.islands) * 1.6) return;
     const scale = 0.7 + r() * 0.9;
     const land = LANDS[g.w.indexOf(Math.max(...g.w))];
     const top = land.trees.roundColors[Math.floor(r() * land.trees.roundColors.length)];
