@@ -16,6 +16,8 @@
   --c-fg-4: rgb(245 245 247 / 0.24);
   --c-line: rgb(245 245 247 / 0.1);
   --c-line-2: rgb(245 245 247 / 0.2);
+  --c-follow-bg: rgb(220 102 96 / 0.09);
+  --c-follow-hover: rgb(220 102 96 / 0.15);
   --c-scrim: rgb(5 5 6 / 0.72);
 
   /* Type */

@@ -42,6 +42,7 @@ function render() {
 
   const nav = GlobalNav({
     links: [{ label: t.navWorks, href: '#works' }, { label: t.navAbout, href: '#about' }],
+    follow: { label: t.navFollow, href: 'https://x.com/guanmo_ai' },
     lang: { label: t.langLabel, aria: t.langAria, onToggle: event => requestLang(lang === 'zh' ? 'en' : 'zh', event.currentTarget) },
   });
   const hero = Hero({ compact: true, title: t.headline, lede: t.intro });

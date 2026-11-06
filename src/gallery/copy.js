@@ -4,7 +4,7 @@
 export const copy = {
   zh: {
     pageTitle: 'Three Atlas · 三维图鉴',
-    skip: '跳到作品', navWorks: '作品', navAbout: '关于', langLabel: 'EN', langAria: 'Switch to English',
+    skip: '跳到作品', navWorks: '作品', navAbout: '关于', navFollow: '关注观默', langLabel: 'EN', langAria: 'Switch to English',
     headline: '可以走进去的三维世界。',
     intro: '观默创作的交互式 3D 作品。点开任意一张，就能在浏览器里四处看看，不用下载，也不用登录。',
     featured: '精选', mode: '实时 3D', enter: '进入',
@@ -23,7 +23,7 @@ export const copy = {
   },
   en: {
     pageTitle: 'Three Atlas · Interactive 3D worlds',
-    skip: 'Skip to works', navWorks: 'Works', navAbout: 'About', langLabel: '中文', langAria: '切换为中文',
+    skip: 'Skip to works', navWorks: 'Works', navAbout: 'About', navFollow: 'Follow Guanmo', langLabel: '中文', langAria: '切换为中文',
     headline: 'A world of worlds.',
     intro: 'Interactive 3D works by Guanmo. Open any card and look around right in your browser, with nothing to download and no sign-in.',
     featured: 'Featured', mode: 'Real-time 3D', enter: 'Enter',

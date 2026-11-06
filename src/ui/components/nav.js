@@ -1,12 +1,12 @@
-import { h, brandMark } from '../dom.js';
+import { h, brandMark, icon } from '../dom.js';
 import { ScrollTrigger } from '../motion.js';
 import { Button } from './button.js';
 
 /**
  * GlobalNav · fixed top bar.
- * links: [{ label, href }] · cta: { label, href, attrs } shown once the page calls nav.showCta(true) · lang: { label, aria, onToggle }
+ * links: [{ label, href }] · follow: { label, href } always visible · cta: { label, href, attrs } shown once the page calls nav.showCta(true) · lang: { label, aria, onToggle }
  */
-export function GlobalNav({ home = './', links = [], cta, lang }) {
+export function GlobalNav({ home = './', links = [], follow, cta, lang }) {
   const ctaEl = cta ? Button({ ...cta, size: 'sm', icon: null }) : null;
   ctaEl?.classList.add('ui-nav__cta');
   ctaEl?.setAttribute('tabindex', '-1');
@@ -16,6 +16,7 @@ export function GlobalNav({ home = './', links = [], cta, lang }) {
       h('nav.ui-nav__links', { 'aria-label': 'Three Atlas' }, links.map(link => h('a.ui-nav__link', { href: link.href }, link.label)), h('span.ui-nav__indicator', { 'aria-hidden': 'true' })),
       h('div.ui-nav__end', null,
         ctaEl,
+        follow ? h('a.ui-nav__follow', { href: follow.href, target: '_blank', rel: 'noopener noreferrer' }, follow.label, icon('external', 14)) : null,
         lang ? h('button.ui-nav__lang', { type: 'button', dataset: { langControl: 'nav' }, 'aria-label': `${lang.label} — ${lang.aria}`, onClick: lang.onToggle }, lang.label) : null)));
   return Object.assign(el, {
     showCta(on) { el.classList.toggle('is-cta', on); ctaEl?.setAttribute('tabindex', on ? '0' : '-1'); },
