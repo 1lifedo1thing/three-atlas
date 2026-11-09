@@ -113,6 +113,7 @@ Three Atlas 是观默的 3D 作品集，也是一套可以反复使用的创作�
 | `images` | 否 | 构建时从原生高清封面生成 AVIF/WebP 720、1440、2880 及 160px 环境光图，组件输出 picture / srcset / sizes |
 | `tone` | 否 | 构建脚本从真实封面像素自动计算的六位十六进制平均色，不手工填写 |
 | `id`、`title`、`subtitle`、`summary`、`category`、`tags`、`entry`、`cover`、`coverAlt`、`author` | 是 | 见 `scripts/content.mjs` 的校验规则 |
+| `production` | 否 | 用户确认的制作工具与模型：`{ tool, model }`。同题作品在副标题中注明以便区分，作者署名仍独立保留。 |
 | `featured` | 否 | `true` 表示首页主推，全站最多一个。都没有设置时取第一项。 |
 | `preview` | 否 | 本地视频前缀 `media/<id>`；1920×1200 与 960×600，各提供 MP4 和 WebM。用于主推开窗、主推卡与普通卡的按需预览，规则见 design-polish.md 二·A/A2。 |
 | `highlights` | 否 | 作品亮点：`[{ title, text, tech, focus, zoom }]`，3–4 项。`title`、`text`、`tech` 都要有中英文；`tech` 必须是代码中真实存在的技术。 |

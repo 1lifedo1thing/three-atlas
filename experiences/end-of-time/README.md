@@ -1,5 +1,7 @@
 # THE END OF TIME / 时间的尽头
 
+**制作：Claude Code opus5.5。** 同题的 Codex 6.1 sol 版本独立保存在 [end-of-time-sol](../end-of-time-sol/README.md)。
+
 一个可以坠入的黑洞，也是一座宇宙时钟的轴心。表盘、指针和散落的黄铜齿轮都绕着它转。越靠近视界，你的一秒越长，外面的宇宙老得越快：恒星熄灭，质子衰变，齿轮化成灰，最后只剩黑洞和仍在走动的时钟。越过视界，下一个宇宙从白光里开始。
 
 - 入口：`/experiences/end-of-time/index.html`，左上角返回 Three Atlas。
