@@ -18,6 +18,13 @@ An atlas of interactive 3D worlds, models, simulations, and creative experiments
 
 **THE END OF TIME / 时间的尽头**：一个可以坠入的黑洞，也是一座宇宙时钟的轴心。逐像素追踪光线画出吸积盘与光子环，表盘、齿轮和时之砂随引力透镜弯曲；越靠近视界，外部时钟越快，宇宙按五个纪元老去，越过视界后下一个宇宙从白光里开始。制作过程见 [MAKING.md](experiences/end-of-time/MAKING.md)。
 
+**THE END OF TIME / 时间的尽头** 有两个独立版本，分别保留画面、源码与交互：
+
+| 版本 | 制作工具与模型 | 入口 |
+| --- | --- | --- |
+| 前一版 | Claude Code opus5.5 | [作品](experiences/end-of-time/index.html) · [说明](experiences/end-of-time/README.md) |
+| 本次新增 | Codex 6.1 sol | [作品](experiences/end-of-time-sol/index.html) · [说明](experiences/end-of-time-sol/README.md) |
+
 首页以轻量卡片汇总作品，每个作品拥有独立页面。现有作品画面与交互保留，首页视觉仍待用户验收。
 
 ## 本地运行

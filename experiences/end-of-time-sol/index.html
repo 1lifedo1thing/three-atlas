@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content="Codex 6.1 sol" />
+  <meta name="theme-color" content="#080a10" />
+  <meta name="description" content="An interactive cosmic elegy about silence, memory, and the last remaining light." />
+  <title>The End of Time · An Interactive Cosmic Elegy</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23080a10'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%23d7b078' stroke-width='2'/%3E%3Cellipse cx='32' cy='32' rx='27' ry='7' fill='none' stroke='%23d7b078' stroke-width='2' transform='rotate(-24 32 32)'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <main id="experience" data-i18n-label="experience" aria-label="The End of Time, an interactive 3D experience">
+    <canvas id="universe" data-i18n-label="canvas" aria-label="Cosmic scene. Drag to orbit, scroll to zoom, hold to release gravity, and double-click crystals to collect memories." tabindex="0"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+    <header class="masthead">
+      <a class="brand" href="#" id="brand" data-i18n-label="home" aria-label="Return to the opening view">
+        <svg class="brand-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="22" r="13"/><ellipse cx="22" cy="22" rx="21" ry="6" transform="rotate(-38 22 22)"/><path d="M22 3v6M22 35v6"/></svg>
+        <span><span data-i18n="brand">TERMINAL ARCHIVE</span><small data-i18n="brandSubtitle">AT THE EDGE OF ETERNITY</small></span>
+      </a>
+      <div class="edition"><span class="edition-name" data-i18n="edition">An interactive cosmic elegy</span><span data-i18n="editionSubtitle">TIME IS ALL THAT REMAINS</span></div>
+      <nav class="utilities" data-i18n-label="settings" aria-label="Experience settings">
+        <a class="atlas-return" href="../../" data-i18n-label="atlasReturn" aria-label="Back to Three Atlas"><span>←</span><span class="atlas-return-name" data-i18n="atlasName">Three Atlas</span></a>
+        <button id="language-toggle" class="language-toggle" data-i18n-label="switchLanguage" aria-label="Switch to Chinese / 切换为中文"><span data-language="en" class="selected" lang="en">EN</span><i aria-hidden="true">/</i><span data-language="zh" lang="zh-CN">中</span></button>
+        <button id="audio" class="icon-button audio-button" aria-label="Enable ambient sound" aria-pressed="false"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="audio-label">SOUND OFF</span></button>
+        <button id="fullscreen" class="icon-button" aria-label="Enter fullscreen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4"/></svg></button>
+        <button id="help" class="icon-button help-button" data-i18n-label="help" aria-label="Open the interaction guide">?</button>
+      </nav>
+    </header>
+
+    <section class="intro" id="intro">
+      <div class="eyebrow"><span class="tiny-star">✧</span><span id="chapter-kicker">CHAPTER I · EVENT HORIZON</span></div>
+      <h1 data-i18n-html="title">The end <span>of time<span class="title-period">.</span></span></h1>
+      <div class="english-title" data-i18n="subtitle">AT THE EDGE OF ETERNITY</div>
+      <p id="chapter-poem">When the last star goes dark,<br>will time still remember us?</p>
+      <button id="explore" class="explore-button"><span class="explore-symbol">↗</span><span data-i18n="explore">Into the silence</span><span class="explore-line"></span></button>
+    </section>
+
+    <aside class="observation" aria-hidden="true">
+      <span><span data-i18n="observation">OBSERVATION /</span> <b id="observation-index">01</b></span>
+      <div class="observation-line"><i id="observation-dot"></i></div>
+      <span class="vertical-type" data-i18n="beyond">BEYOND THE LAST LIGHT</span>
+    </aside>
+
+    <div class="object-label" id="object-label" aria-hidden="true"><span class="object-cross">+</span><div><span data-i18n="singularity">The last singularity</span><small data-i18n="singularitySubtitle">THE LAST SINGULARITY</small></div><span class="label-rule"></span></div>
+    <div class="relic-label" id="relic-label" hidden>Double-click · Recover a memory</div>
+    <div class="hold-indicator" id="hold-indicator" aria-hidden="true"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="24"/><circle id="hold-progress" cx="30" cy="30" r="24"/></svg><span data-i18n="hold">GRAVITATIONAL RESONANCE</span></div>
+
+    <footer class="bottom">
+      <nav class="chapters" data-i18n-label="chaptersLabel" aria-label="Explore chapters">
+        <button class="chapter active" data-chapter="0" aria-current="true"><span>01</span><span class="chapter-name" data-i18n="chapters.0.label">Event horizon</span><i></i></button>
+        <button class="chapter" data-chapter="1"><span>02</span><span class="chapter-name" data-i18n="chapters.1.label">Memory rings</span><i></i></button>
+        <button class="chapter" data-chapter="2"><span>03</span><span class="chapter-name" data-i18n="chapters.2.label">The last light</span><i></i></button>
+      </nav>
+
+      <div class="time-panel">
+        <div class="time-readout"><span class="time-dot"></span><span id="time-label">TIME IS PASSING</span><span class="time-number" id="time-number">+ 000.00</span></div>
+        <div class="time-controls" role="group" data-i18n-label="timeControls" aria-label="Control time">
+          <button id="reverse" class="transport" data-i18n-label="reverse" aria-label="Reverse time" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 7 5 12l6 5V7Zm8 0-6 5 6 5V7Z"/></svg></button>
+          <button id="pause" class="transport play-pause" aria-label="Pause time" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="pause-icon" d="M9 6v12M15 6v12"/></svg></button>
+          <button id="forward" class="transport active" data-i18n-label="forward" aria-label="Let time move forward" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 7 6 5-6 5V7Zm8 0 6 5-6 5V7Z"/></svg></button>
+          <span class="control-divider"></span>
+          <label class="speed-label" for="speed" data-i18n="speed">SPEED</label><input id="speed" data-i18n-label="speedLabel" aria-label="Flow of time" type="range" min="0.25" max="2" step="0.25" value="1"/><output for="speed" id="speed-value">1.00×</output>
+        </div>
+      </div>
+
+      <div class="interaction-note"><span><svg viewBox="0 0 18 22" aria-hidden="true"><rect x="3" y="1" width="12" height="19" rx="6"/><path d="M9 5v4"/></svg><span data-i18n="gestures">Drag to orbit · Scroll to approach</span></span><small data-i18n="gesturesMore">Hold to bend time · Double-click to remember</small></div>
+    </footer>
+    <div class="under-footer"><span data-i18n="linger">Before everything disappears, stay a while.</span><button id="memories" data-i18n-label="memoriesLabel" aria-label="View collected memories"><span class="memory-word" data-i18n="memories">Memories</span> <b id="memory-count">00</b> / 03 <span>✧</span></button><span class="coordinates" id="coordinates">∞ &nbsp; / &nbsp; 00:00:00</span></div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <dialog id="guide" class="modal">
+      <button class="close-modal icon-button" data-i18n-label="guideClose" aria-label="Close the interaction guide">×</button>
+      <div class="eyebrow" data-i18n="guideKicker">A FIELD GUIDE TO THE END</div><h2 data-i18n="guideTitle">You are the last observer.</h2>
+      <p data-i18n-html="guidePoem">There is nowhere you need to arrive.<br>Let your gaze drift through the stardust, and find what we left behind.</p>
+      <dl><div><dt data-i18n="guide.0.0">Drag / Swipe with one finger</dt><dd data-i18n="guide.0.1">Orbit the ruins of this celestial clock.</dd></div><div><dt data-i18n="guide.1.0">Scroll / Pinch with two fingers</dt><dd data-i18n="guide.1.1">Approach the singularity, or drift into the infinite.</dd></div><div><dt data-i18n="guide.2.0">Press and hold without moving</dt><dd data-i18n="guide.2.1">Gather gravity. Release to send a ripple through spacetime.</dd></div><div><dt data-i18n="guide.3.0">Double-click a glowing memory crystal</dt><dd data-i18n="guide.3.1">Recover three moments of what it meant to be human.</dd></div><div><dt data-i18n="guide.4.0">Space / R / H / Esc</dt><dd data-i18n="guide.4.1">Pause / Reverse / Hide the interface / Close the panel.</dd></div></dl>
+      <button class="modal-action" id="guide-enter"><span class="action-label" data-i18n="guideEnter">Continue exploring</span><span>↗</span></button>
+    </dialog>
+    <dialog id="memory-dialog" class="modal memory-modal"><button class="close-modal icon-button" data-i18n-label="memoryClose" aria-label="Close memory">×</button><div class="eyebrow" id="memory-kicker">FRAGMENTS OF WHAT WE WERE</div><div id="memory-content"></div><button class="modal-action" id="memory-return"><span class="action-label" data-i18n="memoryReturn">Let the memory drift on</span><span>↗</span></button></dialog>
+    <div id="loading" class="loading"><div class="loading-orbit"></div><span data-i18n="loading">Arriving at the end of time</span><small data-i18n="loadingSubtitle">ASSEMBLING THE LAST LIGHT</small><div class="loading-track"><i id="loading-progress"></i></div></div>
+    <div id="fatal" class="fatal" hidden><span>✧</span><h2 data-i18n="fatalTitle">The journey is not over yet.</h2><p id="fatal-message" data-i18n="fatalDefault">Please open this experience in a modern browser with WebGL 2 support.</p><button data-i18n="retry" onclick="location.reload()">Try again</button></div>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
