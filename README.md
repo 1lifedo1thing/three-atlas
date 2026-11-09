@@ -16,6 +16,8 @@ An atlas of interactive 3D worlds, models, simulations, and creative experiments
 
 **ENDLESS VALE / 无尽之谷**：沿着一条无尽的河飞行，程序化山谷在前方实时生成，金色草甸、粉雾花坡、赤岩台地、霜白高原轮流出现。滚动调速，拖动环顾，昼夜随时间流转，内容待用户审阅。
 
+**THE END OF TIME / 时间的尽头**：一个可以坠入的黑洞，也是一座宇宙时钟的轴心。逐像素追踪光线画出吸积盘与光子环，表盘、齿轮和时之砂随引力透镜弯曲；越靠近视界，外部时钟越快，宇宙按五个纪元老去，越过视界后下一个宇宙从白光里开始。制作过程见 [MAKING.md](experiences/end-of-time/MAKING.md)。
+
 首页以轻量卡片汇总作品，每个作品拥有独立页面。现有作品画面与交互保留，首页视觉仍待用户验收。
 
 ## 本地运行
@@ -50,13 +52,16 @@ src/shared/experience-nav.css      轻量返回导航样式
 experiences/where-stars-rest/      首作的独立 HTML、源码、测试与许可证
 experiences/lumen-corallum/        幽珊的独立 HTML、源码、测试与许可证
 experiences/endless-vale/          无尽之谷的独立 HTML、源码、测试与许可证
+experiences/end-of-time/           时间的尽头的独立 HTML、源码、测试、许可证与制作记录
 public/media/                     真实作品封面
 scripts/                          目录与多页面构建检查
 docs/OPUS-HANDOFF.md               后续设计交接
+docs/lessons.md                    作品制作经验：立意、画面、着色器排错、性能、验证与接入
 ```
 
 ## 加入下一个作品
 
+0. 先读 [作品制作经验](docs/lessons.md)。
 1. 新建 `experiences/<id>/index.html`，源代码与样式放自己的目录，加入返回 `../../` 的链接。
 2. 将真实封面放入 `public/media/`。封面要用作品的初始视角截取，因为进入动画会从封面无缝过渡到实时画面。
 3. 在 `content/works.json` 登记条目，`entry` 为 `experiences/<id>/index.html`。排在第一位的作品会作为首页开场的主推作品。

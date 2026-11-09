@@ -1,0 +1,117 @@
+/* THE END OF TIME · page chrome. Colours, type, radii and curves come from Atlas UI tokens; the scene supplies the colour. */
+html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+.eot { position: fixed; inset: 0; overflow: hidden; background: var(--c-bg); color: var(--c-fg); user-select: none; -webkit-user-select: none; }
+.eot-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+.eot-canvas:active { cursor: grabbing; }
+.eot-canvas:focus { outline: none; }
+.eot-canvas:focus-visible { outline: 1.5px solid var(--c-fg); outline-offset: calc(var(--s-1) * -1); }
+
+.eot-scrim { position: absolute; inset: 0; pointer-events: none; background:
+  linear-gradient(to top, color-mix(in srgb, var(--c-bg) 58%, transparent), transparent 34%),
+  linear-gradient(to bottom, color-mix(in srgb, var(--c-bg) 34%, transparent), transparent 18%); }
+.eot :is(.eot-intro, .eot-age, .eot-readout, .eot-gauge, .eot-hint, .eot-notice) { text-shadow: 0 0 6px color-mix(in srgb, var(--c-bg) 85%, transparent), 0 0 18px color-mix(in srgb, var(--c-bg) 60%, transparent); }
+
+.eot-top { position: absolute; inset: var(--s-5) var(--gutter) auto; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+.eot-top > * { pointer-events: auto; }
+.eot-back .ui-icon { order: -1; }
+.eot-back:hover .ui-icon { transform: translateX(-3px); }
+.eot-lang { display: flex; gap: 2px; padding: 3px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--c-bg) 34%, transparent); box-shadow: inset 0 0 0 1px var(--c-line-2); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.eot-chip { height: 28px; min-width: 40px; padding: 0 var(--s-3); border: 0; border-radius: var(--r-pill); background: transparent; color: var(--c-fg-2); font: var(--w-medium) var(--t-caption)/1 var(--f-sans); transition: background var(--d-2) var(--e-std), color var(--d-2) var(--e-std); }
+.eot-chip:hover { color: var(--c-fg); }
+.eot-chip[aria-pressed='true'] { background: var(--c-fg); color: var(--c-bg); }
+
+.eot-intro { position: absolute; left: var(--gutter); top: calc(var(--s-5) + var(--s-8)); max-width: min(440px, 40vw); pointer-events: none; transition: opacity var(--d-4) var(--e-std); }
+.eot-intro.is-faded { opacity: 0; }
+.eot-title { margin-top: var(--s-3); letter-spacing: -0.02em; font-weight: 300; }
+.eot-subtitle { margin-top: var(--s-2); font-size: var(--t-lead); line-height: 1.4; color: var(--c-fg-2); }
+.eot-lead { margin-top: var(--s-4); max-width: 30em; }
+
+.eot-hint { position: absolute; top: calc(var(--s-5) + 8px); left: 50%; transform: translateX(-50%); max-width: min(620px, calc(100% - 2 * var(--gutter) - 340px)); text-align: center; font-size: var(--t-caption); line-height: 1.5; color: var(--c-fg-2); pointer-events: none; transition: opacity var(--d-4) var(--e-std) 4s; }
+.eot-hint.is-faded { opacity: 0; }
+.eot-notice { position: absolute; top: 22%; left: 50%; transform: translateX(-50%); width: min(560px, calc(100% - 2 * var(--gutter))); text-align: center; font-size: var(--t-body); line-height: 1.9; letter-spacing: 0.12em; color: var(--c-fg); pointer-events: none; opacity: 0; transition: opacity var(--d-4) var(--e-std); text-wrap: balance; }
+.eot-notice.is-on { opacity: 0.92; }
+
+.eot-age { position: absolute; left: var(--gutter); bottom: var(--s-6); width: min(420px, calc(100% - 2 * var(--gutter))); pointer-events: none; }
+.eot-era { display: flex; gap: var(--s-3); align-items: baseline; margin: 0 0 var(--s-4); font-size: var(--t-small); letter-spacing: 0.16em; color: var(--c-fg); }
+.eot-era__aeon { font: var(--t-caption)/1 var(--f-mono); letter-spacing: 0.08em; color: var(--c-fg-3); }
+.eot-age__label { color: var(--c-fg-3); }
+.eot-age__big { display: flex; align-items: flex-start; margin: var(--s-2) 0 var(--s-4); line-height: 1; }
+.eot-age__ten { font-size: var(--t-h1); font-weight: 200; letter-spacing: -0.04em; }
+.eot-age__exp { min-width: 4.6ch; margin: 0.15em 0 0 0.1em; font: var(--w-regular) var(--t-h3)/1 var(--f-mono); font-variant-numeric: tabular-nums; color: var(--c-fg); }
+.eot-age__unit { align-self: flex-end; margin: 0 0 0.5em var(--s-2); font-size: var(--t-small); color: var(--c-fg-3); }
+.eot-timeline { position: relative; height: 36px; border-top: 1px solid var(--c-line-2); }
+.eot-timeline__tick { position: absolute; top: 0; padding-top: 9px; transform: translateX(-50%); font: var(--t-caption)/1 var(--f-mono); font-size: 10px; color: var(--c-fg-3); white-space: nowrap; }
+.eot-timeline__tick::before { content: ''; position: absolute; top: 0; left: 50%; height: 5px; border-left: 1px solid var(--c-line-2); }
+.eot-timeline__name { position: absolute; top: 24px; transform: translateX(-50%); font-size: 10px; letter-spacing: 0.12em; color: var(--c-fg-3); white-space: nowrap; }
+.eot-timeline__mark { position: absolute; top: -4px; width: 7px; height: 7px; margin-left: -3.5px; transform: rotate(45deg); background: var(--c-fg); box-shadow: 0 0 10px var(--c-fg-2); }
+
+.eot-bottom { position: absolute; right: var(--gutter); bottom: var(--s-6); display: flex; flex-direction: column; align-items: flex-end; gap: var(--s-4); pointer-events: none; }
+.eot-bottom > * { pointer-events: auto; }
+.eot-readout { display: grid; grid-auto-flow: column; gap: var(--s-5); margin: 0; padding-top: var(--s-4); border-top: 1px solid var(--c-line-2); pointer-events: none; }
+.eot-readout dt { font: var(--w-medium) var(--t-caption)/1.4 var(--f-sans); letter-spacing: 0.08em; color: var(--c-fg-3); }
+.eot-readout dd { margin: var(--s-1) 0 0; min-width: 8ch; font: var(--w-regular) var(--t-small)/1.4 var(--f-mono); font-variant-numeric: tabular-nums; color: var(--c-fg); white-space: nowrap; }
+.eot-actions { display: flex; align-items: center; gap: var(--s-2); }
+.eot-actions .ui-btn--ghost { padding-inline: var(--s-2); }
+
+.eot-gauge { position: absolute; right: var(--gutter); top: 50%; transform: translateY(-50%); width: 140px; height: min(42vh, 360px); pointer-events: none; }
+.eot-gauge__rail { position: absolute; right: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(var(--c-line), var(--c-line-2)); }
+.eot-gauge__label { position: absolute; right: 0; display: flex; align-items: center; gap: var(--s-2); transform: translateY(-50%); font-size: 10px; letter-spacing: 0.1em; color: var(--c-fg-3); white-space: nowrap; }
+.eot-gauge__label::after { content: ''; width: 9px; height: 1px; background: currentColor; }
+.eot-gauge__label.is-horizon { color: var(--c-fg-2); }
+.eot-gauge__label.is-horizon::after { width: 16px; }
+.eot-gauge__mark { position: absolute; right: -4px; width: 9px; height: 9px; border: 1px solid var(--c-fg); border-radius: var(--r-pill); transform: translateY(-50%); }
+.eot-gauge__value { position: absolute; right: var(--s-5); transform: translateY(-50%); font: 10px/1 var(--f-mono); color: var(--c-fg); white-space: nowrap; }
+
+.eot-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.eot-moment { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: var(--t-caption); letter-spacing: 0.16em; color: var(--c-fg); will-change: transform, opacity; text-shadow: 0 0 3px var(--c-bg), 0 0 10px var(--c-bg), 0 0 22px color-mix(in srgb, var(--c-bg) 70%, transparent); }
+.eot-moment::before { content: ''; position: absolute; left: -22px; top: 50%; width: 16px; height: 1px; background: currentColor; opacity: 0.5; }
+.eot-moment small { display: block; margin-top: 3px; font: 10px/1.2 var(--f-mono); letter-spacing: 0.08em; color: var(--c-fg-3); }
+.eot-moment.is-frozen { color: var(--c-fg-2); }
+
+.eot-finale { position: absolute; inset: 0; z-index: 10; display: grid; place-items: center; padding: 0 var(--gutter); text-align: center; color: var(--c-bg); pointer-events: none; opacity: 0; transition: opacity var(--d-4) var(--e-std); }
+.eot-finale.is-on { opacity: 1; }
+.eot-finale :is(.ui-h1, .ui-lead, .ui-small) { color: var(--c-bg); }
+.eot-finale .ui-h1 { font-weight: 300; letter-spacing: 0.3em; margin-right: -0.3em; }
+.eot-finale .ui-lead { margin-top: var(--s-4); }
+.eot-finale .ui-small { margin-top: var(--s-5); opacity: 0.7; }
+.eot :is(.eot-top, .eot-intro, .eot-hint, .eot-age, .eot-bottom, .eot-gauge, .eot-scrim) { transition: opacity var(--d-4) var(--e-std); }
+.eot.is-finale :is(.eot-top, .eot-intro, .eot-hint, .eot-age, .eot-bottom, .eot-gauge, .eot-scrim, .eot-notice) { opacity: 0; pointer-events: none; }
+
+.eot-loader { position: absolute; inset: 0; z-index: 20; display: grid; place-items: center; background: var(--c-bg); transition: opacity var(--d-4) var(--e-std), visibility 0s linear var(--d-4); }
+.eot-loader.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+.eot-error { position: absolute; inset: 0; z-index: 30; display: grid; place-content: center; gap: var(--s-4); padding: var(--gutter); text-align: center; background: var(--c-bg); color: var(--c-fg-2); font-size: var(--t-small); }
+body.has-error :is(.eot-intro, .eot-bottom, .eot-hint, .eot-age, .eot-gauge) { display: none; }
+
+.eot-about { width: min(560px, calc(100% - 2 * var(--gutter))); padding: var(--s-7); border: 0; border-radius: var(--r-lg); background: var(--c-surface); color: var(--c-fg-2); box-shadow: inset 0 0 0 1px var(--c-line); }
+.eot-about::backdrop { background: var(--c-scrim); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.eot-about .ui-h3 { color: var(--c-fg); }
+.eot-about__body { display: grid; gap: var(--s-3); margin-top: var(--s-4); font-size: var(--t-small); line-height: 1.75; }
+.eot-about__keys { margin-top: var(--s-5); font: var(--t-caption)/1.6 var(--f-mono); color: var(--c-fg-3); }
+.eot-about .ui-btn { margin-top: var(--s-5); }
+
+@media (max-width: 1100px) {
+  .eot-lead { display: none; }
+  .eot-readout .is-wide { display: none; }
+}
+/* short landscape screens */
+@media (max-height: 560px) and (min-width: 721px) {
+  .eot-gauge, .eot-hint, .eot-intro, .eot-timeline { display: none; }
+  .eot-age { bottom: var(--s-4); }
+  .eot-bottom { bottom: var(--s-4); }
+  .eot-notice { top: 18%; font-size: var(--t-small); }
+}
+/* phones: instruments stack along the bottom edge */
+@media (max-width: 720px) {
+  .eot-gauge, .eot-hint, .eot-readout .is-wide, .eot-lead { display: none; }
+  .eot-intro { top: calc(var(--s-5) + 48px); max-width: none; right: var(--gutter); }
+  .eot-title { font-size: var(--t-h3); }
+  .eot-subtitle { font-size: var(--t-small); }
+  .eot-bottom { left: var(--gutter); bottom: var(--s-4); align-items: stretch; }
+  .eot-readout { grid-auto-flow: column; justify-content: space-between; gap: var(--s-3); }
+  .eot-readout dd { min-width: 0; font-size: var(--t-caption); }
+  .eot-actions { justify-content: space-between; flex-wrap: wrap; }
+  .eot-age { bottom: calc(var(--s-4) + 112px); }
+  .eot-age__ten { font-size: var(--t-h2); }
+  .eot-age__exp { font-size: var(--t-body); }
+  .eot-notice { top: 30%; font-size: var(--t-small); letter-spacing: 0.08em; }
+}

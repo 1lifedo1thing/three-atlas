@@ -355,5 +355,78 @@
       "ambient": "media/endless-vale-ambient.webp",
       "sourceHash": "678e33e5cb0be703c89adebe120db5bcdb117511a16d9ff6e0d1e77ca2c73d8b"
     }
+  },
+  {
+    "id": "end-of-time",
+    "title": "THE END OF TIME",
+    "subtitle": {
+      "zh": "时间的尽头",
+      "en": "Where every clock stops"
+    },
+    "summary": {
+      "zh": "一个可以坠入的黑洞，也是一座宇宙时钟的轴心。越靠近视界，外面的宇宙老得越快，直到时间走到尽头。",
+      "en": "A black hole you can fall into, set at the arbor of a cosmic clock. The closer you get to the horizon, the faster the universe outside grows old, until time runs out."
+    },
+    "category": {
+      "zh": "宇宙模拟",
+      "en": "Cosmic simulation"
+    },
+    "tags": [
+      "Three.js",
+      "光线追踪",
+      "Ray tracing",
+      "引力透镜",
+      "Gravitational lensing",
+      "黑洞",
+      "Black hole",
+      "交互",
+      "Interactive"
+    ],
+    "entry": "experiences/end-of-time/index.html",
+    "cover": "media/end-of-time.jpg",
+    "coverAlt": {
+      "zh": "金色吸积盘环绕黑洞，背面的光被弯到黑洞上方；一座带罗马数字的巨大表盘以黑洞为轴心，指针和黄铜齿轮散布在星空里。",
+      "en": "A golden accretion disk circles a black hole, its far side bent up over the shadow. A vast dial with Roman numerals turns around the hole, with clock hands and brass gears adrift among the stars."
+    },
+    "author": {
+      "name": "观默",
+      "handle": "guanmo_ai",
+      "url": "https://x.com/guanmo_ai"
+    },
+    "tone": "#574f57",
+    "images": {
+      "width": 2880,
+      "height": 1800,
+      "avif": [
+        {
+          "src": "media/end-of-time-720.avif",
+          "width": 720
+        },
+        {
+          "src": "media/end-of-time-1440.avif",
+          "width": 1440
+        },
+        {
+          "src": "media/end-of-time-2880.avif",
+          "width": 2880
+        }
+      ],
+      "webp": [
+        {
+          "src": "media/end-of-time-720.webp",
+          "width": 720
+        },
+        {
+          "src": "media/end-of-time-1440.webp",
+          "width": 1440
+        },
+        {
+          "src": "media/end-of-time-2880.webp",
+          "width": 2880
+        }
+      ],
+      "ambient": "media/end-of-time-ambient.webp",
+      "sourceHash": "9379c2dc46509c0cdc749db0215135d3c336eaefc07e46d4f887012ec12ee3b7"
+    }
   }
 ]
