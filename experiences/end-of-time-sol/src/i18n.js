@@ -31,7 +31,8 @@ export const translations = {
       ['Scroll / Pinch with two fingers', 'Approach the singularity, or drift into the infinite.'],
       ['Press and hold without moving', 'Gather gravity. Release to send a ripple through spacetime.'],
       ['Double-click a glowing memory crystal', 'Recover three moments of what it meant to be human.'],
-      ['Space / R / H / Esc', 'Pause / Reverse / Hide the interface / Close the panel.']
+      ['Space / R / H / Esc', 'Pause / Reverse / Hide the interface / Close the panel.'],
+      ['Arrow keys / + / − / C / Hold G', 'Orbit / Zoom / Recover the next memory / Charge gravity.']
     ],
     guideEnter: 'Continue exploring', memoryClose: 'Close memory', memoryReturn: 'Let the memory drift on',
     memoryKicker: 'FRAGMENTS OF WHAT WE WERE', memoryFragment: 'TIME FRAGMENT {number}',
@@ -90,7 +91,8 @@ export const translations = {
       ['滚轮 / 双指缩放', '靠近奇点，或退入无垠'],
       ['原地长按', '积蓄引力，松开释放时空涟漪'],
       ['双击发光的记忆晶体', '拾回三个属于人类的瞬间'],
-      ['空格 / R / H / Esc', '暂停 / 倒流 / 隐藏界面 / 关闭面板']
+      ['空格 / R / H / Esc', '暂停 / 倒流 / 隐藏界面 / 关闭面板'],
+      ['方向键 / + / − / C / 长按 G', '环绕 / 缩放 / 拾取下一枚记忆 / 积蓄引力']
     ],
     guideEnter: '继续探索', memoryClose: '关闭记忆', memoryReturn: '让记忆继续漂流',
     memoryKicker: '我们曾经存在的碎片', memoryFragment: '拾回的第 {number} 枚时间碎片',

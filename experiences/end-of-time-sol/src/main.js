@@ -20,7 +20,7 @@ const state = {time:0,direction:1,speed:1,paused:reducedMotion,pulse:0,charge:0,
 const center = new THREE.Vector3(3,3.7,0);
 const TAU = Math.PI*2;
 let renderer, scene, camera, controls, composer, bloom, finalPass, water, sky;
-let lastTime=0, frame=0, idleAt=0, cameraTween=null, lastUI=0, mobileLayout=innerWidth<641;
+let lastTime=0, frame=0, idleAt=0, cameraTween=null, lastUI=0, mobileLayout=innerWidth<641, keyboardHoldStart=null;
 const animated = [], uniforms = [], relics = [], raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2(9,9), screen = new THREE.Vector3();
 const sound = new Soundscape();
@@ -41,7 +41,7 @@ const chapters=[
 ];
 
 function fail(error){
- console.error(error);document.body.classList.add('has-error');$('#loading').classList.add('done');$('#fatal').hidden=false;
+ console.error(error);document.body.classList.add('has-error');$('#loading')?.classList.add('done');$('#fatal').hidden=false;
  fatalKey=error?.message?.includes('WebGL')?'fatalWebgl':'fatalLoad';
  $('#fatal-message').textContent=t(fatalKey);
 }
@@ -61,7 +61,7 @@ function init(){
  camera=new THREE.PerspectiveCamera(43,innerWidth/innerHeight,.1,650);
  camera.position.copy(initialCamera);
  controls=new OrbitControls(camera,canvas);controls.target.copy(initialTarget);
- controls.enableDamping=true;controls.dampingFactor=.045;controls.enablePan=false;
+ controls.enableDamping=!reducedMotion;controls.dampingFactor=.045;controls.enablePan=false;
  controls.minDistance=8.5;controls.maxDistance=48;controls.minPolarAngle=.23;controls.maxPolarAngle=Math.PI*.51;
  controls.rotateSpeed=.45;controls.zoomSpeed=.65;
  controls.addEventListener('start',()=>{cameraTween=null;idleAt=performance.now();});
@@ -321,7 +321,25 @@ function setChapter(index){
  $('#experience').classList.remove('immersed');
 }
 
-function tweenCamera(position,target,duration=2300){cameraTween={from:camera.position.clone(),to:position,fromTarget:controls.target.clone(),target,start:performance.now(),duration};idleAt=performance.now()+duration;}
+function tweenCamera(position,target,duration=2300){
+ if(reducedMotion){
+   cameraTween=null;controls.autoRotate=false;camera.position.copy(position);controls.target.copy(target);controls.update(0);idleAt=performance.now();return;
+ }
+ cameraTween={from:camera.position.clone(),to:position,fromTarget:controls.target.clone(),target,start:performance.now(),duration};idleAt=performance.now()+duration;
+}
+
+function stepCamera({azimuth=0,polar=0,zoom=1}){
+ const orbit=new THREE.Spherical().setFromVector3(camera.position.clone().sub(controls.target));
+ orbit.theta+=azimuth;orbit.phi=THREE.MathUtils.clamp(orbit.phi+polar,controls.minPolarAngle,controls.maxPolarAngle);
+ orbit.radius=THREE.MathUtils.clamp(orbit.radius*zoom,controls.minDistance,controls.maxDistance);orbit.makeSafe();
+ cameraTween=null;controls.autoRotate=false;idleAt=performance.now();
+ camera.position.copy(controls.target).add(new THREE.Vector3().setFromSpherical(orbit));controls.update(0);
+}
+
+function collectNextMemory(){
+ const next=relics.find(relic=>!state.collected.has(relic.index));
+ if(next)collectMemory(next.index);else memoryArchive();
+}
 
 function updateTimeUI(){
  const direction=state.paused?0:state.direction;
@@ -364,6 +382,9 @@ function openDialog(dialog){if(!dialog.open)dialog.showModal();controls.enabled=
 function closeDialog(dialog){dialog.close();controls.enabled=true;idleAt=performance.now();}
 
 function bindUI(){
+ const cameraKeys={ArrowLeft:{azimuth:.1},ArrowRight:{azimuth:-.1},ArrowUp:{polar:-.08},ArrowDown:{polar:.08},Equal:{zoom:.92},Minus:{zoom:1.08},NumpadAdd:{zoom:.92},NumpadSubtract:{zoom:1.08}};
+ const positionHold=(x,y)=>{const indicator=$('#hold-indicator');indicator.style.left=x+'px';indicator.style.top=y+'px';};
+ const cancelHold=()=>{pointerState.down=false;keyboardHoldStart=null;state.charge=0;$('#hold-indicator').classList.remove('active');};
  $('#language-toggle').addEventListener('click',()=>{setLanguage(getLanguage()==='en'?'zh':'en');refreshLanguage();});
  $('#pause').addEventListener('click',togglePause);$('#reverse').addEventListener('click',()=>{state.direction=-1;state.paused=false;updateTimeUI();});
  $('#forward').addEventListener('click',()=>{state.direction=1;state.paused=false;updateTimeUI();});
@@ -391,7 +412,13 @@ function bindUI(){
  });
  document.addEventListener('fullscreenchange',updateFullscreenUI);
  window.addEventListener('keydown',(event)=>{
-   if(document.querySelector('dialog[open]')||['INPUT','TEXTAREA'].includes(event.target.tagName))return;
+   if(event.ctrlKey||event.metaKey||event.altKey||document.querySelector('dialog[open]')||['INPUT','TEXTAREA'].includes(event.target.tagName))return;
+   if(cameraKeys[event.code]){event.preventDefault();stepCamera(cameraKeys[event.code]);}
+   if(event.code==='KeyC'&&!event.repeat){event.preventDefault();collectNextMemory();}
+   if(event.code==='KeyG'&&!event.repeat){
+     event.preventDefault();keyboardHoldStart=performance.now();pointerState.moved=false;
+     screen.copy(center).project(camera);positionHold((screen.x*.5+.5)*innerWidth,(-screen.y*.5+.5)*innerHeight);
+   }
    if(event.code==='Space'&&event.target.tagName!=='BUTTON'){event.preventDefault();togglePause();}
    if(event.code==='KeyR')toggleReverse();
    if(event.code==='KeyH'){state.uiHidden=!state.uiHidden;$('#experience').classList.toggle('ui-hidden',state.uiHidden);if(state.uiHidden)toast('toastRestore');}
@@ -402,17 +429,19 @@ function bindUI(){
    if(event.button!==0)return;
    pointerState.down=true;pointerState.moved=false;pointerState.start=performance.now();pointerState.x=event.clientX;pointerState.y=event.clientY;
    pointerState.clientX=event.clientX;pointerState.clientY=event.clientY;
-   const indicator=$('#hold-indicator');indicator.style.left=event.clientX+'px';indicator.style.top=event.clientY+'px';
+   positionHold(event.clientX,event.clientY);
  });
  canvas.addEventListener('pointermove',(event)=>{
    pointer.x=(event.clientX/innerWidth)*2-1;pointer.y=-(event.clientY/innerHeight)*2+1;pointerState.clientX=event.clientX;pointerState.clientY=event.clientY;
    if(pointerState.down&&Math.hypot(event.clientX-pointerState.x,event.clientY-pointerState.y)>7){pointerState.moved=true;state.charge=0;$('#hold-indicator').classList.remove('active');}
  });
  const release=()=>{
-   if(pointerState.down&&state.charge>.15&&!pointerState.moved){state.pulse=Math.max(state.pulse,state.charge*1.7);if(state.charge>.75)toast('toastPulse');}
-   pointerState.down=false;state.charge=0;$('#hold-indicator').classList.remove('active');
+   if((pointerState.down||keyboardHoldStart!==null)&&state.charge>.15&&!pointerState.moved){state.pulse=Math.max(state.pulse,state.charge*1.7);if(state.charge>.75)toast('toastPulse');}
+   cancelHold();
  };
- window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);
+ window.addEventListener('pointerup',release);window.addEventListener('pointercancel',cancelHold);
+ window.addEventListener('keyup',event=>{if(event.code==='KeyG'&&keyboardHoldStart!==null)release();});
+ window.addEventListener('blur',cancelHold);
  canvas.addEventListener('pointerleave',()=>{pointer.set(9,9);$('#relic-label').hidden=true;});
  canvas.addEventListener('dblclick',(event)=>{
    pointer.set(event.clientX/innerWidth*2-1,-event.clientY/innerHeight*2+1);raycaster.setFromCamera(pointer,camera);
@@ -428,7 +457,7 @@ function bindUI(){
    }else{lastTap=now;lastTapX=event.clientX;lastTapY=event.clientY;}
  });
  window.addEventListener('resize',resize);
- document.addEventListener('visibilitychange',()=>{lastTime=performance.now();});
+ document.addEventListener('visibilitychange',()=>{lastTime=performance.now();if(document.hidden)cancelHold();});
  canvas.addEventListener('webglcontextlost',(event)=>{event.preventDefault();toast('toastContextLost');});
  canvas.addEventListener('webglcontextrestored',()=>location.reload());
 }
@@ -457,8 +486,9 @@ function animate(now){
  const dt=rawDelta;
  if(!state.paused)state.time+=dt*state.direction*state.speed;
  state.pulse=Math.max(0,state.pulse-dt*.48);
- if(pointerState.down&&!pointerState.moved){
-   const elapsed=(now-pointerState.start)/1000;
+ const holdStart=pointerState.down&&!pointerState.moved?pointerState.start:keyboardHoldStart;
+ if(holdStart!==null){
+   const elapsed=(now-holdStart)/1000;
    if(elapsed>.35){state.charge=Math.min(1,(elapsed-.35)/1.5);$('#hold-indicator').classList.add('active');$('#hold-progress').style.strokeDashoffset=151*(1-state.charge);}
  }
  const pulse=state.pulse+state.charge*.7;
@@ -471,7 +501,7 @@ function animate(now){
    if(p===1)cameraTween=null;
  }
  // The very slow opening drift stops as soon as the observer takes control.
- controls.autoRotate=!reducedMotion&&!cameraTween&&!pointerState.down&&now-idleAt>16000&&!document.querySelector('dialog[open]');controls.autoRotateSpeed=.12*(state.paused?0:state.direction);
+ controls.autoRotate=!reducedMotion&&!cameraTween&&!pointerState.down&&keyboardHoldStart===null&&now-idleAt>16000&&!document.querySelector('dialog[open]');controls.autoRotateSpeed=.12*(state.paused?0:state.direction);
  controls.update(dt);
  screen.copy(center).project(camera);finalPass.uniforms.uCenter.value.set(screen.x*.5+.5,-screen.y*.5+.5);finalPass.uniforms.uTime.value=state.time;finalPass.uniforms.uPulse.value=pulse;
  // Projected world coordinates use Y-up, matching texture coordinates in the post pass.
