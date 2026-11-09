@@ -1,5 +1,7 @@
 # 新建独立作品
 
+动手之前先读 [作品制作经验](lessons.md)：立意、画面、着色器排错、无 GPU 截图验证和接入规范都有现成结论。
+
 运行 `npm run new:work -- <id> "<TITLE>" "<中文副标题>"`。ID 使用小写字母、数字和连字符。脚本拒绝越界与覆盖，只追加条目，不提交或发布。
 
 脚本复制 `experiences/_template/`，将标题安全写入 HTML 与 JSON 数据，入口为 `experiences/<id>/index.html`。场景用 three kit，界面用 ExperienceShell 与 Atlas UI 令牌；首帧完成后添加 body.ready；页面隐藏、BFCache 返回和 WebGL 恢复分别处理。
